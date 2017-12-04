@@ -42,7 +42,6 @@ public class FacebookLoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), R.string.error_login, Toast.LENGTH_LONG).show();
             }
         });
-        callbackManager = CallbackManager.Factory.create();
     }
 
     @Override
