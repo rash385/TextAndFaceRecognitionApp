@@ -1,6 +1,8 @@
 package com.kosi0917.textandfacerecognitionapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,6 +71,16 @@ public class Feedadapter extends RecyclerView.Adapter<FeedViewHolder> {
         holder.txtTitle.setText(rssObject.getItems().get(position).getTitle());
         holder.txtPubDate.setText(rssObject.getItems().get(position).getPubDate());
         holder.txtContent.setText(rssObject.getItems().get(position).getContent());
+
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onClick(View view, int position, boolean isLongClick) {
+                if(!isLongClick){
+                    Intent intentBrowser = new Intent(Intent.ACTION_VIEW, Uri.parse(rssObject.getItems().get(position).getLink()));
+                    mContext.startActivity(intentBrowser);
+                }
+            }
+        });
     }
 
     @Override

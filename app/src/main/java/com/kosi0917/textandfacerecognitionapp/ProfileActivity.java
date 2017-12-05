@@ -103,14 +103,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         parameters.putString("fields", "id,name,link");
         request.setParameters(parameters);
         request.executeAsync();*/
-        new GraphRequest(
+       /* new GraphRequest(
                 AccessToken.getCurrentAccessToken(), "/me/feed", null, HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
                         Log.e(TAG,response.toString());
                     }
                 }
-        ).executeAsync();
+        ).executeAsync();*/
   /*      new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
                 userId+"/feed",
@@ -122,6 +122,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 }
         ).executeAsync();*/
+        goMainScreen();
     }
 
     private void logout(){
@@ -176,4 +177,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    private void goMainScreen() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }
