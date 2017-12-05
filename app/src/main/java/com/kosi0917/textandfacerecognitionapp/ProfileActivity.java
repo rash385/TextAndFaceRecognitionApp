@@ -103,15 +103,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         parameters.putString("fields", "id,name,link");
         request.setParameters(parameters);
         request.executeAsync();*/
-       /* new GraphRequest(
+        new GraphRequest(
                 AccessToken.getCurrentAccessToken(), "/me/feed", null, HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
                         Log.e(TAG,response.toString());
                     }
                 }
-        ).executeAsync();*/
-        new GraphRequest(
+        ).executeAsync();
+  /*      new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
                 userId+"/feed",
                 null,
@@ -121,7 +121,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                         Log.e(TAG,response.toString());
                     }
                 }
-        ).executeAsync();
+        ).executeAsync();*/
     }
 
     private void logout(){
