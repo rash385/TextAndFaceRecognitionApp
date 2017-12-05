@@ -13,15 +13,14 @@ import java.util.List;
  * Created by kosi0917 on 05-Dec-17.
  */
 
-public class RSSObject {
+public class RSSObject
+{
 
-    public class RootObject
-    {
         public String status;
         public Feed feed;
         public List<Item> items;
 
-        public RootObject(String status, Feed feed, List<Item> items) {
+        public RSSObject(String status, Feed feed, List<Item> items) {
             this.status = status;
             this.feed = feed;
             this.items = items;
@@ -50,5 +49,4 @@ public class RSSObject {
         public void setItems(List<Item> items) {
             this.items = items;
         }
-    }
 }
