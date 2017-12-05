@@ -6,7 +6,7 @@
     <item
         android:id="@+id/menu_refesh"
         android:icon="@drawable/ic_refesh"
-        app:showAsAciton="ifRoom"
+        app:showAsAction="ifRoom"
         android:title="Refresh"
         />
 </menu>
