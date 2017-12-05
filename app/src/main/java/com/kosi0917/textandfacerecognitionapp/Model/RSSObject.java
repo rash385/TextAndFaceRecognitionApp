@@ -12,7 +12,7 @@ import org.json.JSONObject;
  */
 
 public class RSSObject {
-    public void get_feed() {
+   /* public void get_feed() {
         GraphRequest request = GraphRequest.newMeRequest(
                 accessToken,
                 new GraphRequest.GraphJSONObjectCallback() {
@@ -27,5 +27,5 @@ public class RSSObject {
         parameters.putString("fields", "id,name,link");
         request.setParameters(parameters);
         request.executeAsync();
-    }
+    }*/
 }
