@@ -81,6 +81,7 @@ public class FacebookLoginActivity extends AppCompatActivity {
                             main.putExtra("name", firstName);
                             main.putExtra("surname", lastName);
                             main.putExtra("imageUrl", profilePicture.toString());
+                            main.putExtra("uid", userId);
                             startActivity(main);
                             finish();
                         } catch (JSONException e) {

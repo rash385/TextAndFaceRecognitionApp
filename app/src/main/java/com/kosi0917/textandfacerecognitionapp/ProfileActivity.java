@@ -35,7 +35,7 @@ import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private ShareDialog shareDialog;
-    private String name, surname, imageUrl;
+    private String name, surname, imageUrl, userId;
     private String TAG = "ProfileActivity";
 
     @Override
@@ -50,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         name = inBundle.getString("name");
         surname = inBundle.getString("surname");
         imageUrl = inBundle.getString("imageUrl");
+        userId = inBundle.getString("uid");
 
         TextView nameView = (TextView)findViewById(R.id.nameAndSurname);
         nameView.setText("" + name + " " + surname);
@@ -88,7 +89,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void getFeed(){
-        GraphRequest request = GraphRequest.newMeRequest(
+     /*   GraphRequest request = GraphRequest.newMeRequest(
                 AccessToken.getCurrentAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
@@ -101,7 +102,26 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         Bundle parameters = new Bundle();
         parameters.putString("fields", "id,name,link");
         request.setParameters(parameters);
-        request.executeAsync();
+        request.executeAsync();*/
+       /* new GraphRequest(
+                AccessToken.getCurrentAccessToken(), "/me/feed", null, HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        Log.e(TAG,response.toString());
+                    }
+                }
+        ).executeAsync();*/
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                userId+"/feed",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        Log.e(TAG,response.toString());
+                    }
+                }
+        ).executeAsync();
     }
 
     private void logout(){
