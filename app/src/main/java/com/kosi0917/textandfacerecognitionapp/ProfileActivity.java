@@ -78,18 +78,19 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void getPosts(){
-        new GraphRequest(
+       /* new GraphRequest(
                 AccessToken.getCurrentAccessToken(), "/me/posts", null, HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
                         Log.e(TAG,response.toString());
                     }
                 }
-        ).executeAsync();
+        ).executeAsync();*/
+        goMainScreen();
     }
 
     private void getFeed(){
-     /*   GraphRequest request = GraphRequest.newMeRequest(
+        GraphRequest request = GraphRequest.newMeRequest(
                 AccessToken.getCurrentAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
@@ -100,29 +101,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 });
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,link");
+        parameters.putString("fields", "id,name,feed");
         request.setParameters(parameters);
-        request.executeAsync();*/
-       /* new GraphRequest(
-                AccessToken.getCurrentAccessToken(), "/me/feed", null, HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        Log.e(TAG,response.toString());
-                    }
-                }
-        ).executeAsync();*/
-  /*      new GraphRequest(
-                AccessToken.getCurrentAccessToken(),
-                userId+"/feed",
-                null,
-                HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        Log.e(TAG,response.toString());
-                    }
-                }
-        ).executeAsync();*/
-        goMainScreen();
+        request.executeAsync();
     }
 
     private void logout(){
