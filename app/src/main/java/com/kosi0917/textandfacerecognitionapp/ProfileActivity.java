@@ -22,6 +22,8 @@ import com.facebook.login.LoginManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 
+import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ import java.util.List;
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private ShareDialog shareDialog;
     private String name, surname, imageUrl;
-    private String TAG = "MainActivity";
+    private String TAG = "ProfileActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,9 +65,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         ids.add("{USER_ID}");
 
         ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("http://www.sitepoint.com"))
-                .setContentTitle("This is a content title")
-                .setContentDescription("This is a description")
+                .setContentUrl(Uri.parse("https://vk.com/konstantinesp"))
+                .setContentTitle("Страница разработчика Константина")
+                .setContentDescription("Вы можете перейти по этой ссылке и задать мне вопрос.")
                 //.setShareHashtag(new ShareHashtag.Builder().setHashtag("#sitepoint").build())
                 .setPeopleIds(ids)
                 .setPlaceId("{PLACE_ID}")
@@ -83,6 +85,23 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 }
         ).executeAsync();
+    }
+
+    private void getFeed(){
+        GraphRequest request = GraphRequest.newMeRequest(
+                AccessToken.getCurrentAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(
+                            JSONObject object,
+                            GraphResponse response) {
+                        Log.e(TAG,response.toString());
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,link");
+        request.setParameters(parameters);
+        request.executeAsync();
     }
 
     private void logout(){
@@ -105,6 +124,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.logout:
                 logout();
+                break;
+            case R.id.getNews:
+                getFeed();
                 break;
         }
     }

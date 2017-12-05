@@ -48,6 +48,14 @@
             android:layout_gravity="center_horizontal"
             android:onClick="onClick"
             android:text="Посты"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/getNews"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onClick"
+            android:text="Новости"
+            />
 
        <com.facebook.login.widget.LoginButton
             android:layout_width="wrap_content"
