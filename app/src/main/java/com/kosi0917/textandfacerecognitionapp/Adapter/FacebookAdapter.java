@@ -32,8 +32,8 @@ public class FacebookAdapter extends RecyclerView.Adapter<FeedViewHolder> {
 
     @Override
     public void onBindViewHolder(FeedViewHolder holder, int position) {
-        holder.txtTitle.setText(rootFeed.getData().get(position).getId());
-        holder.txtPubDate.setText(rootFeed.getData().get(position).getUpdated_time().toString());
+        holder.txtTitle.setText("Новость №"+rootFeed.getData().get(position).getId());
+        holder.txtPubDate.setText("Опубликована "+ rootFeed.getData().get(position).getUpdated_time().toString());
         if(rootFeed.getData().get(position).getMessage() != null) {
             holder.txtContent.setText(rootFeed.getData().get(position).getMessage());
         }
