@@ -38,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private ShareDialog shareDialog;
     private String name, surname, imageUrl, userId;
     private String TAG = "ProfileActivity";
+    private String data;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,26 +108,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         request.executeAsync();
     }
 */
-
-   /* private void logout(){
-        LoginManager.getInstance().logOut();
-        Intent login = new Intent(ProfileActivity.this, FacebookLoginActivity.class);
-        startActivity(login);
-        finish();
-        GraphRequest request = GraphRequest.newMeRequest(
-                AccessToken.getCurrentAccessToken(),
-                new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(
-                            JSONObject object,
-                            GraphResponse response) {
-                        Log.e(TAG,response.toString());
-                    }
-                });
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,textandfacerecogapptested/feed/");
-        request.setParameters(parameters);
-        request.executeAsync();*/
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
                 "1995900030677807/feed",
@@ -135,9 +116,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
                         Log.e(TAG,response.toString());
-                        String json = response.toString();
                         try {
-                            JSONObject obj = new JSONObject(response.toString());
+                            JSONObject obj = new JSONObject(response.getRawResponse());
+                            if (obj.has("data")) {
+                                data = obj.getString("data");
+                                Log.e(TAG,data);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
