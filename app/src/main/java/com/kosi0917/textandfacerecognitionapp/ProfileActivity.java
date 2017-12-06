@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -41,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private String data;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -119,8 +118,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                         try {
                             JSONObject obj = new JSONObject(response.getRawResponse());
                             if (obj.has("data")) {
-                                data = obj.getString("data");
+                               // data = obj.getString("data");
                                 Log.e(TAG,data);
+                                goFbNewsScreen(response.toString());
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -186,5 +186,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    private void goFbNewsScreen(String data) {
+        Intent intent = new Intent(this, FacebookNewsActivity.class);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("data",data);
+        startActivity(intent);
+        finish();
     }
 }
