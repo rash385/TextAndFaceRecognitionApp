@@ -130,6 +130,30 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         ).executeAsync();
     }
 
+    public void getFeedWithPick(){
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "1995900030677807/feed?fields=attachments",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        Log.e(TAG,response.toString());
+                        try {
+                            JSONObject obj = new JSONObject(response.getRawResponse());
+                            if (obj.has("data")) {
+                                data = obj.getString("data");
+                                Log.e(TAG,data);
+                                goFbNewsScreen(data);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).executeAsync();
+    }
+
     private void logout(){
         LoginManager.getInstance().logOut();
         Intent login = new Intent(ProfileActivity.this, FacebookLoginActivity.class);
@@ -153,6 +177,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.getNews:
                 getFeed();
+                break;
+            case R.id.getPickNews:
+                getFeedWithPick();
                 break;
         }
     }
@@ -190,7 +217,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private void goFbNewsScreen(String data) {
         Intent intent = new Intent(this, FacebookNewsActivity.class);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("data",data);
+        startActivity(intent);
+        finish();
+    }
+
+    private void goFbNewsScreenWithPick(String data) {
+        Intent intent = new Intent(this, FacebookNewsActivity.class);
         intent.putExtra("data",data);
         startActivity(intent);
         finish();

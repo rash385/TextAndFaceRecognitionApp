@@ -1,4 +1,4 @@
-package com.kosi0917.textandfacerecognitionapp.Model;
+package com.kosi0917.textandfacerecognitionapp.Model.facebook;
 
 import java.util.Date;
 

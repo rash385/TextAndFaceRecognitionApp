@@ -54,7 +54,15 @@
             android:id="@+id/getNews"
             android:layout_gravity="center_horizontal"
             android:onClick="onClick"
-            android:text="Новости"
+            android:text="Все новости"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/getPickNews"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onClick"
+            android:text="Новости с картинкой"
             />
 
        <com.facebook.login.widget.LoginButton

@@ -16,9 +16,8 @@ import com.facebook.HttpMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookAdapter;
-import com.kosi0917.textandfacerecognitionapp.Adapter.Feedadapter;
-import com.kosi0917.textandfacerecognitionapp.Model.Datum;
-import com.kosi0917.textandfacerecognitionapp.Model.RootFeed;
+import com.kosi0917.textandfacerecognitionapp.Model.facebook.Datum;
+import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
 
 import org.json.JSONException;
 import org.json.JSONObject;
