@@ -12,7 +12,8 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="102dp">
+        tools:layout_editor_absoluteY="102dp"
+        tools:ignore="MissingConstraints">
 
         <com.facebook.login.widget.ProfilePictureView
             android:id="@+id/profilePicture"
@@ -40,6 +41,15 @@
             android:layout_marginTop="5dp"
             facebook:com_facebook_confirm_logout="true"
             facebook:com_facebook_tooltip_mode="never_display" />
+
+        <Button
+            android:id="@+id/loginVKButton"
+            android:onClick="onMyButtonClick"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:text="@string/vk_name" />
 
 
     </LinearLayout>
