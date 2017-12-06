@@ -118,9 +118,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                         try {
                             JSONObject obj = new JSONObject(response.getRawResponse());
                             if (obj.has("data")) {
-                               // data = obj.getString("data");
+                                data = obj.getString("data");
                                 Log.e(TAG,data);
-                                goFbNewsScreen(response.toString());
+                                goFbNewsScreen(data);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

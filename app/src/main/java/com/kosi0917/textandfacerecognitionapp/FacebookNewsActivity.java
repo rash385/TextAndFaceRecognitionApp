@@ -14,12 +14,17 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookAdapter;
 import com.kosi0917.textandfacerecognitionapp.Adapter.Feedadapter;
+import com.kosi0917.textandfacerecognitionapp.Model.Datum;
 import com.kosi0917.textandfacerecognitionapp.Model.RootFeed;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Created by kosi0917 on 06-Dec-17.
@@ -86,7 +91,9 @@ public class FacebookNewsActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 mDialog.dismiss();
-                rootFeed = new Gson().fromJson(data, RootFeed.class);
+                Type collectionType = new TypeToken<List<Datum>>(){}.getType();
+                List<Datum> data = new Gson().fromJson(s, collectionType);
+                rootFeed.setData(data);
                 FacebookAdapter feedadapter = new FacebookAdapter(rootFeed,getBaseContext());
                 recyclerView.setAdapter(feedadapter);
                 feedadapter.notifyDataSetChanged();
