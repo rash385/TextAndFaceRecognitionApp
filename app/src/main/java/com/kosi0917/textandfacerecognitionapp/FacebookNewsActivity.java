@@ -93,7 +93,7 @@ public class FacebookNewsActivity extends AppCompatActivity {
                 mDialog.dismiss();
                 Type collectionType = new TypeToken<List<Datum>>(){}.getType();
                 List<Datum> data = new Gson().fromJson(s, collectionType);
-                rootFeed.setData(data);
+                rootFeed = new RootFeed(data);
                 FacebookAdapter feedadapter = new FacebookAdapter(rootFeed,getBaseContext());
                 recyclerView.setAdapter(feedadapter);
                 feedadapter.notifyDataSetChanged();
