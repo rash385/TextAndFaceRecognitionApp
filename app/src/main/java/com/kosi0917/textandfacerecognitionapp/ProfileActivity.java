@@ -22,6 +22,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -134,6 +135,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
                         Log.e(TAG,response.toString());
+                        String json = response.toString();
+                        try {
+                            JSONObject obj = new JSONObject(response.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
         ).executeAsync();
