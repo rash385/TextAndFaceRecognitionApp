@@ -89,8 +89,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         goMainScreen();
     }
 
-    private void getFeed(){
-        GraphRequest request = GraphRequest.newMeRequest(
+    private void getFeed() {
+    /*   GraphRequest request = GraphRequest.newMeRequest(
                 AccessToken.getCurrentAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
@@ -104,6 +104,39 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         parameters.putString("fields", "id,name,feed");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+*/
+
+   /* private void logout(){
+        LoginManager.getInstance().logOut();
+        Intent login = new Intent(ProfileActivity.this, FacebookLoginActivity.class);
+        startActivity(login);
+        finish();
+        GraphRequest request = GraphRequest.newMeRequest(
+                AccessToken.getCurrentAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(
+                            JSONObject object,
+                            GraphResponse response) {
+                        Log.e(TAG,response.toString());
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,textandfacerecogapptested/feed/");
+        request.setParameters(parameters);
+        request.executeAsync();*/
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "1995900030677807/feed",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        Log.e(TAG,response.toString());
+                    }
+                }
+        ).executeAsync();
     }
 
     private void logout(){
