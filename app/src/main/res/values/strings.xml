@@ -4,5 +4,6 @@
     <string name="applicationId">2023742747897963</string>
     <string name="cancel_login">Пользователь вышел</string>
     <string name="error_login">Ошибка входа</string>
+    <string name="logout">Logout</string>
     <integer name="com_vk_sdk_AppId">6288050</integer>
 </resources>
