@@ -21,6 +21,7 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.kosi0917.textandfacerecognitionapp.Tools.DownloadImage;
 
 import org.json.JSONObject;
 
@@ -55,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         TextView nameView = (TextView)findViewById(R.id.nameAndSurname);
         nameView.setText("" + name + " " + surname);
 
-        new ProfileActivity.DownloadImage((ImageView)findViewById(R.id.profileImage)).execute(imageUrl);
+        new DownloadImage((ImageView)findViewById(R.id.profileImage)).execute(imageUrl);
     }
 
     private void share(){
@@ -166,30 +167,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImage(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
 
     private void goMainScreen() {
         Intent intent = new Intent(this, MainActivity.class);

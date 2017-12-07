@@ -20,6 +20,7 @@ import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,20 +46,27 @@ public class VKLoginActivity  extends AppCompatActivity {
             // Пользователь успешно авторизовался
                 Toast.makeText(getApplicationContext(), "Good", Toast.LENGTH_LONG).show();
                 String token = VKAccessToken.currentToken().accessToken;
-                VKParameters parameters = VKParameters.from(VKApiConst.ACCESS_TOKEN, token);
-                VKRequest request = new VKRequest("account.getProfileInfo", parameters);
+                VKParameters parameters = VKParameters.from(VKParameters.from(VKApiConst.ACCESS_TOKEN, token));
+                parameters.put(VKApiConst.FIELDS, "photo_max_orig");
+                parameters.put(VKApiConst.NAME_CASE, "nom");
+                VKRequest request = VKApi.users().get(parameters);
+                request.useSystemLanguage = true;
                 request.executeWithListener(new VKRequest.VKRequestListener()
                 {
                     @Override
                     public void onComplete(VKResponse response) {
                         super.onComplete(response);
                         try {
-                            JSONObject jsonObject = response.json.getJSONObject("response");
+                            JSONArray jsonArray = response.json.getJSONArray("response");
+                            JSONObject jsonObject =  jsonArray.getJSONObject(0);
+                            System.out.println(String.valueOf(jsonObject));
                             String first_name = jsonObject.getString("first_name");
                             String last_name = jsonObject.getString("last_name");
+                            String photo_max_orig = jsonObject.getString("photo_max_orig");
                             Intent intent = new Intent(VKLoginActivity.this, VKProfileActivity.class);
                             intent.putExtra("name", first_name);
                             intent.putExtra("surname", last_name);
+                            intent.putExtra("photo_max_orig", photo_max_orig);
                             startActivity(intent);
                             finish();
                         } catch (JSONException e) {
