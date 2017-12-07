@@ -20,6 +20,8 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookLoginActivity;
+import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookNewsActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,14 +81,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void getPosts(){
-       /* new GraphRequest(
-                AccessToken.getCurrentAccessToken(), "/me/posts", null, HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        Log.e(TAG,response.toString());
-                    }
-                }
-        ).executeAsync();*/
         goMainScreen();
     }
 
@@ -131,20 +125,22 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void getFeedWithPick(){
+        Bundle b = new Bundle();
+        b.putString("fields", "attachments");
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
-                "1995900030677807/feed?fields=attachments",
-                null,
+                "1995900030677807/feed",
+                b,
                 HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
                         Log.e(TAG,response.toString());
                         try {
                             JSONObject obj = new JSONObject(response.getRawResponse());
-                            if (obj.has("data")) {
+                            if (obj.has("attachments")) {
                                 data = obj.getString("data");
                                 Log.e(TAG,data);
-                                goFbNewsScreen(data);
+                             //   goFbNewsScreenWithPick(data);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

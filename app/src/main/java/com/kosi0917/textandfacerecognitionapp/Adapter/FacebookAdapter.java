@@ -39,7 +39,6 @@ public class FacebookAdapter extends RecyclerView.Adapter<FeedViewHolder> {
         }
         else  holder.txtContent.setText(rootFeed.getData().get(position).getStory());
     }
-
     @Override
     public int getItemCount() {
         return rootFeed.data.size();

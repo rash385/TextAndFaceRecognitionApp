@@ -1,10 +1,9 @@
-package com.kosi0917.textandfacerecognitionapp;
+package com.kosi0917.textandfacerecognitionapp.FBActivities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -14,6 +13,9 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.kosi0917.textandfacerecognitionapp.MainActivity;
+import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
+import com.kosi0917.textandfacerecognitionapp.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

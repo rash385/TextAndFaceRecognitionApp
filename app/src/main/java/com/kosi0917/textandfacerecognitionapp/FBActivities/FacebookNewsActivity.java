@@ -1,4 +1,4 @@
-package com.kosi0917.textandfacerecognitionapp;
+package com.kosi0917.textandfacerecognitionapp.FBActivities;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -18,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookAdapter;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.Datum;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
+import com.kosi0917.textandfacerecognitionapp.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

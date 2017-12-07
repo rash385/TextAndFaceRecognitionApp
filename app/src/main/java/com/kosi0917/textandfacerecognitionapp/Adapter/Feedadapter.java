@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kosi0917.textandfacerecognitionapp.Interface.ItemClickListener;
@@ -19,6 +20,7 @@ import com.kosi0917.textandfacerecognitionapp.R;
 class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
     public TextView txtTitle,txtPubDate,txtContent;
+    public ImageView feedImg;
     private ItemClickListener itemClickListener;
 
     public FeedViewHolder(View itemView) {
@@ -26,6 +28,7 @@ class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         txtTitle = (TextView)itemView.findViewById(R.id.txtTitle);
         txtPubDate = (TextView)itemView.findViewById(R.id.txtPubDate);
         txtContent = (TextView)itemView.findViewById(R.id.txtContent);
+        feedImg = (ImageView)itemView.findViewById(R.id.newsPicId);
 
         //Set Event
         itemView.setOnClickListener(this);
