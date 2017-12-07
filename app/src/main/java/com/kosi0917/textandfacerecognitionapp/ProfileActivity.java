@@ -20,6 +20,7 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookImgNewsActivity;
 import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookNewsActivity;
 
@@ -140,7 +141,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                             if (obj.has("attachments")) {
                                 data = obj.getString("data");
                                 Log.e(TAG,data);
-                             //   goFbNewsScreenWithPick(data);
+                                goFbNewsScreenWithPick(data);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -219,7 +220,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void goFbNewsScreenWithPick(String data) {
-        Intent intent = new Intent(this, FacebookNewsActivity.class);
+        Intent intent = new Intent(this, FacebookImgNewsActivity.class);
         intent.putExtra("data",data);
         startActivity(intent);
         finish();
