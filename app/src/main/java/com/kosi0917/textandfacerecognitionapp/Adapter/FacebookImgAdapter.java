@@ -37,9 +37,9 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FeedViewHolder> {
         RootImgFeed tetsted = rootImgFeed;
         if(rootImgFeed.getData().get(position).getAttachments() != null) {
             new ProfileActivity.DownloadImage(holder.feedImg).execute(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc());
-            holder.txtTitle.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc());
+            holder.txtTitle.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription());
             holder.txtPubDate.setText(" ");
-            holder.txtContent.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription());
+            holder.txtContent.setText("");
         }
     }
 
