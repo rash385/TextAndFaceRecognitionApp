@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -98,7 +99,11 @@ public class FacebookImgNewsActivity extends AppCompatActivity {
                 mDialog.dismiss();
                 Type collectionType = new TypeToken<List<DatFeed>>(){}.getType();
                 List<DatFeed> data = new Gson().fromJson(s, collectionType);
-                rootImgFeed = new RootImgFeed(data);
+                List<DatFeed> viewedData = new ArrayList<DatFeed>();
+                for (int i=0; i < data.size(); i++)
+                    if(data.get(i).attachments!=null)
+                        viewedData.add(data.get(i));
+                rootImgFeed = new RootImgFeed(viewedData);
                 FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed,getBaseContext());
                 recyclerView.setAdapter(feedadapter);
                 feedadapter.notifyDataSetChanged();
