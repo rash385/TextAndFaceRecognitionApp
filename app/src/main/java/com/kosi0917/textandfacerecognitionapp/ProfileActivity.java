@@ -138,7 +138,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                         Log.e(TAG,response.toString());
                         try {
                             JSONObject obj = new JSONObject(response.getRawResponse());
-                            if (obj.has("attachments")) {
+                            if (obj.has("data")) {
                                 data = obj.getString("data");
                                 Log.e(TAG,data);
                                 goFbNewsScreenWithPick(data);
@@ -181,7 +181,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+    public static class DownloadImage extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
         public DownloadImage(ImageView bmImage) {

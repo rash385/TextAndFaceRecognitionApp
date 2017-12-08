@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
+import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
 
 /**
@@ -32,9 +34,13 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FeedViewHolder> {
 
     @Override
     public void onBindViewHolder(FeedViewHolder holder, int position) {
-        holder.txtTitle.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc());
-        holder.txtPubDate.setText(" ");
-        holder.txtContent.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription());
+        RootImgFeed tetsted = rootImgFeed;
+        if(rootImgFeed.getData().get(position).getAttachments() != null) {
+            new ProfileActivity.DownloadImage(holder.feedImg).execute(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc());
+            holder.txtTitle.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc());
+            holder.txtPubDate.setText(" ");
+            holder.txtContent.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription());
+        }
     }
 
     @Override
