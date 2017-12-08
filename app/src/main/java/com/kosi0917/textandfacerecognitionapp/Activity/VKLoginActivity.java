@@ -19,6 +19,7 @@ import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.api.model.VKScopes;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +31,7 @@ import org.json.JSONObject;
 
 public class VKLoginActivity  extends AppCompatActivity {
 
-    private String[] scope = new String[] {VKScope.WALL, VKScope.FRIENDS, VKScope.MESSAGES};
+    private String[] scope = new String[] {VKScope.WALL, VKScope.FRIENDS, VKScope.MESSAGES, VKScope.PHOTOS};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,10 +61,12 @@ public class VKLoginActivity  extends AppCompatActivity {
                             JSONArray jsonArray = response.json.getJSONArray("response");
                             JSONObject jsonObject =  jsonArray.getJSONObject(0);
                             System.out.println(String.valueOf(jsonObject));
+                            String owner_id = jsonObject.getString("id");
                             String first_name = jsonObject.getString("first_name");
                             String last_name = jsonObject.getString("last_name");
                             String photo_max_orig = jsonObject.getString("photo_max_orig");
                             Intent intent = new Intent(VKLoginActivity.this, VKProfileActivity.class);
+                            intent.putExtra("owner_id", owner_id);
                             intent.putExtra("name", first_name);
                             intent.putExtra("surname", last_name);
                             intent.putExtra("photo_max_orig", photo_max_orig);
