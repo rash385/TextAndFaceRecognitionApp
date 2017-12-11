@@ -40,9 +40,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facebook_login);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        toolbar.setTitle("News");
-        setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(),LinearLayoutManager.VERTICAL,false);

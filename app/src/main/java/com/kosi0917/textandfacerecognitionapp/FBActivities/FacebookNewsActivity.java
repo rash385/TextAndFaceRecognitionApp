@@ -31,7 +31,6 @@ import java.util.List;
  */
 
 public class FacebookNewsActivity extends AppCompatActivity {
-    Toolbar toolbar;
     RecyclerView recyclerView;
     RootFeed rootFeed;
     String TAG = "FacebookNewsActivity";
@@ -43,10 +42,6 @@ public class FacebookNewsActivity extends AppCompatActivity {
         Bundle inBundle = getIntent().getExtras();
         data = inBundle.getString("data");
         setContentView(R.layout.activity_facebook_login);
-
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        toolbar.setTitle("Group news");
-        setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(),LinearLayoutManager.VERTICAL,false);
