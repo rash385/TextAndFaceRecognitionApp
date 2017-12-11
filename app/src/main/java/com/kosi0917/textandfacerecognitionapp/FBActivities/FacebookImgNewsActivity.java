@@ -3,11 +3,15 @@ package com.kosi0917.textandfacerecognitionapp.FBActivities;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -35,7 +39,7 @@ import java.util.List;
  */
 
 public class FacebookImgNewsActivity extends AppCompatActivity {
-    Toolbar toolbar;
+    BottomNavigationView bottomNavigationView;
     RecyclerView recyclerView;
     RootImgFeed rootImgFeed;
     String TAG = "FacebookImgNewsActivity";
@@ -48,9 +52,22 @@ public class FacebookImgNewsActivity extends AppCompatActivity {
         data = inBundle.getString("data");
         setContentView(R.layout.activity_facebook_login);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        toolbar.setTitle("Group news with image");
-        setSupportActionBar(toolbar);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.NavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getGroupId()){
+                    case R.id.ic_arrow:
+                        //Некторый код
+                        break;
+                    case R.id.ic_android:
+                        //Некторый код
+                        break;
+                }
+                return false;
+            }
+        });
+
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(),LinearLayoutManager.VERTICAL,false);
