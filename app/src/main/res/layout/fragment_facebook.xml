@@ -6,13 +6,20 @@
     xmlns:facebook="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="310dp"
+        android:layout_height="187dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="162dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="162dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="102dp">
+        android:visibility="visible"
+        facebook:layout_constraintBottom_toBottomOf="parent"
+        facebook:layout_constraintEnd_toEndOf="parent"
+        facebook:layout_constraintStart_toStartOf="parent"
+        facebook:layout_constraintTop_toTopOf="parent">
 
         <com.facebook.login.widget.ProfilePictureView
             android:id="@+id/profilePicture"
@@ -23,14 +30,14 @@
 
             />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/greeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:textColor="#333"
-            android:textSize="18sp" />
+            android:textSize="18sp" />-->
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/loginButton"

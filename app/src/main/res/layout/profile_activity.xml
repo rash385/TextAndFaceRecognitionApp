@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:facebook="http://schemas.android.com/apk/res-auto">
@@ -7,71 +8,73 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
             android:text="Вы вошли как:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textSize="20dp"
-            android:layout_gravity="center_horizontal"/>
+            android:textSize="20dp" />
 
         <TextView
+            android:id="@+id/nameAndSurname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/nameAndSurname"
-            android:textSize="22dp"
-            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"/>
+            android:textSize="22dp"
+            android:textStyle="bold" />
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
             android:id="@+id/profileImage"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp" />
 
         <Button
+            android:id="@+id/share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/share"
             android:layout_gravity="center_horizontal"
             android:onClick="onClick"
             android:text="Поделиться" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/getPosts"
-            android:layout_gravity="center_horizontal"
-            android:onClick="onClick"
-            android:text="Посты"/>
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/getNews"
             android:layout_gravity="center_horizontal"
             android:onClick="onClick"
-            android:text="Все новости"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/getPickNews"
-            android:layout_gravity="center_horizontal"
-            android:onClick="onClick"
-            android:text="Новости с картинкой"
-            />
+            android:text="Посты" />
 
-       <com.facebook.login.widget.LoginButton
+        <Button
+            android:id="@+id/getNews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:onClick="onClick"
-            android:text="Logout"
-            android:id="@+id/logout"/>
+            android:text="Все новости" />
+
+        <Button
+            android:id="@+id/getPickNews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onClick"
+            android:text="Новости с картинкой" />
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/logout"
+            android:layout_width="183dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onClick"
+            android:text="Logout" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
