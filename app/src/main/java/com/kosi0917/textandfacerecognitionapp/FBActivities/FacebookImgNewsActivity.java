@@ -1,6 +1,7 @@
 package com.kosi0917.textandfacerecognitionapp.FBActivities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,6 +26,7 @@ import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.Datum;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
+import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
 
 import org.json.JSONException;
@@ -39,26 +41,31 @@ import java.util.List;
  */
 
 public class FacebookImgNewsActivity extends AppCompatActivity {
-    BottomNavigationView bottomNavigationView;
     RecyclerView recyclerView;
     RootImgFeed rootImgFeed;
     String TAG = "FacebookImgNewsActivity";
-    String data;
+    String data,firstName,lastName,imgUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle inBundle = getIntent().getExtras();
         data = inBundle.getString("data");
+        firstName = inBundle.getString("name");
+        lastName = inBundle.getString("surname");
+        imgUrl = inBundle.getString("imageUrl");
         setContentView(R.layout.activity_facebook_login);
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.NavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.NavigationView);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getGroupId()){
+                switch (item.getItemId()){
                     case R.id.ic_arrow:
-                        //Некторый код
+                        goMainScreen();
                         break;
                     case R.id.ic_android:
                         //Некторый код
@@ -128,5 +135,13 @@ public class FacebookImgNewsActivity extends AppCompatActivity {
 
         };
         loadFeedAsync.execute(data);
+    }
+    private void goMainScreen() {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("name", firstName);
+        intent.putExtra("surname", lastName);
+        intent.putExtra("imageUrl", imgUrl);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

@@ -206,13 +206,19 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private void goMainScreen() {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("name", name);
+        intent.putExtra("surname", surname);
+        intent.putExtra("imageUrl", imageUrl);
         startActivity(intent);
+        finish();
     }
 
     private void goFbNewsScreen(String data) {
         Intent intent = new Intent(this, FacebookNewsActivity.class);
         intent.putExtra("data",data);
+        intent.putExtra("name", name);
+        intent.putExtra("surname", surname);
+        intent.putExtra("imageUrl", imageUrl);
         startActivity(intent);
         finish();
     }
@@ -220,6 +226,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void goFbNewsScreenWithPick(String data) {
         Intent intent = new Intent(this, FacebookImgNewsActivity.class);
         intent.putExtra("data",data);
+        intent.putExtra("name", name);
+        intent.putExtra("surname", surname);
+        intent.putExtra("imageUrl", imageUrl);
         startActivity(intent);
         finish();
     }
