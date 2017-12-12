@@ -4,4 +4,9 @@
     <string name="applicationId">2023742747897963</string>
     <string name="cancel_login">Пользователь вышел</string>
     <string name="error_login">Ошибка входа</string>
+    <string name="back">Назад</string>
+    <string name="android">Андроид</string>
+    <string name="start_analyze">Статистика</string>
+    <string name="center">Центр</string>
+    <string name="backup">Backup</string>
 </resources>

@@ -50,6 +50,7 @@
         android:text="2017-05-12 10:54:00"
         android:id="@+id/txtPubDate"
         android:textSize="12sp"
+        android:paddingLeft="16dp"
         android:textStyle="italic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,6 +61,7 @@
         android:id="@+id/txtContent"
         android:textSize="14sp"
         android:textStyle="italic"
+        android:paddingLeft="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
