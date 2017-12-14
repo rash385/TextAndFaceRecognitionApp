@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -13,6 +14,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.kosi0917.textandfacerecognitionapp.InstagramActivities.InstagramLogin;
 import com.kosi0917.textandfacerecognitionapp.MainActivity;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
@@ -23,7 +25,7 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class FacebookLoginActivity extends AppCompatActivity {
+public class FacebookLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private LoginButton loginButton;
     private CallbackManager callbackManager;
@@ -108,4 +110,18 @@ public class FacebookLoginActivity extends AppCompatActivity {
     }
 
 
+    private void goInstagramScreen(){
+        Intent intent = new Intent(this, InstagramLogin.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_get_access_token:
+                goInstagramScreen();
+                break;
+        }
+    }
 }
