@@ -1,40 +1,29 @@
 package com.kosi0917.textandfacerecognitionapp.Activity;
 
 import android.annotation.SuppressLint;
-import android.app.FragmentManager;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kosi0917.textandfacerecognitionapp.FacebookLoginActivity;
-import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
+import com.kosi0917.textandfacerecognitionapp.Model.VK.Photo;
+import com.kosi0917.textandfacerecognitionapp.Model.VK.VkModel;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.kosi0917.textandfacerecognitionapp.Tools.DownloadImage;
 import com.vk.sdk.VKSdk;
-import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
-import com.vk.sdk.api.model.VKApiCommunityFull;
 import com.vk.sdk.api.model.VKApiPhoto;
-import com.vk.sdk.api.model.VKAttachments;
-import com.vk.sdk.api.model.VKList;
 import com.vk.sdk.api.model.VKPhotoArray;
-import com.vk.sdk.api.model.VKWallPostResult;
-import com.vk.sdk.api.photo.VKImageParameters;
-import com.vk.sdk.api.photo.VKUploadImage;
 import com.vk.sdk.dialogs.VKShareDialog;
 import com.vk.sdk.dialogs.VKShareDialogBuilder;
 
@@ -42,8 +31,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -54,6 +44,9 @@ public class VKProfileActivity extends AppCompatActivity implements View.OnClick
 
     private String OWNER_ID;
     List<String> list;
+    List<Photo> photoListFromWall;
+    List<VkModel> wallList;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -80,6 +73,10 @@ public class VKProfileActivity extends AppCompatActivity implements View.OnClick
         switch (view.getId()){
             case R.id.VKGetAllPhoto:
                 getAllPhoto();
+                break;
+
+            case R.id.VKGetWall:
+                getWall();
                 break;
 
             case R.id.VKShare:
@@ -118,7 +115,7 @@ public class VKProfileActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void getAllPhoto() {
-         VKRequest request = new VKRequest("photos.getAll", VKParameters.from(VKApiConst.OWNER_ID, OWNER_ID), VKPhotoArray.class);
+        VKRequest request = new VKRequest("photos.getAll", VKParameters.from(VKApiConst.OWNER_ID, OWNER_ID), VKPhotoArray.class);
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
@@ -140,6 +137,67 @@ public class VKProfileActivity extends AppCompatActivity implements View.OnClick
                 new DownloadImage((ImageView) findViewById(R.id.VKProfileImage)).execute(list.get(3));
                 //System.out.println(list.get(2));
                 Toast.makeText(VKProfileActivity.this, "Кол-во фоток: "+ list.size(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getWall() {
+        VKRequest request = new VKRequest("wall.get", VKParameters.from(VKApiConst.OWNER_ID, -158518042, VKApiConst.COUNT, 3), VKPhotoArray.class);
+        request.executeWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                super.onComplete(response);
+                try {
+                    JSONObject jsonObject = (JSONObject) response.json.get("response");
+                    JSONArray jsonArray = (JSONArray) jsonObject.get("items");
+                    wallList = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        VkModel vkModel = new VkModel();
+                        JSONObject post = (JSONObject) jsonArray.get(i);
+                        System.out.println("Наш пост " + String.valueOf(post));
+                        JSONArray attachments = (JSONArray) post.get("attachments");
+                        System.out.println(attachments.toString());
+                        Photo photo = new Photo();
+                        photoListFromWall = new ArrayList<>();
+                        for (int j = 0; j < attachments.length(); j++) {
+                            JSONObject attachmentObject = (JSONObject) attachments.get(j);
+                            System.out.println(attachmentObject.get("photo"));
+                            if (attachmentObject.get("type").equals("photo")) {
+                                JSONObject attachmentPhoto = (JSONObject) attachmentObject.get("photo");
+
+                                photo.setId(Integer.parseInt(attachmentPhoto.get("id").toString()));
+                                photo.setOwner_id(Integer.parseInt(attachmentPhoto.get("owner_id").toString()));
+                                photo.setPhoto_75(attachmentPhoto.get("photo_75").toString());
+                                photo.setPhoto_130(attachmentPhoto.get("photo_130").toString());
+                                photo.setPhoto_604(attachmentPhoto.get("photo_604").toString());
+                                photo.setPhoto_807(attachmentPhoto.get("photo_807").toString());
+                                photo.setPhoto_1280(attachmentPhoto.get("photo_1280").toString());
+                                photo.setDate(Integer.parseInt(attachmentPhoto.get("date").toString()));
+                                photoListFromWall.add(photo);
+                            }
+                            System.out.println(photo.toString());
+                        }
+                        vkModel.setId(Integer.parseInt(post.get("id").toString()));
+                        vkModel.setFrom_id(Integer.parseInt(post.get("from_id").toString()));
+                        vkModel.setOwner_id(Integer.parseInt(post.get("owner_id").toString()));
+                        vkModel.setDate(Integer.parseInt(post.get("date").toString()));
+                        vkModel.setPost_type(post.get("post_type").toString());
+                        vkModel.setText(post.get("text").toString());
+                        vkModel.setAttachments(photoListFromWall);
+                        // на другом уровне вложенности
+                        //vkModel.setCountComments(Integer.parseInt(post.get("countComments").toString()));
+                        //vkModel.setCountLikes(Integer.parseInt(post.get("countLikes").toString()));
+                        //vkModel.setCountReports(Integer.parseInt(post.get("countReports").toString()));
+                        System.out.println(vkModel.toString());
+                        wallList.add(vkModel);
+
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }
