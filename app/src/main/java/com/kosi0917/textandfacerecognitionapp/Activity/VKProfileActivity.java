@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kosi0917.textandfacerecognitionapp.FacebookLoginActivity;
+import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.Photo;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.VkModel;
 import com.kosi0917.textandfacerecognitionapp.R;
@@ -53,8 +53,8 @@ public class VKProfileActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vk_profile_activity);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+   //     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+ //       setSupportActionBar(toolbar);
         Bundle inBundle = getIntent().getExtras();
         if (inBundle != null) {
             OWNER_ID = inBundle.getString("owner_id");

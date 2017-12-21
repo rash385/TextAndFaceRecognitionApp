@@ -11,8 +11,6 @@
         android:name=".Application.Application"
         android:theme="@style/AppTheme">
         <activity android:name=".FBActivities.FacebookLoginActivity">
-
-        <activity android:name=".FacebookLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

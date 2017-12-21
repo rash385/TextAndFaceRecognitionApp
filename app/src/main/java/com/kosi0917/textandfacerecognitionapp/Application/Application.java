@@ -2,7 +2,7 @@ package com.kosi0917.textandfacerecognitionapp.Application;
 
 import android.content.Intent;
 
-import com.kosi0917.textandfacerecognitionapp.FacebookLoginActivity;
+import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookLoginActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;

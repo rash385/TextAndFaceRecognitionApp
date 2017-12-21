@@ -28,7 +28,7 @@ import retrofit2.Response;
  * Created by sivko on 12.12.2017.
  */
 
-public class FeedActivity extends AppCompatActivity {
+public class FeedActivity extends AppCompatActivity  {
     private EditText etSearch;
     private ListView lvFeed;
 
@@ -75,6 +75,7 @@ public class FeedActivity extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                     return true;
                 }
+
                 return false;
             }
         });
@@ -95,6 +96,7 @@ public class FeedActivity extends AppCompatActivity {
                     lvAdapter.notifyDataSetChanged();
                 }
             }
+
 
             @Override
             public void onFailure(Call<InstagramResponse> call, Throwable t) {

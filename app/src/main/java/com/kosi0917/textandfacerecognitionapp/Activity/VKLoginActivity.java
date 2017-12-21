@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.kosi0917.textandfacerecognitionapp.FacebookLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
