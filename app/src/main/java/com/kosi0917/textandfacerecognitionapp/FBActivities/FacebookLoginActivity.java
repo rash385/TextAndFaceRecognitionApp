@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -18,12 +20,15 @@ import com.kosi0917.textandfacerecognitionapp.InstagramActivities.InstagramLogin
 import com.kosi0917.textandfacerecognitionapp.MainActivity;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
+import com.kosi0917.textandfacerecognitionapp.Activity.VKLoginActivity;
+import com.vk.sdk.util.VKUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 
 public class FacebookLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,10 +44,14 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FacebookSdk.sdkInitialize(getApplicationContext());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_facebook);
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.loginButton);
+
+        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
+        System.out.println(Arrays.asList(fingerprints));
 
         FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
             @Override
@@ -105,6 +114,13 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
 
     private void goMainScreen() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void onMyButtonClick(View view)
+    {
+        Intent intent = new Intent(this, VKLoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

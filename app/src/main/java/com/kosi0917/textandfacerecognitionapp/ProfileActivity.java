@@ -23,6 +23,7 @@ import com.facebook.share.widget.ShareDialog;
 import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookImgNewsActivity;
 import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookNewsActivity;
+import com.kosi0917.textandfacerecognitionapp.Tools.DownloadImage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         TextView nameView = (TextView)findViewById(R.id.nameAndSurname);
         nameView.setText("" + name + " " + surname);
 
-        new ProfileActivity.DownloadImage((ImageView)findViewById(R.id.profileImage)).execute(imageUrl);
+        new DownloadImage((ImageView)findViewById(R.id.profileImage)).execute(imageUrl);
     }
 
     private void share(){

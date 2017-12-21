@@ -9,4 +9,6 @@
     <string name="start_analyze">Статистика</string>
     <string name="center">Центр</string>
     <string name="backup">Backup</string>
+    <string name="logout">Logout</string>
+    <integer name="com_vk_sdk_AppId">6288050</integer>
 </resources>
