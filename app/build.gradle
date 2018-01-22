@@ -4,8 +4,8 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.kosi0917.textandfacerecognitionapp"
-        minSdkVersion 15
-        targetSdkVersion 26
+        minSdkVersion 16
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -43,6 +43,8 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     //For UI. Picasso lib
     compile 'com.squareup.picasso:picasso:2.5.2'
+    //Microsoft Cognitive Services
+   // compile 'com.microsoft.projectoxford:emotion:1.0.355'
 
 
 }

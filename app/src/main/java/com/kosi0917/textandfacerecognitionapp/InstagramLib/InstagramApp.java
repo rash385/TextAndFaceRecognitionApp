@@ -2,6 +2,8 @@ package com.kosi0917.textandfacerecognitionapp.InstagramLib;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -194,9 +196,9 @@ public class InstagramApp {
         return mSession.getName();
     }
     public void authorize() {
-//Intent webAuthIntent = new Intent(Intent.ACTION_VIEW);
-        //webAuthIntent.setData(Uri.parse(AUTH_URL));
-        //mCtx.startActivity(webAuthIntent);
+Intent webAuthIntent = new Intent(Intent.ACTION_VIEW);
+        webAuthIntent.setData(Uri.parse(AUTH_URL));
+        mCtx.startActivity(webAuthIntent);
         mDialog.show();
     }
 

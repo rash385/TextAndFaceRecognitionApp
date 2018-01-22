@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 
 public class SimpleListViewAdapter extends ArrayAdapter<Data> {
+
     private Context context;
     private ArrayList<Data> data;
 

@@ -22,7 +22,7 @@ public class InstagramLogin extends AppCompatActivity implements AuthenticationL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_facebook);
-        btn_get_access_token = (Button) findViewById(R.id.btn_get_access_token);
+        btn_get_access_token = (Button) findViewById(R.id.btn_instagram_login);
         btn_get_access_token.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

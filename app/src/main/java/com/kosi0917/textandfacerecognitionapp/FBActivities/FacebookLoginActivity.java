@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -16,7 +17,10 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.kosi0917.textandfacerecognitionapp.InstagramActivities.FeedActivity;
 import com.kosi0917.textandfacerecognitionapp.InstagramActivities.InstagramLogin;
+import com.kosi0917.textandfacerecognitionapp.InstagramLib.AuthenticationDialog;
+import com.kosi0917.textandfacerecognitionapp.Interface.AuthenticationListener;
 import com.kosi0917.textandfacerecognitionapp.MainActivity;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
@@ -30,7 +34,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 
-public class FacebookLoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class FacebookLoginActivity extends AppCompatActivity implements  AuthenticationListener {
 
     private LoginButton loginButton;
     private CallbackManager callbackManager;
@@ -38,6 +42,8 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
     private URL profilePicture;
     private String userId;
     private String TAG = "LoginActivity";
+    private AuthenticationDialog auth_dialog;
+    private Button btn_get_access_token;
 
 
 
@@ -49,6 +55,16 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.fragment_facebook);
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.loginButton);
+
+        btn_get_access_token = (Button) findViewById(R.id.btn_instagram_login);
+        btn_get_access_token.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth_dialog = new AuthenticationDialog(FacebookLoginActivity.this, FacebookLoginActivity.this);
+                auth_dialog.setCancelable(true);
+                auth_dialog.show();
+            }
+        });
 
         String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
         System.out.println(Arrays.asList(fingerprints));
@@ -133,11 +149,12 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_get_access_token:
-                goInstagramScreen();
-                break;
+    public void onCodeReceived(String auth_token) {
+        if (auth_token == null) {
+            auth_dialog.dismiss();
         }
+        Intent i = new Intent(FacebookLoginActivity.this, FeedActivity.class);
+        i.putExtra("access_token", auth_token);
+        startActivity(i);
     }
 }

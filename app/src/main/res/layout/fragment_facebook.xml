@@ -36,8 +36,8 @@
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/loginButton"
-            android:layout_width="204dp"
-            android:layout_height="45dp"
+            android:layout_width="203dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             facebook:com_facebook_confirm_logout="true"
@@ -45,7 +45,7 @@
 
         <Button
             android:id="@+id/loginVKButton"
-            android:layout_width="205dp"
+            android:layout_width="202dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
@@ -54,8 +54,8 @@
 
 
         <Button
-            android:id="@+id/btn_get_access_token"
-            android:layout_width="201dp"
+            android:id="@+id/btn_instagram_login"
+            android:layout_width="207dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"

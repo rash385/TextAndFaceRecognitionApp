@@ -53,6 +53,7 @@ public class FeedActivity extends AppCompatActivity  {
         lvAdapter = new SimpleListViewAdapter(this, 0, data);
         lvFeed.setAdapter(lvAdapter);
 
+
         // Set the listener for the "Done" button of the soft keyboard
         etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
