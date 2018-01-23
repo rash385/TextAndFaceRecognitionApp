@@ -44,7 +44,16 @@ dependencies {
     //For UI. Picasso lib
     compile 'com.squareup.picasso:picasso:2.5.2'
     //Microsoft Cognitive Services
-   // compile 'com.microsoft.projectoxford:emotion:1.0.355'
-
+    compile 'com.microsoft.projectoxford:emotion:1.0.355'
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '25.3.0'
+                }
+            }
+        }
+    }
 
 }
