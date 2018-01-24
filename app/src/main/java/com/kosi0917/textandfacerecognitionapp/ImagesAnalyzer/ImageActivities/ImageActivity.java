@@ -36,7 +36,7 @@ import java.util.List;
 
 public class ImageActivity extends AppCompatActivity {
     ImageView imageView;
-    Button btnTakePicture, btnProcess;
+    Button btnProcess;
     EmotionServiceClient restClient = new EmotionServiceRestClient("87aa57dc540b439193a60cc5bce69f90");
     private int TAKE_PICTURE_CODE = 100;
     Bitmap mBitmap;
@@ -49,7 +49,7 @@ public class ImageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.image_analize);
 
         initViews();
 
@@ -57,18 +57,17 @@ public class ImageActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        btnProcess = (Button)findViewById(R.id.btnProcess);
-        btnTakePicture = (Button)findViewById(R.id.btnTakePic);
-        btnLogin = (Button)findViewById(R.id.goToLogin);
+        btnProcess = (Button)findViewById(R.id.analise);
+     //   btnTakePicture = (Button)findViewById(R.id.btnTakePic);
         imageView = (ImageView)findViewById(R.id.imageView);
 
         //Event
-        btnTakePicture.setOnClickListener(new View.OnClickListener() {
+/*        btnTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 takePicFromGallery();
             }
-        });
+        });*/
 
         btnProcess.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,13 +76,6 @@ public class ImageActivity extends AppCompatActivity {
             }
         });
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(this, LoginActivity.class);
-                //  startActivity(intent);
-            }
-        });
     }
 
     private void processImage() {

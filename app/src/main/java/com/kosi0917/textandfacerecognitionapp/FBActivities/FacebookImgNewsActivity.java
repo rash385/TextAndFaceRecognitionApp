@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookAdapter;
 import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookImgAdapter;
+import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities.ImageActivity;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.Datum;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
@@ -70,6 +71,9 @@ public class FacebookImgNewsActivity extends AppCompatActivity {
                     case R.id.ic_android:
                         //Некторый код
                         break;
+               /*     case R.id.newsPicId:
+                        goImageAnaliser();
+                        break;*/
                 }
                 return false;
             }
@@ -141,6 +145,11 @@ public class FacebookImgNewsActivity extends AppCompatActivity {
         intent.putExtra("name", firstName);
         intent.putExtra("surname", lastName);
         intent.putExtra("imageUrl", imgUrl);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+    private void goImageAnaliser(){
+        Intent intent = new Intent(this, ImageActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
