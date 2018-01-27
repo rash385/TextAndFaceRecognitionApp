@@ -30,11 +30,11 @@
          />
 
 
-        <activity android:name=".Activity.VKLoginActivity"
+        <activity android:name=".ui.Activity.VKLoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
 
-        <activity android:name=".Activity.VKProfileActivity"
+        <activity android:name=".ui.Activity.VKProfileActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
 

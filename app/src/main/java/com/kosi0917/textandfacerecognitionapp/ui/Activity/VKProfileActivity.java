@@ -1,11 +1,10 @@
-package com.kosi0917.textandfacerecognitionapp.Activity;
+package com.kosi0917.textandfacerecognitionapp.ui.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,8 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -166,12 +163,12 @@ public class VKProfileActivity extends AppCompatActivity implements View.OnClick
                                 JSONObject attachmentPhoto = (JSONObject) attachmentObject.get("photo");
 
                                 photo.setId(Integer.parseInt(attachmentPhoto.get("id").toString()));
-                                photo.setOwner_id(Integer.parseInt(attachmentPhoto.get("owner_id").toString()));
-                                photo.setPhoto_75(attachmentPhoto.get("photo_75").toString());
-                                photo.setPhoto_130(attachmentPhoto.get("photo_130").toString());
-                                photo.setPhoto_604(attachmentPhoto.get("photo_604").toString());
-                                photo.setPhoto_807(attachmentPhoto.get("photo_807").toString());
-                                photo.setPhoto_1280(attachmentPhoto.get("photo_1280").toString());
+                                photo.setOwnerId(Integer.parseInt(attachmentPhoto.get("owner_id").toString()));
+                                photo.setPhoto75(attachmentPhoto.get("photo_75").toString());
+                                photo.setPhoto130(attachmentPhoto.get("photo_130").toString());
+                                photo.setPhoto604(attachmentPhoto.get("photo_604").toString());
+                                photo.setPhoto807(attachmentPhoto.get("photo_807").toString());
+                                photo.setPhoto1280(attachmentPhoto.get("photo_1280").toString());
                                 photo.setDate(Integer.parseInt(attachmentPhoto.get("date").toString()));
                                 photoListFromWall.add(photo);
                             }

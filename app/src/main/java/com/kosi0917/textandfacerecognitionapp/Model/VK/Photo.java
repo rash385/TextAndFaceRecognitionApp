@@ -1,95 +1,164 @@
+
 package com.kosi0917.textandfacerecognitionapp.Model.VK;
 
-/**
- * Created by vibo0917 on 12/14/2017.
- */
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Photo {
 
-    private int id;
-    private int owner_id;
-    private String photo_75;
-    private String photo_130;
-    private String photo_604;
-    private String photo_807;
-    private String photo_1280;
-    private int date;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("album_id")
+    @Expose
+    private Integer albumId;
+    @SerializedName("owner_id")
+    @Expose
+    private Integer ownerId;
+    @SerializedName("user_id")
+    @Expose
+    private Integer userId;
+    @SerializedName("photo_75")
+    @Expose
+    private String photo75;
+    @SerializedName("photo_130")
+    @Expose
+    private String photo130;
+    @SerializedName("photo_604")
+    @Expose
+    private String photo604;
+    @SerializedName("photo_807")
+    @Expose
+    private String photo807;
+    @SerializedName("photo_1280")
+    @Expose
+    private String photo1280;
+    @SerializedName("width")
+    @Expose
+    private Integer width;
+    @SerializedName("height")
+    @Expose
+    private Integer height;
+    @SerializedName("text")
+    @Expose
+    private String text;
+    @SerializedName("date")
+    @Expose
+    private Integer date;
+    @SerializedName("access_key")
+    @Expose
+    private String accessKey;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getOwner_id() {
-        return owner_id;
+    public Integer getAlbumId() {
+        return albumId;
     }
 
-    public void setOwner_id(int owner_id) {
-        this.owner_id = owner_id;
+    public void setAlbumId(Integer albumId) {
+        this.albumId = albumId;
     }
 
-    public String getPhoto_75() {
-        return photo_75;
+    public Integer getOwnerId() {
+        return ownerId;
     }
 
-    public void setPhoto_75(String photo_75) {
-        this.photo_75 = photo_75;
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
     }
 
-    public String getPhoto_130() {
-        return photo_130;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setPhoto_130(String photo_130) {
-        this.photo_130 = photo_130;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getPhoto_604() {
-        return photo_604;
+    public String getPhoto75() {
+        return photo75;
     }
 
-    public void setPhoto_604(String photo_604) {
-        this.photo_604 = photo_604;
+    public void setPhoto75(String photo75) {
+        this.photo75 = photo75;
     }
 
-    public String getPhoto_807() {
-        return photo_807;
+    public String getPhoto130() {
+        return photo130;
     }
 
-    public void setPhoto_807(String photo_807) {
-        this.photo_807 = photo_807;
+    public void setPhoto130(String photo130) {
+        this.photo130 = photo130;
     }
 
-    public String getPhoto_1280() {
-        return photo_1280;
+    public String getPhoto604() {
+        return photo604;
     }
 
-    public void setPhoto_1280(String photo_1280) {
-        this.photo_1280 = photo_1280;
+    public void setPhoto604(String photo604) {
+        this.photo604 = photo604;
     }
 
-    public int getDate() {
+    public String getPhoto807() {
+        return photo807;
+    }
+
+    public void setPhoto807(String photo807) {
+        this.photo807 = photo807;
+    }
+
+    public String getPhoto1280() {
+        return photo1280;
+    }
+
+    public void setPhoto1280(String photo1280) {
+        this.photo1280 = photo1280;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Integer getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(Integer date) {
         this.date = date;
     }
 
-    @Override
-    public String toString() {
-        return "Photo{" +
-                "id=" + id +
-                ", owner_id=" + owner_id +
-                ", photo_75='" + photo_75 + '\'' +
-                ", photo_130='" + photo_130 + '\'' +
-                ", photo_604='" + photo_604 + '\'' +
-                ", photo_807='" + photo_807 + '\'' +
-                ", photo_1280='" + photo_1280 + '\'' +
-                ", date=" + date +
-                '}';
+    public String getAccessKey() {
+        return accessKey;
     }
+
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
+    }
+
 }

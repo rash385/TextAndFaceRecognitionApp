@@ -13,4 +13,12 @@
     <string name="analize">Analise</string>
     <string name="picture">Picture</string>
     <integer name="com_vk_sdk_AppId">6288050</integer>
+    
+    <string name="screen_name_news">News</string>
+
+    <string name="font_heart">&#xE87D;</string>
+
+    <string name="font_comment">&#xE0B9;</string>
+
+    <string name="font_repost">&#xE050;</string>
 </resources>
