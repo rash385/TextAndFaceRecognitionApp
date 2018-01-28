@@ -52,9 +52,6 @@ public class FacebookLoginActivity extends AppCompatActivity implements  Authent
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_facebook);
 
-        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
-        Log.d("MainActivity", "Fingerprint: " + Arrays.toString(fingerprints));
-
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.loginButton);
 

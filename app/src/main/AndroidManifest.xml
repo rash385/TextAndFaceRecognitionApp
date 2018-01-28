@@ -34,9 +34,9 @@
             android:theme="@style/AppTheme.NoActionBar"
             />
 
-        <activity android:name=".ui.Activity.VKProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+        <!--<activity android:name=".ui.Activity.VKProfileActivity"-->
+            <!--android:theme="@style/AppTheme.NoActionBar"-->
+            <!--/>-->
 
         <activity android:name=".ProfileActivity"
                   android:theme="@style/AppTheme.NoActionBar"

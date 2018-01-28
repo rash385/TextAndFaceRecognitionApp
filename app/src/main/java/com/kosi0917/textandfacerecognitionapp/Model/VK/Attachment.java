@@ -1,33 +1,13 @@
-
 package com.kosi0917.textandfacerecognitionapp.Model.VK;
 
+import com.vk.sdk.api.model.Identifiable;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+/**
+ * Created by mozil on 28.01.2018.
+ */
 
-public class Attachment {
+public interface Attachment extends Identifiable {
 
-    @SerializedName("type")
-    @Expose
-    private String type;
-    @SerializedName("photo")
-    @Expose
-    private Photo photo;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Photo getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Photo photo) {
-        this.photo = photo;
-    }
+    String getType();
 
 }

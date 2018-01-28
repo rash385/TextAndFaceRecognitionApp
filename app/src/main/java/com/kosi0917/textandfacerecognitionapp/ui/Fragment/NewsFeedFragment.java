@@ -9,9 +9,13 @@ import android.widget.Toast;
 
 import com.kosi0917.textandfacerecognitionapp.Application.Application;
 import com.kosi0917.textandfacerecognitionapp.Common.BaseAdapter;
+import com.kosi0917.textandfacerecognitionapp.Common.utils.VkListHelper;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.CurrentUser;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.WallItem;
+import com.kosi0917.textandfacerecognitionapp.Model.view.BaseViewModel;
 import com.kosi0917.textandfacerecognitionapp.Model.view.NewsItemBodyViewModel;
+import com.kosi0917.textandfacerecognitionapp.Model.view.NewsItemFooterViewModel;
+import com.kosi0917.textandfacerecognitionapp.Model.view.NewsItemHeaderViewModel;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.kosi0917.textandfacerecognitionapp.rest.api.WallApi;
 import com.kosi0917.textandfacerecognitionapp.rest.model.request.WallGetRequestModel;
@@ -32,42 +36,40 @@ import retrofit2.Response;
  * Created by vibo0917 on 1/25/2018.
  */
 
-public class NewsFeedFragment extends BaseFragment {
+public class NewsFeedFragment extends BaseFeedFragment {
 
     @Inject
     WallApi mWallApi;
 
-    RecyclerView mRecyclerView;
 
-    BaseAdapter mAdapter;
 
     public NewsFeedFragment() {
+        // Required empty public constructor
     }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Application.getApplicationComponent().inject(this);
-    }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setUpRecyclerView(view);
-        setUpAdapter(mRecyclerView);
+        Application.getApplicationComponent().inject(this);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mWallApi.get(new WallGetRequestModel(-86529522).toMap()).enqueue(new Callback<WallGetResponse>() {
+        mWallApi.get(new WallGetRequestModel(-158518042).toMap()).enqueue(new Callback<WallGetResponse>() {
             @Override
             public void onResponse(Call<WallGetResponse> call, Response<WallGetResponse> response) {
+                List<WallItem> wallItems = VkListHelper.getWallList(response.body().response);
+                List<BaseViewModel> list = new ArrayList<>();
 
-                List<NewsItemBodyViewModel> list = new ArrayList<>();
-                for (WallItem item : response.body().response.getItems()) {
+                for (WallItem item : wallItems) {
+                    list.add(new NewsItemHeaderViewModel(item));
                     list.add(new NewsItemBodyViewModel(item));
+                    list.add(new NewsItemFooterViewModel(item));
                 }
                 mAdapter.addItems(list);
                 Toast.makeText(getActivity(), "Likes: " + response.body().response.getItems().get(0).getLikes().getCount(), Toast.LENGTH_LONG).show();
@@ -81,23 +83,7 @@ public class NewsFeedFragment extends BaseFragment {
     }
 
     @Override
-    protected int getMainContentLayout() {
-        return R.layout.vk_fragment_feed;
-    }
-
-    @Override
     public int onCreateToolbarTitle() {
         return R.string.screen_name_news;
-    }
-
-    private void setUpRecyclerView(View rootView) {
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_list);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
-
-    protected void setUpAdapter(RecyclerView rv) {
-        mAdapter = new BaseAdapter();
-        rv.setAdapter(mAdapter);
     }
 }

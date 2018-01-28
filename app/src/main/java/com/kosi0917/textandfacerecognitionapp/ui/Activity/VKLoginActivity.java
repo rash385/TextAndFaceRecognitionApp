@@ -3,6 +3,7 @@ package com.kosi0917.textandfacerecognitionapp.ui.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -10,6 +11,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.kosi0917.textandfacerecognitionapp.Application.Application;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.CurrentUser;
 import com.kosi0917.textandfacerecognitionapp.R;
+import com.kosi0917.textandfacerecognitionapp.consts.ApiConstants;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.MainPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.view.MainView;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.NewsFeedFragment;
@@ -23,10 +25,13 @@ import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.util.VKUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Arrays;
 
 /**
  * Created by Lawrence on 06.12.2017.
@@ -37,23 +42,25 @@ public class VKLoginActivity  extends BaseActivity implements MainView {
     @InjectPresenter
     MainPresenter mPresenter;
 
-    private String[] scope = new String[] {VKScope.WALL, VKScope.FRIENDS, VKScope.MESSAGES, VKScope.PHOTOS};
+    //private String[] scope = new String[] {VKScope.WALL, VKScope.FRIENDS, VKScope.MESSAGES, VKScope.PHOTOS};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
+//        Log.d("MainActivity", "Fingerprint: " + Arrays.toString(fingerprints));
         Application.getApplicationComponent().inject(this);
         mPresenter.checkAuth();
     }
 
     @Override
     protected int getMainContentLayout() {
-        return R.layout.vk_profile_activity;
+        return R.layout.vk_fragment_feed;
     }
 
     @Override
     public void startSignIn() {
-        VKSdk.login(this, scope);
+        VKSdk.login(this, ApiConstants.scope);
     }
 
     @Override

@@ -8,7 +8,7 @@ import com.vk.sdk.VKScope;
 
 public class ApiConstants {
 
-    private String[] scope = new String[] {VKScope.WALL, VKScope.FRIENDS, VKScope.MESSAGES, VKScope.PHOTOS};
+    public static String[] scope = new String[] {VKScope.WALL, VKScope.FRIENDS, VKScope.MESSAGES, VKScope.PHOTOS};
     public static final Double DEFAULT_VERSION = 5.67;
     public static final int DEFAULT_COUNT = 10;
 

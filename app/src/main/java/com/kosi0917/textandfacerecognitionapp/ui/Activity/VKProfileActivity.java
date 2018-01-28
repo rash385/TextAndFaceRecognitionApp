@@ -45,25 +45,25 @@ public class VKProfileActivity extends AppCompatActivity implements View.OnClick
     List<VkModel> wallList;
 
 
-    @SuppressLint("SetTextI18n")
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.vk_profile_activity);
-   //     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
- //       setSupportActionBar(toolbar);
-        Bundle inBundle = getIntent().getExtras();
-        if (inBundle != null) {
-            OWNER_ID = inBundle.getString("owner_id");
-            String name = inBundle.getString("name");
-            String surname = inBundle.getString("surname");
-            String photo_max_orig = inBundle.getString("photo_max_orig");
-            TextView nameView = (TextView) findViewById(R.id.VKNameAndSurname);
-            nameView.setText("" + name + " " + surname);
-
-            new DownloadImage((ImageView) findViewById(R.id.VKProfileImage)).execute(photo_max_orig);
-        }
-    }
+//    @SuppressLint("SetTextI18n")
+//    @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.vk_profile_activity);
+//   //     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+// //       setSupportActionBar(toolbar);
+//        Bundle inBundle = getIntent().getExtras();
+//        if (inBundle != null) {
+//            OWNER_ID = inBundle.getString("owner_id");
+//            String name = inBundle.getString("name");
+//            String surname = inBundle.getString("surname");
+//            String photo_max_orig = inBundle.getString("photo_max_orig");
+//            TextView nameView = (TextView) findViewById(R.id.VKNameAndSurname);
+//            nameView.setText("" + name + " " + surname);
+//
+//            new DownloadImage((ImageView) findViewById(R.id.VKProfileImage)).execute(photo_max_orig);
+//        }
+//    }
 
     @Override
     public void onClick(View view) {

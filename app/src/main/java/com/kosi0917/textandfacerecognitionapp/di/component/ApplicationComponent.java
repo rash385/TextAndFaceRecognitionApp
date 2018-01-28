@@ -6,6 +6,8 @@ import com.kosi0917.textandfacerecognitionapp.di.module.RestModule;
 import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Activity.VKLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.NewsFeedFragment;
+import com.kosi0917.textandfacerecognitionapp.ui.holder.NewsItemBodyHolder;
+import com.kosi0917.textandfacerecognitionapp.ui.holder.NewsItemFooterHolder;
 
 
 import javax.inject.Singleton;
@@ -25,4 +27,7 @@ public interface ApplicationComponent {
 
     void inject(NewsFeedFragment fragment);
 
+    //holders
+    void inject(NewsItemBodyHolder holder);
+    void inject(NewsItemFooterHolder holder);
 }
