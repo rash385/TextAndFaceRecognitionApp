@@ -58,7 +58,6 @@ public class ImageActivity extends AppCompatActivity {
 
     private void initViews() {
         btnProcess = (Button)findViewById(R.id.analise);
-     //   btnTakePicture = (Button)findViewById(R.id.btnTakePic);
         imageView = (ImageView)findViewById(R.id.imageView);
 
         //Event

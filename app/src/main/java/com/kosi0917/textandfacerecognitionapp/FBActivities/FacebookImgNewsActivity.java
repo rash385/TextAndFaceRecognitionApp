@@ -71,9 +71,6 @@ public class FacebookImgNewsActivity extends AppCompatActivity {
                     case R.id.ic_android:
                         //Некторый код
                         break;
-               /*     case R.id.newsPicId:
-                        goImageAnaliser();
-                        break;*/
                 }
                 return false;
             }
