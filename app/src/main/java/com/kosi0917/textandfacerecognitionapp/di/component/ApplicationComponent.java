@@ -3,6 +3,7 @@ package com.kosi0917.textandfacerecognitionapp.di.component;
 import com.kosi0917.textandfacerecognitionapp.di.module.ApplicationModule;
 import com.kosi0917.textandfacerecognitionapp.di.module.ManagerModule;
 import com.kosi0917.textandfacerecognitionapp.di.module.RestModule;
+import com.kosi0917.textandfacerecognitionapp.mvp.presenter.NewsFeedPresenter;
 import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Activity.VKLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.NewsFeedFragment;
@@ -30,4 +31,7 @@ public interface ApplicationComponent {
     //holders
     void inject(NewsItemBodyHolder holder);
     void inject(NewsItemFooterHolder holder);
+
+    //presenters
+    void inject(NewsFeedPresenter presenter);
 }

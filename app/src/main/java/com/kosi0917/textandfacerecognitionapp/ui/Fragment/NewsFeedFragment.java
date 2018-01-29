@@ -3,6 +3,7 @@ package com.kosi0917.textandfacerecognitionapp.ui.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.kosi0917.textandfacerecognitionapp.Application.Application;
 import com.kosi0917.textandfacerecognitionapp.Common.utils.VkListHelper;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.WallItem;
@@ -11,6 +12,8 @@ import com.kosi0917.textandfacerecognitionapp.Model.view.NewsItemBodyViewModel;
 import com.kosi0917.textandfacerecognitionapp.Model.view.NewsItemFooterViewModel;
 import com.kosi0917.textandfacerecognitionapp.Model.view.NewsItemHeaderViewModel;
 import com.kosi0917.textandfacerecognitionapp.R;
+import com.kosi0917.textandfacerecognitionapp.mvp.presenter.BaseFeedPresenter;
+import com.kosi0917.textandfacerecognitionapp.mvp.presenter.NewsFeedPresenter;
 import com.kosi0917.textandfacerecognitionapp.rest.api.WallApi;
 import com.kosi0917.textandfacerecognitionapp.rest.model.request.WallGetRequestModel;
 import com.kosi0917.textandfacerecognitionapp.rest.model.response.GetWallResponse;
@@ -37,7 +40,8 @@ public class NewsFeedFragment extends BaseFeedFragment {
     @Inject
     WallApi mWallApi;
 
-
+    @InjectPresenter
+    NewsFeedPresenter mPresenter;
 
     public NewsFeedFragment() {
         // Required empty public constructor
@@ -52,23 +56,10 @@ public class NewsFeedFragment extends BaseFeedFragment {
         Application.getApplicationComponent().inject(this);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
-        mWallApi.get(new WallGetRequestModel(-72495085).toMap())
-                .flatMap(full -> Observable.fromIterable(VkListHelper.getWallList(full.response)))
-                .flatMap(wallItem -> {
-                    List<BaseViewModel> baseItems = new ArrayList<>();
-                    baseItems.add(new NewsItemHeaderViewModel(wallItem));
-                    baseItems.add(new NewsItemBodyViewModel(wallItem));
-                    baseItems.add(new NewsItemFooterViewModel(wallItem));
-                    return Observable.fromIterable(baseItems);
-                })
-                .toList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(objects -> mAdapter.addItems(objects));
+    @Override
+    protected BaseFeedPresenter onCreateFeedPresenter() {
+        return mPresenter;
     }
 
     @Override

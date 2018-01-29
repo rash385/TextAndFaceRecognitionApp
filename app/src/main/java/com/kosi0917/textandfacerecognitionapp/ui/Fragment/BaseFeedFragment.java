@@ -7,31 +7,52 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.kosi0917.textandfacerecognitionapp.Common.BaseAdapter;
+import com.kosi0917.textandfacerecognitionapp.Model.view.BaseViewModel;
 import com.kosi0917.textandfacerecognitionapp.R;
+import com.kosi0917.textandfacerecognitionapp.mvp.presenter.BaseFeedPresenter;
+import com.kosi0917.textandfacerecognitionapp.mvp.view.BaseFeedView;
+
+import java.util.List;
 
 /**
  * Created by mozil on 28.01.2018.
  */
 
-public abstract class BaseFeedFragment extends BaseFragment{
+public abstract class BaseFeedFragment extends BaseFragment implements BaseFeedView {
 
-    protected SwipeRefreshLayout mSwipeRefreshLayout;
-    protected ProgressBar mProgressBar;
+
+    protected BaseFeedPresenter mBaseFeedPresenter;
 
     RecyclerView mRecyclerView;
 
     BaseAdapter mAdapter;
 
+    protected SwipeRefreshLayout mSwipeRefreshLayout;
+    protected ProgressBar mProgressBar;
+
+    protected abstract BaseFeedPresenter onCreateFeedPresenter();
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setUpSwipeToRefreshLayout(view);
 
         setUpRecyclerView(view);
         setUpAdapter(mRecyclerView);
+        setUpSwipeToRefreshLayout(view);
+
+        mBaseFeedPresenter = onCreateFeedPresenter();
+        mBaseFeedPresenter.loadStart();
     }
+
+
+    @Override
+    protected int getMainContentLayout() {
+        return R.layout.vk_fragment_feed;
+    }
+
 
     private void setUpRecyclerView(View rootView) {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_list);
@@ -44,18 +65,48 @@ public abstract class BaseFeedFragment extends BaseFragment{
     }
 
     private void setUpSwipeToRefreshLayout(View rootView) {
-        mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_refresh);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
+        mSwipeRefreshLayout.setOnRefreshListener(() -> onCreateFeedPresenter().loadRefresh());
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+
         mProgressBar = getBaseActivity().getProgressBar();
     }
 
+
     @Override
-    protected int getMainContentLayout() {
-        return R.layout.vk_fragment_feed;
+    public void showRefreshing() {
     }
 
     @Override
-    public int onCreateToolbarTitle() {
-        return 0;
+    public void hideRefreshing() {
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+
+    @Override
+    public void showListProgress() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideListProgress() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+
+    @Override
+    public void showError(String message) {
+        Toast.makeText(getBaseActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    public void setItems(List<BaseViewModel> items) {
+        mAdapter.setItems(items);
+    }
+
+    @Override
+    public void addItems(List<BaseViewModel> items) {
+        mAdapter.addItems(items);
     }
 }
