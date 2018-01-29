@@ -1,12 +1,11 @@
 package com.kosi0917.textandfacerecognitionapp.rest.api;
 
-import com.kosi0917.textandfacerecognitionapp.rest.model.response.WallGetResponse;
+import com.kosi0917.textandfacerecognitionapp.rest.model.response.GetWallResponse;
 
 import java.util.Map;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -16,6 +15,6 @@ import retrofit2.http.QueryMap;
 public interface WallApi {
 
     @GET(ApiMethods.WALL_GET)
-    Call<WallGetResponse> get(@QueryMap Map<String, String> map);
+    Observable<GetWallResponse> get(@QueryMap Map<String, String> map);
 
 }

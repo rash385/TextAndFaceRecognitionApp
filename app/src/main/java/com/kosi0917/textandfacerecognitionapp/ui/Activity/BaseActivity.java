@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.kosi0917.textandfacerecognitionapp.Application.Application;
@@ -19,16 +20,23 @@ import javax.inject.Inject;
 
 public abstract class BaseActivity extends MvpAppCompatActivity {
 
+
+    protected ProgressBar mProgressBar;
+
     @Inject
     MyFragmentManager myFragmentManager;
+
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Application.getApplicationComponent().inject(this);
         setContentView(R.layout.vk_activity_base);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Application.getApplicationComponent().inject(this);
+
+        mProgressBar = (ProgressBar) findViewById(R.id.progress);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FrameLayout parent = (FrameLayout) findViewById(R.id.main_wrapper);
@@ -63,6 +71,10 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(title);
         }
+    }
+
+    public ProgressBar getProgressBar() {
+        return mProgressBar;
     }
 
     @Override

@@ -2,9 +2,11 @@ package com.kosi0917.textandfacerecognitionapp.ui.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.kosi0917.textandfacerecognitionapp.Common.BaseAdapter;
 import com.kosi0917.textandfacerecognitionapp.R;
@@ -15,6 +17,9 @@ import com.kosi0917.textandfacerecognitionapp.R;
 
 public abstract class BaseFeedFragment extends BaseFragment{
 
+    protected SwipeRefreshLayout mSwipeRefreshLayout;
+    protected ProgressBar mProgressBar;
+
     RecyclerView mRecyclerView;
 
     BaseAdapter mAdapter;
@@ -22,6 +27,7 @@ public abstract class BaseFeedFragment extends BaseFragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setUpSwipeToRefreshLayout(view);
 
         setUpRecyclerView(view);
         setUpAdapter(mRecyclerView);
@@ -35,6 +41,12 @@ public abstract class BaseFeedFragment extends BaseFragment{
     protected void setUpAdapter(RecyclerView rv) {
         mAdapter = new BaseAdapter();
         rv.setAdapter(mAdapter);
+    }
+
+    private void setUpSwipeToRefreshLayout(View rootView) {
+        mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_refresh);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        mProgressBar = getBaseActivity().getProgressBar();
     }
 
     @Override

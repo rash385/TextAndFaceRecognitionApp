@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
 
 /**
  * Created by vibo0917 on 1/24/2018.
@@ -31,6 +32,10 @@ public abstract class BaseFragment extends MvpAppCompatFragment {
 
     public String createToolbarTitle(Context context) {
         return context.getString(onCreateToolbarTitle());
+    }
+
+    public BaseActivity getBaseActivity() {
+        return (BaseActivity) getActivity();
     }
 
     @StringRes
