@@ -1,6 +1,7 @@
 package com.kosi0917.textandfacerecognitionapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities.ImageActivity;
 import com.kosi0917.textandfacerecognitionapp.Interface.ItemClickListener;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
@@ -41,6 +43,16 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
             holder.txtPubDate.setText("");
             holder.txtContent.setText("");
 
+            holder.setItemClickListener(new ItemClickListener() {
+                @Override
+                public void onClick(View view, int position, boolean isLongClick) {
+                    if(!isLongClick){
+                        Intent intent = new Intent(view.getContext(),ImageActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContext.startActivity(intent);
+                    }
+                }
+            });
     }
 
     @Override
