@@ -48,7 +48,7 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
                 public void onClick(View view, int position, boolean isLongClick) {
                     if(!isLongClick){
                         Intent intent = new Intent(view.getContext(),ImageActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContext.startActivity(intent);
                     }
                 }

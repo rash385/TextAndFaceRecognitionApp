@@ -34,6 +34,9 @@
             android:theme="@style/AppTheme.NoActionBar"
             />
 
+        <activity android:name=".ImagesAnalyzer.ImageActivities.ImageActivity"/>
+
+
         <activity android:name=".Activity.VKProfileActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
