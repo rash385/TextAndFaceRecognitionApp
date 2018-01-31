@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageHelper;
+import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.microsoft.projectoxford.emotion.EmotionServiceClient;
 import com.microsoft.projectoxford.emotion.EmotionServiceRestClient;
@@ -37,9 +38,12 @@ import java.util.List;
 public class ImageActivity extends AppCompatActivity {
     ImageView imageView;
     Button btnProcess;
+
     EmotionServiceClient restClient = new EmotionServiceRestClient("87aa57dc540b439193a60cc5bce69f90");
     private int TAKE_PICTURE_CODE = 100;
+
     Bitmap mBitmap;
+    String facebookImageURL;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -48,9 +52,15 @@ public class ImageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Bundle inBundle = getIntent().getExtras();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_analize);
-
+        //Проверка на существование url
+        try {
+            facebookImageURL = inBundle.getString("imageUrl");
+        }catch (Exception e){
+            facebookImageURL = "";
+        }
         initViews();
 
         // if (checkSelfPermission(Manifest.p))
@@ -58,15 +68,9 @@ public class ImageActivity extends AppCompatActivity {
 
     private void initViews() {
         btnProcess = (Button)findViewById(R.id.analise);
-        imageView = (ImageView)findViewById(R.id.imageView);
-
-        //Event
-/*        btnTakePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takePicFromGallery();
-            }
-        });*/
+        imageView = (ImageView)findViewById(R.id.imageView2);
+        //Загружаем по url картинку
+        new ProfileActivity.DownloadImage((ImageView)findViewById(R.id.imageView2)).execute(facebookImageURL);
 
         btnProcess.setOnClickListener(new View.OnClickListener() {
             @Override
