@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -71,7 +72,9 @@ public class ImageActivity extends AppCompatActivity {
         imageView = (ImageView)findViewById(R.id.imageView2);
         //Загружаем по url картинку
         new ProfileActivity.DownloadImage((ImageView)findViewById(R.id.imageView2)).execute(facebookImageURL);
-
+        mBitmap =((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        //костыль
+        imageView.setImageBitmap(mBitmap);
         btnProcess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
