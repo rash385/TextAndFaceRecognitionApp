@@ -73,8 +73,6 @@ public class ImageActivity extends AppCompatActivity {
         //Загружаем по url картинку
         new ProfileActivity.DownloadImage((ImageView)findViewById(R.id.imageView2)).execute(facebookImageURL);
         mBitmap =((BitmapDrawable) imageView.getDrawable()).getBitmap();
-        //костыль
-        imageView.setImageBitmap(mBitmap);
         btnProcess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,8 +87,8 @@ public class ImageActivity extends AppCompatActivity {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         mBitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
         ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-
         //Create Async Task to Process Data
+        //TODO create url request on Microsoft API
         AsyncTask<InputStream,String,List<RecognizeResult>> processAsync = new AsyncTask<InputStream, String, List<RecognizeResult>>() {
 
             ProgressDialog mDialog = new ProgressDialog(ImageActivity.this);
@@ -105,12 +103,12 @@ public class ImageActivity extends AppCompatActivity {
                 publishProgress("Please wait ...");
                 List<RecognizeResult> result = null;
                 try {
-                    result = restClient.recognizeImage(params[0]);
+                    System.out.println(params[0].toString());
+                    result = restClient.recognizeImage(facebookImageURL);
                 } catch (EmotionServiceException e) {
                     e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
+                System.out.println(result);
                 return  result;
             }
 
