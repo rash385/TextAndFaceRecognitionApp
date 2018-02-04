@@ -123,7 +123,7 @@ public class ImageActivity extends AppCompatActivity {
                 for (RecognizeResult res: recognizeResults)
                 {
                     String status = getEmotion(res);
-                    imageView.setImageBitmap(ImageHelper.drawRectOnBitmap(mBitmap,res.faceRectangle,status));
+                    imageView.setImageBitmap(ImageHelper.drawRectOnBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(),res.faceRectangle,status));
                 }
             }
         };
