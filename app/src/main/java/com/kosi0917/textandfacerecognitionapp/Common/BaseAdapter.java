@@ -80,4 +80,14 @@ public class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder<BaseViewMod
         return list.get(position);
     }
 
+    public int getRealItemCount() {
+        int count = 0;
+        for (int i = 0; i < getItemCount(); i++) {
+            if (!getItem(i).isItemDecorator()) {
+                count += 1;
+            }
+        }
+        return count;
+    }
+
 }

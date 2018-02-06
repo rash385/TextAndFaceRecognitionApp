@@ -42,6 +42,11 @@ public class NewsItemBodyViewModel extends BaseViewModel {
         return new NewsItemBodyHolder(view);
     }
 
+    @Override
+    public boolean isItemDecorator() {
+        return true;
+    }
+
 
     public String getText() {
         return mText;
@@ -54,4 +59,6 @@ public class NewsItemBodyViewModel extends BaseViewModel {
     public String getmAttachmentString() {
         return mAttachmentString;
     }
+
+
 }

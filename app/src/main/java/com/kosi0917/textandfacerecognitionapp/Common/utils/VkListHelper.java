@@ -19,7 +19,9 @@ public class VkListHelper {
             wallItem.setSenderName(sender.getFullName());
             wallItem.setSenderPhoto(sender.getPhoto());
 
-            wallItem.setAttachmentsString(Utils.convertAttachmentsToFontIcons(wallItem.getAttachments()));
+            if (wallItem.getAttachments() != null) {
+                wallItem.setAttachmentsString(Utils.convertAttachmentsToFontIcons(wallItem.getAttachments()));
+            }
 
             if (wallItem.haveSharedRepost()) {
                 Owner repostSender = response.getSender(wallItem.getSharedRepost().getFromId());

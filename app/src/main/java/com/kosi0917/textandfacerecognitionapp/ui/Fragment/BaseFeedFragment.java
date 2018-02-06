@@ -5,11 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.kosi0917.textandfacerecognitionapp.Common.BaseAdapter;
+import com.kosi0917.textandfacerecognitionapp.Common.manager.MyLinearLayoutManager;
 import com.kosi0917.textandfacerecognitionapp.Model.view.BaseViewModel;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.BaseFeedPresenter;
@@ -56,7 +58,21 @@ public abstract class BaseFeedFragment extends BaseFragment implements BaseFeedV
 
     private void setUpRecyclerView(View rootView) {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_list);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        MyLinearLayoutManager mLinearLayoutManager = new MyLinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                if (mLinearLayoutManager.isOnNextPagePosition()) {
+                    mBaseFeedPresenter.loadNext(mAdapter.getRealItemCount());
+                }
+            }
+        });
+
+        ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
     protected void setUpAdapter(RecyclerView rv) {
