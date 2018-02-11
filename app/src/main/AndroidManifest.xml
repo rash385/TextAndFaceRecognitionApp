@@ -36,10 +36,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             />
 
+
         <!--<activity android:name=".ui.Activity.VKProfileActivity"-->
             <!--android:theme="@style/AppTheme.NoActionBar"-->
             <!--/>-->
         <activity android:name=".ImagesAnalyzer.ImageActivities.ImageActivity"/>
+
 
 
         <activity android:name=".ProfileActivity"

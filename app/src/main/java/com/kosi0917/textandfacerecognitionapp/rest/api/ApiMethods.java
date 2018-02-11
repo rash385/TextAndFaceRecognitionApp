@@ -8,4 +8,6 @@ public class ApiMethods {
 
     public static final String WALL_GET = "wall.get";
 
+    public static final String USERS_GET = "users.get";
+
 }
