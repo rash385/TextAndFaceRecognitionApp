@@ -71,9 +71,6 @@ public class FacebookImgNewsActivity extends AppCompatActivity {
                     case R.id.ic_android:
                         //Некторый код
                         break;
-               /*     case R.id.newsPicId:
-                        goImageAnaliser();
-                        break;*/
                 }
                 return false;
             }
@@ -145,11 +142,6 @@ public class FacebookImgNewsActivity extends AppCompatActivity {
         intent.putExtra("name", firstName);
         intent.putExtra("surname", lastName);
         intent.putExtra("imageUrl", imgUrl);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-    private void goImageAnaliser(){
-        Intent intent = new Intent(this, ImageActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageHelper;
+import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.microsoft.projectoxford.emotion.EmotionServiceClient;
 import com.microsoft.projectoxford.emotion.EmotionServiceRestClient;
@@ -37,9 +39,12 @@ import java.util.List;
 public class ImageActivity extends AppCompatActivity {
     ImageView imageView;
     Button btnProcess;
+
     EmotionServiceClient restClient = new EmotionServiceRestClient("87aa57dc540b439193a60cc5bce69f90");
     private int TAKE_PICTURE_CODE = 100;
+
     Bitmap mBitmap;
+    String facebookImageURL;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -48,9 +53,15 @@ public class ImageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Bundle inBundle = getIntent().getExtras();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_analize);
-
+        //Проверка на существование url
+        try {
+            facebookImageURL = inBundle.getString("imageUrl");
+        }catch (Exception e){
+            facebookImageURL = "";
+        }
         initViews();
 
         // if (checkSelfPermission(Manifest.p))
@@ -58,17 +69,10 @@ public class ImageActivity extends AppCompatActivity {
 
     private void initViews() {
         btnProcess = (Button)findViewById(R.id.analise);
-     //   btnTakePicture = (Button)findViewById(R.id.btnTakePic);
-        imageView = (ImageView)findViewById(R.id.imageView);
-
-        //Event
-/*        btnTakePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takePicFromGallery();
-            }
-        });*/
-
+        imageView = (ImageView)findViewById(R.id.imageView2);
+        //Загружаем по url картинку
+        new ProfileActivity.DownloadImage((ImageView)findViewById(R.id.imageView2)).execute(facebookImageURL);
+        mBitmap =((BitmapDrawable) imageView.getDrawable()).getBitmap();
         btnProcess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,8 +87,8 @@ public class ImageActivity extends AppCompatActivity {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         mBitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
         ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-
         //Create Async Task to Process Data
+        //TODO create url request on Microsoft API
         AsyncTask<InputStream,String,List<RecognizeResult>> processAsync = new AsyncTask<InputStream, String, List<RecognizeResult>>() {
 
             ProgressDialog mDialog = new ProgressDialog(ImageActivity.this);
@@ -99,12 +103,12 @@ public class ImageActivity extends AppCompatActivity {
                 publishProgress("Please wait ...");
                 List<RecognizeResult> result = null;
                 try {
-                    result = restClient.recognizeImage(params[0]);
+                    System.out.println(params[0].toString());
+                    result = restClient.recognizeImage(facebookImageURL);
                 } catch (EmotionServiceException e) {
                     e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
+                System.out.println(result);
                 return  result;
             }
 
@@ -119,7 +123,7 @@ public class ImageActivity extends AppCompatActivity {
                 for (RecognizeResult res: recognizeResults)
                 {
                     String status = getEmotion(res);
-                    imageView.setImageBitmap(ImageHelper.drawRectOnBitmap(mBitmap,res.faceRectangle,status));
+                    imageView.setImageBitmap(ImageHelper.drawRectOnBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(),res.faceRectangle,status));
                 }
             }
         };
