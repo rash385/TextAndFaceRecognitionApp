@@ -1,6 +1,7 @@
 package com.kosi0917.textandfacerecognitionapp.di.module;
 
 import com.kosi0917.textandfacerecognitionapp.Common.manager.MyFragmentManager;
+import com.kosi0917.textandfacerecognitionapp.Common.manager.NetworkManager;
 
 import javax.inject.Singleton;
 
@@ -17,5 +18,11 @@ public class ManagerModule {
     @Singleton
     MyFragmentManager provideMyFragmentManager() {
         return new MyFragmentManager();
+    }
+
+    @Provides
+    @Singleton
+    NetworkManager provideNetworkManager() {
+        return new NetworkManager();
     }
 }

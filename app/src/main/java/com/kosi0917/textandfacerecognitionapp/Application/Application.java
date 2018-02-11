@@ -10,6 +10,9 @@ import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 /**
  * Created by Lawrence on 07.12.2017.
  */
@@ -37,6 +40,12 @@ public class Application extends android.app.Application {
         VKSdk.initialize(this);
         vkAccessTokenTracker.startTracking();
 
+        Realm.init(this);
+        RealmConfiguration realmConfiguration = new RealmConfiguration
+                .Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(realmConfiguration);
     }
 
     private void initComponent() {

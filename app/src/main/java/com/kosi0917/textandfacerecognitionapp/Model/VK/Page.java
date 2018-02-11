@@ -7,9 +7,10 @@ package com.kosi0917.textandfacerecognitionapp.Model.VK;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
 
 
-public class Page implements Attachment {
+public class Page extends RealmObject implements Attachment {
 
     @SerializedName("id")
     @Expose

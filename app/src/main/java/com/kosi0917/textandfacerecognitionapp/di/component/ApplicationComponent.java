@@ -1,5 +1,6 @@
 package com.kosi0917.textandfacerecognitionapp.di.component;
 
+import com.kosi0917.textandfacerecognitionapp.Common.manager.NetworkManager;
 import com.kosi0917.textandfacerecognitionapp.di.module.ApplicationModule;
 import com.kosi0917.textandfacerecognitionapp.di.module.ManagerModule;
 import com.kosi0917.textandfacerecognitionapp.di.module.RestModule;
@@ -34,4 +35,7 @@ public interface ApplicationComponent {
 
     //presenters
     void inject(NewsFeedPresenter presenter);
+
+    //managers
+    void inject(NetworkManager manager);
 }

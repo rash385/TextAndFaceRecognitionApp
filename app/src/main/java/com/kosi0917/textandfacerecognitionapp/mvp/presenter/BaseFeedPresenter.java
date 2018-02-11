@@ -1,14 +1,19 @@
 package com.kosi0917.textandfacerecognitionapp.mvp.presenter;
 
 import com.arellomobile.mvp.MvpPresenter;
+import com.kosi0917.textandfacerecognitionapp.Common.manager.NetworkManager;
 import com.kosi0917.textandfacerecognitionapp.Model.view.BaseViewModel;
 import com.kosi0917.textandfacerecognitionapp.mvp.view.BaseFeedView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
+import io.realm.RealmObject;
 
 /**
  * Created by vibo0917 on 1/29/2018.
@@ -21,6 +26,9 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
 
     private boolean mIsInLoading;
 
+    @Inject
+    NetworkManager mNetworkManager;
+
 
 
     public void loadData(ProgressType progressType, int offset, int count) {
@@ -29,8 +37,16 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
         }
         mIsInLoading = true;
 
+        mNetworkManager.getNetworkObservable()
+                .flatMap(aBoolean -> {
+                    if (!aBoolean && offset > 0) {
+                        return Observable.empty();
+                    }
 
-        onCreateLoadDataObservable(count, offset)
+                    return aBoolean
+                            ? onCreateLoadDataObservable(count, offset)
+                            : onCreateRestoreDataObservable();
+                })
                 .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -116,4 +132,11 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
                 break;
         }
     }
+
+    public void saveToDb(RealmObject item) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(realm1 -> realm1.copyToRealmOrUpdate(item));
+    }
+
+    public abstract Observable<BaseViewModel> onCreateRestoreDataObservable();
 }

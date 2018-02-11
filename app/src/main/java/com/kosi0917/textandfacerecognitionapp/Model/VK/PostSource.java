@@ -4,7 +4,9 @@ package com.kosi0917.textandfacerecognitionapp.Model.VK;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PostSource {
+import io.realm.RealmObject;
+
+public class PostSource extends RealmObject {
 
     @SerializedName("type")
     @Expose

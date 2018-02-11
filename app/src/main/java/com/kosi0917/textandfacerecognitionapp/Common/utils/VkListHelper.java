@@ -19,8 +19,8 @@ public class VkListHelper {
             wallItem.setSenderName(sender.getFullName());
             wallItem.setSenderPhoto(sender.getPhoto());
 
-            if (wallItem.getAttachments() != null) {
-                wallItem.setAttachmentsString(Utils.convertAttachmentsToFontIcons(wallItem.getAttachments()));
+            if (wallItem.getApiAttachments() != null) {
+                wallItem.setAttachmentsString(Utils.convertAttachmentsToFontIcons(wallItem.getApiAttachments()));
             }
 
             if (wallItem.haveSharedRepost()) {
@@ -29,7 +29,7 @@ public class VkListHelper {
                 wallItem.getSharedRepost().setSenderPhoto(repostSender.getPhoto());
 
                 wallItem.getSharedRepost().setAttachmentsString(Utils.convertAttachmentsToFontIcons(
-                        wallItem.getSharedRepost().getAttachments()
+                        wallItem.getSharedRepost().getApiAttachments()
                 ));
             }
         }
