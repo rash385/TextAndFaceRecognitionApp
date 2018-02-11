@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kosi0917.textandfacerecognitionapp">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -30,16 +31,16 @@
          />
 
 
-        <activity android:name=".Activity.VKLoginActivity"
+        <activity android:name=".ui.Activity.VKLoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             />
 
+        <!--<activity android:name=".ui.Activity.VKProfileActivity"-->
+            <!--android:theme="@style/AppTheme.NoActionBar"-->
+            <!--/>-->
         <activity android:name=".ImagesAnalyzer.ImageActivities.ImageActivity"/>
 
-
-        <activity android:name=".Activity.VKProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
 
         <activity android:name=".ProfileActivity"
                   android:theme="@style/AppTheme.NoActionBar"
