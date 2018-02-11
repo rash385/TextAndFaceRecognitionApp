@@ -13,28 +13,30 @@ import com.bumptech.glide.Glide;
 import com.kosi0917.textandfacerecognitionapp.Model.view.NewsItemHeaderViewModel;
 import com.kosi0917.textandfacerecognitionapp.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class NewsItemHeaderHolder extends BaseViewHolder<NewsItemHeaderViewModel>{
+public class NewsItemHeaderHolder extends BaseViewHolder<NewsItemHeaderViewModel> {
 
-    private CircleImageView civProfileImage;
+    @BindView(R.id.civ_profile_image)
+    public CircleImageView civProfileImage;
 
-    private TextView tvName;
+    @BindView(R.id.tv_profile_name)
+    public TextView tvName;
 
-    private ImageView ivRepostedIcon;
+    @BindView(R.id.iv_reposted_icon)
+    public ImageView ivRepostedIcon;
 
-    private TextView tvRepostedProfileName;
+    @BindView(R.id.tv_reposted_profile_name)
+    public TextView tvRepostedProfileName;
 
     public NewsItemHeaderHolder(View itemView) {
         super(itemView);
 
-        civProfileImage = (CircleImageView) itemView.findViewById(R.id.civ_profile_image);
-        tvName = (TextView) itemView.findViewById(R.id.tv_profile_name);
-        ivRepostedIcon = (ImageView) itemView.findViewById(R.id.iv_reposted_icon);
-        tvRepostedProfileName = (TextView) itemView.findViewById(R.id.tv_reposted_profile_name);
+        ButterKnife.bind(this, itemView);
+
     }
-
-
 
     @Override
     public void bindViewHolder(NewsItemHeaderViewModel item) {
@@ -43,6 +45,7 @@ public class NewsItemHeaderHolder extends BaseViewHolder<NewsItemHeaderViewModel
         Glide.with(context)
                 .load(item.getProfilePhoto())
                 .into(civProfileImage);
+
         tvName.setText(item.getProfileName());
 
         if (item.isRepost()) {
@@ -52,7 +55,6 @@ public class NewsItemHeaderHolder extends BaseViewHolder<NewsItemHeaderViewModel
             ivRepostedIcon.setVisibility(View.GONE);
             tvRepostedProfileName.setText(null);
         }
-
     }
 
     @Override
@@ -60,6 +62,5 @@ public class NewsItemHeaderHolder extends BaseViewHolder<NewsItemHeaderViewModel
         civProfileImage.setImageBitmap(null);
         tvName.setText(null);
         tvRepostedProfileName.setText(null);
-
     }
 }

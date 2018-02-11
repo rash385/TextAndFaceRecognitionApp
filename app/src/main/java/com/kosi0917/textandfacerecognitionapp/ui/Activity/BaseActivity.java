@@ -14,37 +14,54 @@ import com.kosi0917.textandfacerecognitionapp.ui.Fragment.BaseFragment;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by vibo0917 on 1/24/2018.
  */
 
 public abstract class BaseActivity extends MvpAppCompatActivity {
 
-
-    protected ProgressBar mProgressBar;
-
     @Inject
     MyFragmentManager myFragmentManager;
 
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.progress)
+    protected ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vk_activity_base);
+        ButterKnife.bind(this);
 
         Application.getApplicationComponent().inject(this);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progress);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FrameLayout parent = (FrameLayout) findViewById(R.id.main_wrapper);
         getLayoutInflater().inflate(getMainContentLayout(), parent);
     }
 
+
     @LayoutRes
     protected abstract int getMainContentLayout();
+
+
+    public void fragmentOnScreen(BaseFragment baseFragment) {
+        setToolbarTitle(baseFragment.createToolbarTitle(this));
+    }
+
+
+    private void setToolbarTitle(String title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+    }
+
 
     public void setContent(BaseFragment fragment) {
         myFragmentManager.setFragment(this, fragment, R.id.main_wrapper);
@@ -62,17 +79,6 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
         return myFragmentManager.removeFragment(this, fragment);
     }
 
-    public void fragmentOnScreen(BaseFragment baseFragment) {
-        setToolbarTitle(baseFragment.createToolbarTitle(this));
-    }
-
-
-    private void setToolbarTitle(String title) {
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(title);
-        }
-    }
-
     public ProgressBar getProgressBar() {
         return mProgressBar;
     }
@@ -81,5 +87,4 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     public void onBackPressed() {
         removeCurrentFragment();
     }
-
 }
