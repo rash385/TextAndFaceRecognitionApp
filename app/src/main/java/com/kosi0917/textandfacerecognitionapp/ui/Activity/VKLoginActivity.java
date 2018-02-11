@@ -9,7 +9,9 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.kosi0917.textandfacerecognitionapp.Application.Application;
+import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.CurrentUser;
+import com.kosi0917.textandfacerecognitionapp.Model.VK.Profile;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.kosi0917.textandfacerecognitionapp.consts.ApiConstants;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.MainPresenter;
@@ -21,7 +23,10 @@ import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
@@ -38,7 +43,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Lawrence on 06.12.2017.
@@ -136,6 +143,28 @@ public class VKLoginActivity  extends BaseActivity implements MainView {
                         new SectionDrawerItem().withName("Группа"),
                         item4, item5, item6, item7)
                 .build();
+    }
+
+    @Override
+    public void showCurrentUser(Profile profile) {
+        List<IProfile> profileDrawerItems = new ArrayList<>();
+        profileDrawerItems.add(new ProfileDrawerItem().withName(profile.getFullName()).withEmail(VKAccessToken.currentToken().email)
+                .withIcon(profile.getDisplayProfilePhoto()));
+        profileDrawerItems.add(new ProfileSettingDrawerItem().withName("Logout")
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                    mAccountHeader.removeProfile(0);
+                    mAccountHeader.removeProfile(0);
+                    logout();
+                    return false;
+                }));
+        mAccountHeader.setProfiles(profileDrawerItems);
+    }
+
+    private void logout(){
+        VKSdk.logout();
+        Intent login = new Intent(VKLoginActivity.this, FacebookLoginActivity.class);
+        startActivity(login);
+        finish();
     }
 
     //    @Override
