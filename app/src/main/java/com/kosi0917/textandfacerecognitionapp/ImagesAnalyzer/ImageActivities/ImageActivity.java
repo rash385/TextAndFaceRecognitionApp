@@ -122,8 +122,9 @@ public class ImageActivity extends AppCompatActivity {
                 mDialog.dismiss();
                 for (RecognizeResult res: recognizeResults)
                 {
-                    String status = getEmotion(res);
-                    imageView.setImageBitmap(ImageHelper.drawRectOnBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(),res.faceRectangle,status));
+                    List<String> emotionList = getEmotionList(res);
+                    String emotionStatus = getEmotion(res);
+                    imageView.setImageBitmap(ImageHelper.drawRectOnBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(),res.faceRectangle,emotionList,emotionStatus));
                 }
             }
         };
@@ -168,6 +169,21 @@ public class ImageActivity extends AppCompatActivity {
             return "Contempt";
 
         return "Can't detect";
+    }
+
+    private List<String> getEmotionList(RecognizeResult res){
+        List<String> list = new ArrayList<>();
+        Scores scores = res.scores;
+
+        list.add("Anger: " + scores.anger +"\n");
+        list.add("Contempt: " + scores.contempt+"\n");
+        list.add("Happiness: " + scores.happiness+"\n");
+        list.add("Disgust: " + scores.disgust+"\n");
+        list.add("Fear: " + scores.fear+"\n");
+        list.add("Neutral: " + scores.neutral+"\n");
+        list.add("Sadness: " + scores.sadness+"\n");
+        list.add("Surprise: "+ scores.surprise+"\n");
+        return list;
     }
 
     @Override
