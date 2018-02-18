@@ -1,4 +1,4 @@
-package com.kosi0917.textandfacerecognitionapp.FBActivities;
+package com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,9 +9,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.facebook.AccessToken;
@@ -20,12 +18,8 @@ import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookAdapter;
 import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookImgAdapter;
-import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities.ImageActivity;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
-import com.kosi0917.textandfacerecognitionapp.Model.facebook.Datum;
-import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;

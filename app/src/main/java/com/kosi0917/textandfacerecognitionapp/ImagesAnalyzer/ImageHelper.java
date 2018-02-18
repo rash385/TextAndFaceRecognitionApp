@@ -37,6 +37,7 @@ public class ImageHelper {
 
         drawTextOnBitmap(canvas,30,faceRectangle.left/2 + cX/5,cY+70,Color.WHITE,"Emotion here: "+ emotionStatus);
         cY=70;
+        //cY= faceRectangle.top - 40;
         for (String emotion: emotionList) {
             drawTextOnBitmap(canvas,20,50,cY,Color.WHITE, emotion);
             cY=cY+25;

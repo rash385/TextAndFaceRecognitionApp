@@ -24,11 +24,14 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingTop="16dp">
+
             <ImageView
                 android:id="@+id/newsPicId"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                android:scaleType="centerCrop"/>
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerCrop" />
           <!--  <ProgressBar
                 android:layout_width="50dp"
                 android:layout_height="50dp"
