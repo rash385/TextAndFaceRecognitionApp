@@ -73,6 +73,7 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
        // Application.getApplicationComponent().inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarFb);
+        toolbar.setTitle("Group News");
         setSupportActionBar(toolbar);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
@@ -100,7 +101,6 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         loadFeed();
     }
-
     public ProgressBar getProgressBar() {
         return mProgressBar;
     }
