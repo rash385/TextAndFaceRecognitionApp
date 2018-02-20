@@ -88,7 +88,7 @@ public class ImageActivity extends AppCompatActivity {
         mBitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
         ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
         //Create Async Task to Process Data
-        //TODO create url request on Microsoft API
+
         AsyncTask<InputStream,String,List<RecognizeResult>> processAsync = new AsyncTask<InputStream, String, List<RecognizeResult>>() {
 
             ProgressDialog mDialog = new ProgressDialog(ImageActivity.this);

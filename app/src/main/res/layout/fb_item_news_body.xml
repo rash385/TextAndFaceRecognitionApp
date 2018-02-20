@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/body"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp">
+    android:layout_height="wrap_content">
 
+    <include layout="@layout/fb_item_news_header"/>
 
-    <!--android:layout_below="@+id/newsPicId_fb"-->
     <TextView
         android:id="@+id/tv_text_fb"
         android:layout_width="wrap_content"
@@ -16,29 +15,39 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
 
-
         android:ellipsize="end"
         android:maxLines="10"
         android:textColor="@android:color/primary_text_light"
         android:textSize="15sp"
         tools:text="Text string, this is for text. Enough for text?..." />
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cv_attach_fb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_text_fb"
         android:layout_gravity="center"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="16dp"
-
         android:layout_marginRight="16dp"
 
-
         android:layout_marginTop="12dp"
-        card_view:cardCornerRadius="0dp">
 
-        <!--   <TextView
+
+        card_view:cardCornerRadius="0dp">
+        <ImageView
+            android:id="@+id/newsPicId_fb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop" />
+       <!-- <TextView
             android:id="@+id/tv_attachments_fb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,15 +59,6 @@
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
             tools:text="..." />-->
-        <ImageView
-            android:id="@+id/newsPicId_fb"
-            android:layout_width="wrap_content"
-            android:layout_height="170dp"
-            android:layout_alignLeft="@+id/cv_attach_fb"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/cv_attach_fb"
-            android:scaleType="centerCrop" />
+        <include layout="@layout/fb_item_news_footer" />
     </android.support.v7.widget.CardView>
-
-
 </RelativeLayout>
