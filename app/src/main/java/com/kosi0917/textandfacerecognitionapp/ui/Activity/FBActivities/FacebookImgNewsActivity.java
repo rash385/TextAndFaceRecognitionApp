@@ -25,6 +25,8 @@ import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookImgAdapter;
 import com.kosi0917.textandfacerecognitionapp.Application.Application;
 import com.kosi0917.textandfacerecognitionapp.Common.manager.MyFragmentManager;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
+import com.kosi0917.textandfacerecognitionapp.Model.facebook.Datum;
+import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
@@ -56,14 +58,16 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
 
     RecyclerView recyclerView;
     RootImgFeed rootImgFeed;
+    RootFeed rootFeed;
     String TAG = "FacebookImgNewsActivity";
-    String data,firstName,lastName,imgUrl;
+    String data,firstName,lastName,imgUrl,dataMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle inBundle = getIntent().getExtras();
         data = inBundle.getString("data");
+        dataMessage = inBundle.getString("dataMessages");
         firstName = inBundle.getString("name");
         lastName = inBundle.getString("surname");
         imgUrl = inBundle.getString("imageUrl");
@@ -151,7 +155,12 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
                     if(data.get(i).attachments!=null)
                         viewedData.add(data.get(i));
                 rootImgFeed = new RootImgFeed(viewedData);
-                FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed,getBaseContext());
+
+                Type newsDescriptionType = new TypeToken<List<Datum>>(){}.getType();
+                List<Datum> descriptionData = new Gson().fromJson(dataMessage, newsDescriptionType);
+                rootFeed = new RootFeed(descriptionData);
+
+                FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed,rootFeed,getBaseContext());
                 recyclerView.setAdapter(feedadapter);
                 feedadapter.notifyDataSetChanged();
             }

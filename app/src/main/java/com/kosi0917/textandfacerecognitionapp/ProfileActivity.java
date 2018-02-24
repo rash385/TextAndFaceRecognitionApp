@@ -40,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private String name, surname, imageUrl, userId;
     private String TAG = "ProfileActivity";
     private String data;
+    private String dataBeginning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +139,29 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                             if (obj.has("data")) {
                                 data = obj.getString("data");
                                 Log.e(TAG,data);
-                                goFbNewsScreenWithPick(data);
+
+                                new GraphRequest(
+                                        AccessToken.getCurrentAccessToken(),
+                                        "1995900030677807/feed",
+                                        null,
+                                        HttpMethod.GET,
+                                        new GraphRequest.Callback() {
+                                            public void onCompleted(GraphResponse response) {
+                                                Log.e(TAG,response.toString());
+                                                try {
+                                                    JSONObject obj = new JSONObject(response.getRawResponse());
+                                                    if (obj.has("data")) {
+                                                        dataBeginning = obj.getString("data");
+                                                        Log.e(TAG,data);
+                                                        goFbNewsScreenWithPick(data,dataBeginning);
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+                                ).executeAsync();
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -222,9 +245,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         finish();
     }
 
-    private void goFbNewsScreenWithPick(String data) {
+    private void goFbNewsScreenWithPick(String data,String dataBeginning) {
         Intent intent = new Intent(this, FacebookImgNewsActivity.class);
+
         intent.putExtra("data",data);
+        intent.putExtra("dataMessages", dataBeginning);
         intent.putExtra("name", name);
         intent.putExtra("surname", surname);
         intent.putExtra("imageUrl", imageUrl);

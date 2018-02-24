@@ -3,6 +3,7 @@ package com.kosi0917.textandfacerecognitionapp.ui.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -29,8 +30,10 @@ import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
+import com.vk.sdk.util.VKUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -51,8 +54,8 @@ public class VKLoginActivity  extends BaseActivity implements MainView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
-//        Log.d("MainActivity", "Fingerprint: " + Arrays.toString(fingerprints));
+        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
+        Log.d("MainActivity", "Fingerprint: " + Arrays.toString(fingerprints));
         Application.getApplicationComponent().inject(this);
         mPresenter.checkAuth();
     }
