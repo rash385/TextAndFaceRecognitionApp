@@ -32,16 +32,16 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
 
     @Override
     public FacebookImgViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = inflater.inflate(R.layout.row,parent,false);
+        View itemView = inflater.inflate(R.layout.fb_item_news_body,parent,false);
         return new FacebookImgViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(FacebookImgViewHolder holder, int position) {
             new ProfileActivity.DownloadImage(holder.feedImg).execute(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc());
-            holder.txtTitle.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription());
-            holder.txtPubDate.setText("");
-            holder.txtContent.setText("");
+            holder.txtContent.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription());
+           // holder.txtPubDate.setText("");
+           // holder.txtContent.setText("");
 
             holder.setItemClickListener(new ItemClickListener() {
                 @Override
@@ -70,10 +70,10 @@ class FacebookImgViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public FacebookImgViewHolder(View itemView) {
         super(itemView);
-        txtTitle = (TextView)itemView.findViewById(R.id.txtTitle);
-        txtPubDate = (TextView)itemView.findViewById(R.id.txtPubDate);
-        txtContent = (TextView)itemView.findViewById(R.id.txtContent);
-        feedImg = (ImageView)itemView.findViewById(R.id.newsPicId);
+       // txtTitle = (TextView)itemView.findViewById(R.id.txtTitle);
+      //  txtPubDate = (TextView)itemView.findViewById(R.id.txtPubDate);
+        txtContent = (TextView)itemView.findViewById(R.id.tv_text_fb);
+        feedImg = (ImageView)itemView.findViewById(R.id.newsPicId_fb);
 
         //Set Event
         itemView.setOnClickListener(this);
