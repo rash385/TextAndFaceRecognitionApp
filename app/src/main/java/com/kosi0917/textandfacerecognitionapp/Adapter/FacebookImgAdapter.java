@@ -20,6 +20,8 @@ import com.kosi0917.textandfacerecognitionapp.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by kosi0917 on 07-Dec-17.
  */
@@ -48,6 +50,7 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
     @Override
     public void onBindViewHolder(FacebookImgViewHolder holder, int position) {
             new ProfileActivity.DownloadImage(holder.feedImg).execute(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc());
+            new ProfileActivity.DownloadImage(holder.groupImg).execute("https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/MzwrKZOhtIS.png");
             holder.txtContent.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription());
             SimpleDateFormat formatForDateNow = new SimpleDateFormat("E yyyy.MM.dd 'in' hh:mm");
             holder.txtPubDate.setText(formatForDateNow.format(rootFeed.getData().get(position).getUpdated_time()));
@@ -76,11 +79,13 @@ class FacebookImgViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public TextView txtTitle,txtPubDate,txtContent,profileName;
     public ImageView feedImg;
+    public CircleImageView groupImg;
     private ItemClickListener itemClickListener;
 
     public FacebookImgViewHolder(View itemView) {
         super(itemView);
         txtPubDate = (TextView)itemView.findViewById(R.id.tv_date_fb);
+        groupImg = (CircleImageView)itemView.findViewById(R.id.civ_profile_image_fb);
         txtContent = (TextView)itemView.findViewById(R.id.tv_text_fb);
         feedImg = (ImageView)itemView.findViewById(R.id.newsPicId_fb);
         profileName = (TextView)itemView.findViewById(R.id.tv_profile_name_fb);
