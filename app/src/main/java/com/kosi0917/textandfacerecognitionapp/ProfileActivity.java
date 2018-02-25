@@ -126,11 +126,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     //Переход к странице с постами
     public void getFeedWithPick(){
         Bundle b = new Bundle();
+        Bundle addFields = new Bundle();
 
+        addFields.putString("fields","icon,id,name,privacy");
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
                 "1995900030677807",
-                null,
+                addFields,
                 HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {

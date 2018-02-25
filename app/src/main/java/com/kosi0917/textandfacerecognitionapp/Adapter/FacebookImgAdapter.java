@@ -50,7 +50,7 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
     @Override
     public void onBindViewHolder(FacebookImgViewHolder holder, int position) {
             new ProfileActivity.DownloadImage(holder.feedImg).execute(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc());
-            new ProfileActivity.DownloadImage(holder.groupImg).execute("https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/MzwrKZOhtIS.png");
+            new ProfileActivity.DownloadImage(holder.groupImg).execute(groupEntity.getIcon());
             holder.txtContent.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription());
             SimpleDateFormat formatForDateNow = new SimpleDateFormat("E yyyy.MM.dd 'in' hh:mm");
             holder.txtPubDate.setText(formatForDateNow.format(rootFeed.getData().get(position).getUpdated_time()));

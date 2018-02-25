@@ -23,7 +23,7 @@
                 android:id="@+id/civ_profile_image_fb"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="8dp"
                 tools:src="@color/colorAccent" />
 
             <TextView
@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
 
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@id/civ_profile_image_fb"
                 android:lines="1"
                 android:singleLine="true"

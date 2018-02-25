@@ -8,6 +8,7 @@ public class GroupEntity {
    private String name;
    private String privacy;
    private String id;
+   private String icon;
 
     public String getName() {
         return name;
@@ -31,5 +32,13 @@ public class GroupEntity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }
