@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities.ImageActivity;
 import com.kosi0917.textandfacerecognitionapp.Interface.ItemClickListener;
+import com.kosi0917.textandfacerecognitionapp.Model.facebook.GroupEntity;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
@@ -25,12 +26,14 @@ import java.util.Date;
 
 public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHolder> {
     private RootImgFeed rootImgFeed;
+    private GroupEntity groupEntity;
     private RootFeed rootFeed;
     private Context mContext;
     private LayoutInflater inflater;
 
-    public FacebookImgAdapter(RootImgFeed rootImgFeed, RootFeed rootFeed, Context mContext) {
+    public FacebookImgAdapter(RootImgFeed rootImgFeed, RootFeed rootFeed, GroupEntity groupEntity, Context mContext) {
         this.rootImgFeed = rootImgFeed;
+        this.groupEntity = groupEntity;
         this.rootFeed =rootFeed;
         this.mContext = mContext;
         inflater = LayoutInflater.from(mContext);
@@ -48,6 +51,7 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
             holder.txtContent.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription());
             SimpleDateFormat formatForDateNow = new SimpleDateFormat("E yyyy.MM.dd 'in' hh:mm");
             holder.txtPubDate.setText(formatForDateNow.format(rootFeed.getData().get(position).getUpdated_time()));
+            holder.profileName.setText(groupEntity.getName());
 
             holder.setItemClickListener(new ItemClickListener() {
                 @Override
@@ -70,7 +74,7 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
 
 class FacebookImgViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
-    public TextView txtTitle,txtPubDate,txtContent;
+    public TextView txtTitle,txtPubDate,txtContent,profileName;
     public ImageView feedImg;
     private ItemClickListener itemClickListener;
 
@@ -79,6 +83,7 @@ class FacebookImgViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         txtPubDate = (TextView)itemView.findViewById(R.id.tv_date_fb);
         txtContent = (TextView)itemView.findViewById(R.id.tv_text_fb);
         feedImg = (ImageView)itemView.findViewById(R.id.newsPicId_fb);
+        profileName = (TextView)itemView.findViewById(R.id.tv_profile_name_fb);
 
         //Set Event
         itemView.setOnClickListener(this);

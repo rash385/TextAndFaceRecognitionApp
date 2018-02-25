@@ -26,6 +26,7 @@ import com.kosi0917.textandfacerecognitionapp.Application.Application;
 import com.kosi0917.textandfacerecognitionapp.Common.manager.MyFragmentManager;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.Datum;
+import com.kosi0917.textandfacerecognitionapp.Model.facebook.GroupEntity;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
@@ -59,8 +60,9 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
     RecyclerView recyclerView;
     RootImgFeed rootImgFeed;
     RootFeed rootFeed;
+    GroupEntity groupEntity;
     String TAG = "FacebookImgNewsActivity";
-    String data,firstName,lastName,imgUrl,dataMessage;
+    String data,firstName,lastName,imgUrl,dataMessage,groupInfoJson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
         firstName = inBundle.getString("name");
         lastName = inBundle.getString("surname");
         imgUrl = inBundle.getString("imageUrl");
+        groupInfoJson = inBundle.getString("groupInfoJson");
         setContentView(R.layout.activity_facebook_login);
 //        ButterKnife.bind(this);
 
@@ -160,7 +163,10 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
                 List<Datum> descriptionData = new Gson().fromJson(dataMessage, newsDescriptionType);
                 rootFeed = new RootFeed(descriptionData);
 
-                FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed,rootFeed,getBaseContext());
+                Type newGroupType = new TypeToken<GroupEntity>(){}.getType();
+                GroupEntity groupData = new Gson().fromJson(groupInfoJson, newGroupType);
+
+                FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed,rootFeed,groupData,getBaseContext());
                 recyclerView.setAdapter(feedadapter);
                 feedadapter.notifyDataSetChanged();
             }

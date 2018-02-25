@@ -39,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private ShareDialog shareDialog;
     private String name, surname, imageUrl, userId;
     private String TAG = "ProfileActivity";
-    private String data;
+    private String data, groupInfoJson;
     private String dataBeginning;
 
     @Override
@@ -123,8 +123,33 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         ).executeAsync();
     }
 
+    //Переход к странице с постами
     public void getFeedWithPick(){
         Bundle b = new Bundle();
+
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "1995900030677807",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        Log.e(TAG,response.toString());
+                        try {
+                            JSONObject obj = new JSONObject(response.getRawResponse());
+                            groupInfoJson = obj.toString();
+                            Log.e(TAG,groupInfoJson);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).executeAsync();
+
+
+        /*Получение постов
+        * Получение вложений и общей информации через Graph Api
+         */
         b.putString("fields", "attachments");
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
@@ -140,6 +165,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                                 data = obj.getString("data");
                                 Log.e(TAG,data);
 
+                                //Получение общей информации о посте onSuccess()
                                 new GraphRequest(
                                         AccessToken.getCurrentAccessToken(),
                                         "1995900030677807/feed",
@@ -152,8 +178,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                                                     JSONObject obj = new JSONObject(response.getRawResponse());
                                                     if (obj.has("data")) {
                                                         dataBeginning = obj.getString("data");
-                                                        Log.e(TAG,data);
-                                                        goFbNewsScreenWithPick(data,dataBeginning);
+                                                        Log.e(TAG,dataBeginning);
+                                                        goFbNewsScreenWithPick(data,dataBeginning,groupInfoJson);
                                                     }
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
@@ -245,7 +271,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         finish();
     }
 
-    private void goFbNewsScreenWithPick(String data,String dataBeginning) {
+    private void goFbNewsScreenWithPick(String data,String dataBeginning, String groupInfoJson) {
         Intent intent = new Intent(this, FacebookImgNewsActivity.class);
 
         intent.putExtra("data",data);
@@ -253,6 +279,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         intent.putExtra("name", name);
         intent.putExtra("surname", surname);
         intent.putExtra("imageUrl", imageUrl);
+        intent.putExtra("groupInfoJson",groupInfoJson);
         startActivity(intent);
         finish();
     }
