@@ -16,6 +16,7 @@ import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -45,8 +46,8 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
     public void onBindViewHolder(FacebookImgViewHolder holder, int position) {
             new ProfileActivity.DownloadImage(holder.feedImg).execute(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc());
             holder.txtContent.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription());
-            holder.txtPubDate.setText(rootFeed.getData().get(position).getUpdated_time().toString());
-           // holder.txtContent.setText("");
+            SimpleDateFormat formatForDateNow = new SimpleDateFormat("E yyyy.MM.dd 'in' hh:mm");
+            holder.txtPubDate.setText(formatForDateNow.format(rootFeed.getData().get(position).getUpdated_time()));
 
             holder.setItemClickListener(new ItemClickListener() {
                 @Override

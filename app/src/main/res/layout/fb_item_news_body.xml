@@ -24,12 +24,14 @@
         android:layout_alignLeft="@+id/cv_attach_fb"
         android:layout_alignStart="@+id/cv_attach_fb"
         android:layout_below="@+id/header"
+        android:layout_marginLeft="8dp"
         android:ellipsize="end"
         android:maxLines="10"
         android:textColor="@android:color/primary_text_light"
         android:textSize="15sp"
         android:visibility="visible"
-        tools:text="Text string, this is for text. Enough for text?..." />
+        tools:text="Text string, this is for text. Enough for text?..."
+        android:layout_marginStart="8dp" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_attach_fb"
@@ -38,10 +40,12 @@
 
 
         android:layout_alignParentLeft="true"
+        android:layout_marginLeft="8dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tv_text_fb"
         android:layout_gravity="center"
-        card_view:cardCornerRadius="0dp">
+        card_view:cardCornerRadius="0dp"
+        android:layout_marginStart="8dp">
 
         <ImageView
             android:id="@+id/newsPicId_fb"
