@@ -2,6 +2,8 @@ package com.kosi0917.textandfacerecognitionapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +12,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities.ImageActivity;
+import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageHelper;
 import com.kosi0917.textandfacerecognitionapp.Interface.ItemClickListener;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.GroupEntity;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
+import com.microsoft.projectoxford.emotion.EmotionServiceClient;
+import com.microsoft.projectoxford.emotion.EmotionServiceRestClient;
+import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
+import com.microsoft.projectoxford.emotion.contract.Scores;
+import com.microsoft.projectoxford.emotion.rest.EmotionServiceException;
 
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -32,6 +43,7 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
     private RootFeed rootFeed;
     private Context mContext;
     private LayoutInflater inflater;
+    private EmotionServiceClient rest= new EmotionServiceRestClient("87aa57dc540b439193a60cc5bce69f90");
 
     public FacebookImgAdapter(RootImgFeed rootImgFeed, RootFeed rootFeed, GroupEntity groupEntity, Context mContext) {
         this.rootImgFeed = rootImgFeed;
@@ -56,6 +68,8 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
             holder.txtPubDate.setText(formatForDateNow.format(rootFeed.getData().get(position).getUpdated_time()));
             holder.profileName.setText(groupEntity.getName());
 
+            //Выводим описание эмоции на экран
+            processImage(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc(),holder);
             holder.setItemClickListener(new ItemClickListener() {
                 @Override
                 public void onClick(View view, int position, boolean isLongClick) {
@@ -69,15 +83,87 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
             });
     }
 
+    private void processImage(String facebookImageURL,FacebookImgViewHolder holder) {
+
+        //Create Async Task to Process Data
+
+        AsyncTask<InputStream,String,List<RecognizeResult>> processAsync = new AsyncTask<InputStream, String, List<RecognizeResult>>() {
+            @Override
+            protected List<RecognizeResult> doInBackground(InputStream... params) {
+                publishProgress("Please wait ...");
+                List<RecognizeResult> result = null;
+                try {
+                    result = rest.recognizeImage(facebookImageURL);
+                } catch (EmotionServiceException e) {
+                    e.printStackTrace();
+                }
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(List<RecognizeResult> recognizeResults) {
+                for (RecognizeResult res: recognizeResults)
+                {
+                    String emotionStatus = getEmotion(res);
+                    holder.txtEmotion.setText(emotionStatus);
+                }
+            }
+        };
+
+        processAsync.execute(/*inputStream*/);
+    }
+
     @Override
     public int getItemCount() {
         return rootImgFeed.data.size();
     }
+
+
+    private String getEmotion(RecognizeResult res) {
+        List<Double> list = new ArrayList<>();
+        Scores scores = res.scores;
+
+        list.add(scores.anger);
+        list.add(scores.contempt);
+        list.add(scores.happiness);
+        list.add(scores.disgust);
+        list.add(scores.fear);
+        list.add(scores.neutral);
+        list.add(scores.sadness);
+        list.add(scores.surprise);
+
+
+        //Sort List
+        Collections.sort(list);
+
+        double maxNum = list.get(list.size() - 1);
+
+        if (maxNum == scores.anger)
+            return "Anger";
+        else if(maxNum == scores.sadness)
+            return "Sadness";
+        else if(maxNum == scores.surprise)
+            return "Surprise";
+        else if(maxNum == scores.happiness)
+            return "Happiness";
+        else if(maxNum == scores.disgust)
+            return "Disgust";
+        else if(maxNum == scores.fear)
+            return "Fear";
+        else if(maxNum == scores.neutral)
+            return "Neutral";
+        else if(maxNum == scores.contempt)
+            return "Contempt";
+
+        return "Can't detect";
+    }
 }
+
+
 
 class FacebookImgViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
-    public TextView txtTitle,txtPubDate,txtContent,profileName;
+    public TextView txtTitle,txtPubDate,txtContent,profileName,txtEmotion;
     public ImageView feedImg;
     public CircleImageView groupImg;
     private ItemClickListener itemClickListener;
@@ -89,7 +175,7 @@ class FacebookImgViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         txtContent = (TextView)itemView.findViewById(R.id.tv_text_fb);
         feedImg = (ImageView)itemView.findViewById(R.id.newsPicId_fb);
         profileName = (TextView)itemView.findViewById(R.id.tv_profile_name_fb);
-
+        txtEmotion = (TextView)itemView.findViewById(R.id.tv_likes_count_fb);
         //Set Event
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
