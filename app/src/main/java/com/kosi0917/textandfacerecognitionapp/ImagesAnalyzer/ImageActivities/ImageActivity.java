@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -32,6 +33,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import lecho.lib.hellocharts.model.ColumnChartData;
+import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.view.ColumnChartView;
+import lecho.lib.hellocharts.view.LineChartView;
+
 /**
  * Created by sivko on 23.01.2018.
  */
@@ -45,6 +53,7 @@ public class ImageActivity extends AppCompatActivity {
 
     Bitmap mBitmap;
     String facebookImageURL;
+    private LineChartView chart;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -62,6 +71,7 @@ public class ImageActivity extends AppCompatActivity {
         }catch (Exception e){
             facebookImageURL = "";
         }
+        chart = (LineChartView) this.findViewById(R.id.chart);
         initViews();
 
         // if (checkSelfPermission(Manifest.p))
@@ -126,6 +136,21 @@ public class ImageActivity extends AppCompatActivity {
                     String emotionStatus = getEmotion(res);
                     imageView.setImageBitmap(ImageHelper.drawRectOnBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(),res.faceRectangle,emotionList,emotionStatus));
                 }
+
+                List<PointValue> values = new ArrayList<PointValue>();
+                values.add(new PointValue(0, 2));
+                values.add(new PointValue(1, 4));
+                values.add(new PointValue(2, 3));
+                values.add(new PointValue(3, 4));
+
+                //In most cased you can call data model methods in builder-pattern-like manner.
+                Line line = new Line(values).setColor(Color.BLUE).setCubic(true);
+                List<Line> lines = new ArrayList<Line>();
+                lines.add(line);
+
+                LineChartData data = new LineChartData();
+                data.setLines(lines);
+                chart.setLineChartData(data);
             }
         };
 
