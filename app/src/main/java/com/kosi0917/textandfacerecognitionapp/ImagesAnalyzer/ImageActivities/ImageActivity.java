@@ -33,10 +33,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.SubcolumnValue;
+import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.ColumnChartView;
 import lecho.lib.hellocharts.view.LineChartView;
 
@@ -53,7 +56,7 @@ public class ImageActivity extends AppCompatActivity {
 
     Bitmap mBitmap;
     String facebookImageURL;
-    private LineChartView chart;
+    private ColumnChartView chart;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -71,7 +74,7 @@ public class ImageActivity extends AppCompatActivity {
         }catch (Exception e){
             facebookImageURL = "";
         }
-        chart = (LineChartView) this.findViewById(R.id.chart);
+        chart = (ColumnChartView) findViewById(R.id.chart);
         initViews();
 
         // if (checkSelfPermission(Manifest.p))
@@ -137,20 +140,25 @@ public class ImageActivity extends AppCompatActivity {
                     imageView.setImageBitmap(ImageHelper.drawRectOnBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(),res.faceRectangle,emotionList,emotionStatus));
                 }
 
-                List<PointValue> values = new ArrayList<PointValue>();
-                values.add(new PointValue(0, 2));
-                values.add(new PointValue(1, 4));
-                values.add(new PointValue(2, 3));
-                values.add(new PointValue(3, 4));
+                int numSubcolumns = 4;
+                int numColumns = 8;
+                // Column can have many stacked subcolumns, here I use 4 stacke subcolumn in each of 4 columns.
+                List<Column> columns = new ArrayList<Column>();
+                List<SubcolumnValue> values;
+                for (int i = 0; i < numColumns; ++i) {
 
-                //In most cased you can call data model methods in builder-pattern-like manner.
-                Line line = new Line(values).setColor(Color.BLUE).setCubic(true);
-                List<Line> lines = new ArrayList<Line>();
-                lines.add(line);
+                    values = new ArrayList<SubcolumnValue>();
+                    for (int j = 0; j < numSubcolumns; ++j) {
+                        int sign = j%2==0?1:-1;
+                        values.add(new SubcolumnValue((float) Math.random() * 20f * sign + 5 * sign, ChartUtils.pickColor()));
+                    }
 
-                LineChartData data = new LineChartData();
-                data.setLines(lines);
-                chart.setLineChartData(data);
+                    Column column = new Column(values);
+                    columns.add(column);
+                }
+
+                ColumnChartData data = new ColumnChartData(columns);
+                chart.setColumnChartData(data);
             }
         };
 

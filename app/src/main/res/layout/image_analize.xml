@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-    <lecho.lib.hellocharts.view.LineChartView
+    <lecho.lib.hellocharts.view.ColumnChartView
         android:id="@+id/chart"
         android:layout_below="@+id/analise"
         android:layout_width="match_parent"
