@@ -12,6 +12,7 @@ import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
 import java.util.ArrayList;
 import java.util.List;
 
+import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.Line;
@@ -72,29 +73,45 @@ public class ImageHelper {
     }
 
     public static void drawStatics(RecognizeResult result, ColumnChartView chart) {
-        int numSubcolumns = 1;
+        int numSubcolumns = 4;
+        ColumnChartData data;
+        int numColumns = 8;
+        boolean hasAxes = true;
         // Column can have many stacked subcolumns, here I use 4 stacke subcolumn in each of 4 columns.
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
-        for (int i = 0; i < 8; ++i) {
+        for (int i = 0; i < numColumns; ++i) {
+
             values = new ArrayList<SubcolumnValue>();
             for (int j = 0; j < numSubcolumns; ++j) {
-                values.add(new SubcolumnValue((float) (result.scores.anger * 10e+6), ChartUtils.pickColor()));
-                values.add(new SubcolumnValue((float) (result.scores.contempt * 10e+6), ChartUtils.pickColor()));
-                values.add(new SubcolumnValue((float) (result.scores.disgust * 10e+6), ChartUtils.pickColor()));
-                values.add(new SubcolumnValue((float) (result.scores.fear * 10e+6), ChartUtils.pickColor()));
-                values.add(new SubcolumnValue((float) (result.scores.happiness * 10e+6), ChartUtils.pickColor()));
-                values.add(new SubcolumnValue((float) (result.scores.neutral * 10e+6), ChartUtils.pickColor()));
-                values.add(new SubcolumnValue((float) (result.scores.sadness * 10e+6), ChartUtils.pickColor()));
-                values.add(new SubcolumnValue((float) (result.scores.surprise * 10e+6), ChartUtils.pickColor()));
+                values.add(new SubcolumnValue((float) Math.random() * 20f + 5, ChartUtils.pickColor()));
             }
 
             Column column = new Column(values);
+            // column.setHasLabels(hasLabels);
+            //column.setHasLabelsOnlyForSelected(hasLabelForSelected);
             columns.add(column);
         }
 
+        data = new ColumnChartData(columns);
 
-        ColumnChartData data = new ColumnChartData(columns);
+        // Set stacked flag.
+        data.setStacked(true);
+
+        if (hasAxes) {
+            Axis axisX = new Axis();
+            Axis axisY = new Axis().setHasLines(true);
+            //if (hasAxesNames) {
+            // axisX.setName("Axis X");
+            //   axisY.setName("Axis Y");
+            // }
+            data.setAxisXBottom(axisX);
+            data.setAxisYLeft(axisY);
+        } else {
+            data.setAxisXBottom(null);
+            data.setAxisYLeft(null);
+        }
+
         chart.setColumnChartData(data);
     }
 }
