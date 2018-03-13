@@ -138,27 +138,8 @@ public class ImageActivity extends AppCompatActivity {
                     List<String> emotionList = getEmotionList(res);
                     String emotionStatus = getEmotion(res);
                     imageView.setImageBitmap(ImageHelper.drawRectOnBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(),res.faceRectangle,emotionList,emotionStatus));
+                    ImageHelper.drawStatics(res, chart);
                 }
-
-                int numSubcolumns = 4;
-                int numColumns = 8;
-                // Column can have many stacked subcolumns, here I use 4 stacke subcolumn in each of 4 columns.
-                List<Column> columns = new ArrayList<Column>();
-                List<SubcolumnValue> values;
-                for (int i = 0; i < numColumns; ++i) {
-
-                    values = new ArrayList<SubcolumnValue>();
-                    for (int j = 0; j < numSubcolumns; ++j) {
-                        int sign = j%2==0?1:-1;
-                        values.add(new SubcolumnValue((float) Math.random() * 20f * sign + 5 * sign, ChartUtils.pickColor()));
-                    }
-
-                    Column column = new Column(values);
-                    columns.add(column);
-                }
-
-                ColumnChartData data = new ColumnChartData(columns);
-                chart.setColumnChartData(data);
             }
         };
 

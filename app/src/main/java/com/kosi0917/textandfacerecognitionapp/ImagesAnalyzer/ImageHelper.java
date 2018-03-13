@@ -7,14 +7,20 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.microsoft.projectoxford.emotion.contract.FaceRectangle;
+import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import lecho.lib.hellocharts.model.Column;
+import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.SubcolumnValue;
+import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.Chart;
+import lecho.lib.hellocharts.view.ColumnChartView;
 import lecho.lib.hellocharts.view.LineChartView;
 
 /**
@@ -65,22 +71,30 @@ public class ImageHelper {
         canvas.drawText(status,cX,cY,paint);
     }
 
-    public static void drawStatics(Context context) {
-        List<PointValue> values = new ArrayList<PointValue>();
-        values.add(new PointValue(0, 2));
-        values.add(new PointValue(1, 4));
-        values.add(new PointValue(2, 3));
-        values.add(new PointValue(3, 4));
+    public static void drawStatics(RecognizeResult result, ColumnChartView chart) {
+        int numSubcolumns = 1;
+        // Column can have many stacked subcolumns, here I use 4 stacke subcolumn in each of 4 columns.
+        List<Column> columns = new ArrayList<Column>();
+        List<SubcolumnValue> values;
+        for (int i = 0; i < 8; ++i) {
+            values = new ArrayList<SubcolumnValue>();
+            for (int j = 0; j < numSubcolumns; ++j) {
+                values.add(new SubcolumnValue((float) (result.scores.anger * 10e+6), ChartUtils.pickColor()));
+                values.add(new SubcolumnValue((float) (result.scores.contempt * 10e+6), ChartUtils.pickColor()));
+                values.add(new SubcolumnValue((float) (result.scores.disgust * 10e+6), ChartUtils.pickColor()));
+                values.add(new SubcolumnValue((float) (result.scores.fear * 10e+6), ChartUtils.pickColor()));
+                values.add(new SubcolumnValue((float) (result.scores.happiness * 10e+6), ChartUtils.pickColor()));
+                values.add(new SubcolumnValue((float) (result.scores.neutral * 10e+6), ChartUtils.pickColor()));
+                values.add(new SubcolumnValue((float) (result.scores.sadness * 10e+6), ChartUtils.pickColor()));
+                values.add(new SubcolumnValue((float) (result.scores.surprise * 10e+6), ChartUtils.pickColor()));
+            }
 
-        //In most cased you can call data model methods in builder-pattern-like manner.
-        Line line = new Line(values).setColor(Color.BLUE).setCubic(true);
-        List<Line> lines = new ArrayList<Line>();
-        lines.add(line);
+            Column column = new Column(values);
+            columns.add(column);
+        }
 
-        LineChartData data = new LineChartData();
-        data.setLines(lines);
 
-        LineChartView chart = new LineChartView(context);
-        chart.setLineChartData(data);
+        ColumnChartData data = new ColumnChartData(columns);
+        chart.setColumnChartData(data);
     }
 }
