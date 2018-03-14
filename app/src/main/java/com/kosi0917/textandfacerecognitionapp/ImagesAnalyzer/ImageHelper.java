@@ -73,25 +73,58 @@ public class ImageHelper {
     }
 
     public static void drawStatics(RecognizeResult result, ColumnChartView chart) {
-        int numSubcolumns = 4;
         ColumnChartData data;
-        int numColumns = 8;
         boolean hasAxes = true;
         // Column can have many stacked subcolumns, here I use 4 stacke subcolumn in each of 4 columns.
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
-        for (int i = 0; i < numColumns; ++i) {
 
             values = new ArrayList<SubcolumnValue>();
-            for (int j = 0; j < numSubcolumns; ++j) {
-                values.add(new SubcolumnValue((float) Math.random() * 20f + 5, ChartUtils.pickColor()));
-            }
 
+            values.add(new SubcolumnValue((float) result.scores.surprise * 20f + 5, ChartUtils.pickColor()));
             Column column = new Column(values);
+            columns.add(column);
+
+            values = new ArrayList<SubcolumnValue>();
+            values.add(new SubcolumnValue((float) result.scores.sadness * 20f + 5, ChartUtils.pickColor()));
+            Column column1 = new Column(values);
+            columns.add(column1);
+
+
+            values = new ArrayList<SubcolumnValue>();
+            values.add(new SubcolumnValue((float) result.scores.neutral * 20f + 5, ChartUtils.pickColor()));
+            column = new Column(values);
+            columns.add(column);
+
+            values = new ArrayList<SubcolumnValue>();
+            values.add(new SubcolumnValue((float) result.scores.happiness * 20f + 5, ChartUtils.pickColor()));
+            column = new Column(values);
+            columns.add(column);
+
+            values = new ArrayList<SubcolumnValue>();
+            values.add(new SubcolumnValue((float) result.scores.fear * 20f + 5, ChartUtils.pickColor()));
+            column = new Column(values);
+            columns.add(column);
+
+            values = new ArrayList<SubcolumnValue>();
+            values.add(new SubcolumnValue((float) result.scores.disgust * 20f + 5, ChartUtils.pickColor()));
+            column = new Column(values);
+            columns.add(column);
+
+            values = new ArrayList<SubcolumnValue>();
+            values.add(new SubcolumnValue((float) result.scores.anger * 20f + 5, ChartUtils.pickColor()));
+            column = new Column(values);
+            columns.add(column);
+
+            values = new ArrayList<SubcolumnValue>();
+            values.add(new SubcolumnValue((float) result.scores.contempt * 20f + 5, ChartUtils.pickColor()));
+            column = new Column(values);
+            columns.add(column);
+
             // column.setHasLabels(hasLabels);
             //column.setHasLabelsOnlyForSelected(hasLabelForSelected);
-            columns.add(column);
-        }
+
+
 
         data = new ColumnChartData(columns);
 
