@@ -54,7 +54,7 @@ public class ImageHelper {
         cY=70;
         //cY= faceRectangle.top - 40;
         for (String emotion: emotionList) {
-            drawTextOnBitmap(canvas,20,50,cY,Color.BLACK, emotion);
+            drawTextOnBitmap(canvas,20,50,cY,Color.WHITE, emotion);
             cY=cY+25;
         }
 
@@ -81,28 +81,18 @@ public class ImageHelper {
 
             values = new ArrayList<SubcolumnValue>();
 
-            values.add(new SubcolumnValue((float) result.scores.surprise * 20f + 5, ChartUtils.pickColor()));
+            values.add(new SubcolumnValue((float) result.scores.anger * 20f + 5, ChartUtils.pickColor()));
             Column column = new Column(values);
             columns.add(column);
 
             values = new ArrayList<SubcolumnValue>();
-            values.add(new SubcolumnValue((float) result.scores.sadness * 20f + 5, ChartUtils.pickColor()));
+            values.add(new SubcolumnValue((float) result.scores.contempt * 20f + 5, ChartUtils.pickColor()));
             Column column1 = new Column(values);
             columns.add(column1);
 
 
             values = new ArrayList<SubcolumnValue>();
-            values.add(new SubcolumnValue((float) result.scores.neutral * 20f + 5, ChartUtils.pickColor()));
-            column = new Column(values);
-            columns.add(column);
-
-            values = new ArrayList<SubcolumnValue>();
             values.add(new SubcolumnValue((float) result.scores.happiness * 20f + 5, ChartUtils.pickColor()));
-            column = new Column(values);
-            columns.add(column);
-
-            values = new ArrayList<SubcolumnValue>();
-            values.add(new SubcolumnValue((float) result.scores.fear * 20f + 5, ChartUtils.pickColor()));
             column = new Column(values);
             columns.add(column);
 
@@ -112,12 +102,22 @@ public class ImageHelper {
             columns.add(column);
 
             values = new ArrayList<SubcolumnValue>();
-            values.add(new SubcolumnValue((float) result.scores.anger * 20f + 5, ChartUtils.pickColor()));
+            values.add(new SubcolumnValue((float) result.scores.fear * 20f + 5, ChartUtils.pickColor()));
             column = new Column(values);
             columns.add(column);
 
             values = new ArrayList<SubcolumnValue>();
-            values.add(new SubcolumnValue((float) result.scores.contempt * 20f + 5, ChartUtils.pickColor()));
+            values.add(new SubcolumnValue((float) result.scores.neutral * 20f + 5, ChartUtils.pickColor()));
+            column = new Column(values);
+            columns.add(column);
+
+            values = new ArrayList<SubcolumnValue>();
+            values.add(new SubcolumnValue((float) result.scores.sadness * 20f + 5, ChartUtils.pickColor()));
+            column = new Column(values);
+            columns.add(column);
+
+            values = new ArrayList<SubcolumnValue>();
+            values.add(new SubcolumnValue((float) result.scores.surprise * 20f + 5, ChartUtils.pickColor()));
             column = new Column(values);
             columns.add(column);
 
@@ -135,8 +135,8 @@ public class ImageHelper {
             Axis axisX = new Axis();
             Axis axisY = new Axis().setHasLines(true);
             //if (hasAxesNames) {
-            // axisX.setName("Axis X");
-            //   axisY.setName("Axis Y");
+             axisX.setName("Emotion type");
+             axisY.setName("Emotion value");
             // }
             data.setAxisXBottom(axisX);
             data.setAxisYLeft(axisY);

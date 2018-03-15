@@ -189,14 +189,14 @@ public class ImageActivity extends AppCompatActivity {
         List<String> list = new ArrayList<>();
         Scores scores = res.scores;
 
-        list.add("Anger: " + scores.anger +"\n");
-        list.add("Contempt: " + scores.contempt+"\n");
-        list.add("Happiness: " + scores.happiness+"\n");
-        list.add("Disgust: " + scores.disgust+"\n");
-        list.add("Fear: " + scores.fear+"\n");
-        list.add("Neutral: " + scores.neutral+"\n");
-        list.add("Sadness: " + scores.sadness+"\n");
-        list.add("Surprise: "+ scores.surprise+"\n");
+        list.add("0) Anger: " + scores.anger +"\n");
+        list.add("1) Contempt: " + scores.contempt+"\n");
+        list.add("2) Happiness: " + scores.happiness+"\n");
+        list.add("3) Disgust: " + scores.disgust+"\n");
+        list.add("4) Fear: " + scores.fear+"\n");
+        list.add("5) Neutral: " + scores.neutral+"\n");
+        list.add("6) Sadness: " + scores.sadness+"\n");
+        list.add("7) Surprise: "+ scores.surprise+"\n");
         return list;
     }
 
