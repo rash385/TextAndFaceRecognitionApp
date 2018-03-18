@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,10 +19,9 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookImgNewsActivity;
-import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookLoginActivity;
-import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookNewsActivity;
-import com.kosi0917.textandfacerecognitionapp.Tools.DownloadImage;
+import com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities.FacebookImgNewsActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities.FacebookLoginActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities.FacebookNewsActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +39,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private ShareDialog shareDialog;
     private String name, surname, imageUrl, userId;
     private String TAG = "ProfileActivity";
-    private String data;
+    private String data, groupInfoJson;
+    private String dataBeginning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,8 +123,35 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         ).executeAsync();
     }
 
+    //Переход к странице с постами
     public void getFeedWithPick(){
         Bundle b = new Bundle();
+        Bundle addFields = new Bundle();
+
+        addFields.putString("fields","icon,id,name,privacy");
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "1995900030677807",
+                addFields,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        Log.e(TAG,response.toString());
+                        try {
+                            JSONObject obj = new JSONObject(response.getRawResponse());
+                            groupInfoJson = obj.toString();
+                            Log.e(TAG,groupInfoJson);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).executeAsync();
+
+
+        /*Получение постов
+        * Получение вложений и общей информации через Graph Api
+         */
         b.putString("fields", "attachments");
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
@@ -140,7 +166,30 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                             if (obj.has("data")) {
                                 data = obj.getString("data");
                                 Log.e(TAG,data);
-                                goFbNewsScreenWithPick(data);
+
+                                //Получение общей информации о посте onSuccess()
+                                new GraphRequest(
+                                        AccessToken.getCurrentAccessToken(),
+                                        "1995900030677807/feed",
+                                        null,
+                                        HttpMethod.GET,
+                                        new GraphRequest.Callback() {
+                                            public void onCompleted(GraphResponse response) {
+                                                Log.e(TAG,response.toString());
+                                                try {
+                                                    JSONObject obj = new JSONObject(response.getRawResponse());
+                                                    if (obj.has("data")) {
+                                                        dataBeginning = obj.getString("data");
+                                                        Log.e(TAG,dataBeginning);
+                                                        goFbNewsScreenWithPick(data,dataBeginning,groupInfoJson);
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+                                ).executeAsync();
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -224,12 +273,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         finish();
     }
 
-    private void goFbNewsScreenWithPick(String data) {
+    private void goFbNewsScreenWithPick(String data,String dataBeginning, String groupInfoJson) {
         Intent intent = new Intent(this, FacebookImgNewsActivity.class);
+
         intent.putExtra("data",data);
+        intent.putExtra("dataMessages", dataBeginning);
         intent.putExtra("name", name);
         intent.putExtra("surname", surname);
         intent.putExtra("imageUrl", imageUrl);
+        intent.putExtra("groupInfoJson",groupInfoJson);
         startActivity(intent);
         finish();
     }

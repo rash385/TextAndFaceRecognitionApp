@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/body"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header">
+
+        <include
+            android:id="@+id/header_view"
+            layout="@layout/fb_item_news_header" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_text_fb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignLeft="@+id/cv_attach_fb"
+        android:layout_alignStart="@+id/cv_attach_fb"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:ellipsize="end"
+        android:maxLines="10"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="15sp"
+        android:visibility="visible"
+        tools:text="Text string, this is for text. Enough for text?..."
+        android:layout_marginStart="8dp" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_attach_fb"
+        android:layout_width="350dp"
+        android:layout_height="343dp"
+
+
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_text_fb"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="0dp"
+        android:layout_marginStart="8dp">
+
+        <ImageView
+            android:id="@+id/newsPicId_fb"
+            android:layout_width="350dp"
+            android:layout_height="343dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerCrop"
+            android:visibility="visible" />
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/cv_footer_fb"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/cv_attach_fb"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center">
+
+        <include
+            android:id="@+id/footer_fb_view"
+            layout="@layout/fb_item_news_footer" />
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

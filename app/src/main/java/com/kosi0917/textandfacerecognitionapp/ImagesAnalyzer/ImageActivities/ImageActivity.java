@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -32,6 +33,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import lecho.lib.hellocharts.model.Column;
+import lecho.lib.hellocharts.model.ColumnChartData;
+import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.SubcolumnValue;
+import lecho.lib.hellocharts.util.ChartUtils;
+import lecho.lib.hellocharts.view.ColumnChartView;
+import lecho.lib.hellocharts.view.LineChartView;
+
 /**
  * Created by sivko on 23.01.2018.
  */
@@ -45,6 +56,7 @@ public class ImageActivity extends AppCompatActivity {
 
     Bitmap mBitmap;
     String facebookImageURL;
+    private ColumnChartView chart;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -62,6 +74,7 @@ public class ImageActivity extends AppCompatActivity {
         }catch (Exception e){
             facebookImageURL = "";
         }
+        chart = (ColumnChartView) findViewById(R.id.chart);
         initViews();
 
         // if (checkSelfPermission(Manifest.p))
@@ -88,7 +101,7 @@ public class ImageActivity extends AppCompatActivity {
         mBitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
         ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
         //Create Async Task to Process Data
-        //TODO create url request on Microsoft API
+
         AsyncTask<InputStream,String,List<RecognizeResult>> processAsync = new AsyncTask<InputStream, String, List<RecognizeResult>>() {
 
             ProgressDialog mDialog = new ProgressDialog(ImageActivity.this);
@@ -122,8 +135,10 @@ public class ImageActivity extends AppCompatActivity {
                 mDialog.dismiss();
                 for (RecognizeResult res: recognizeResults)
                 {
-                    String status = getEmotion(res);
-                    imageView.setImageBitmap(ImageHelper.drawRectOnBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(),res.faceRectangle,status));
+                    List<String> emotionList = getEmotionList(res);
+                    String emotionStatus = getEmotion(res);
+                    imageView.setImageBitmap(ImageHelper.drawRectOnBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap(),res.faceRectangle,emotionList,emotionStatus));
+                    ImageHelper.drawStatics(res, chart);
                 }
             }
         };
@@ -168,6 +183,21 @@ public class ImageActivity extends AppCompatActivity {
             return "Contempt";
 
         return "Can't detect";
+    }
+
+    private List<String> getEmotionList(RecognizeResult res){
+        List<String> list = new ArrayList<>();
+        Scores scores = res.scores;
+
+        list.add("0) Anger: " + scores.anger +"\n");
+        list.add("1) Contempt: " + scores.contempt+"\n");
+        list.add("2) Happiness: " + scores.happiness+"\n");
+        list.add("3) Disgust: " + scores.disgust+"\n");
+        list.add("4) Fear: " + scores.fear+"\n");
+        list.add("5) Neutral: " + scores.neutral+"\n");
+        list.add("6) Sadness: " + scores.sadness+"\n");
+        list.add("7) Surprise: "+ scores.surprise+"\n");
+        return list;
     }
 
     @Override

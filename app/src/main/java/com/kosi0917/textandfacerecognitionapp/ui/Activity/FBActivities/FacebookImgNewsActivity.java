@@ -1,4 +1,4 @@
-package com.kosi0917.textandfacerecognitionapp.FBActivities;
+package com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,20 +11,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookAdapter;
 import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookImgAdapter;
-import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities.ImageActivity;
+import com.kosi0917.textandfacerecognitionapp.Application.Application;
+import com.kosi0917.textandfacerecognitionapp.Common.manager.MyFragmentManager;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.Datum;
+import com.kosi0917.textandfacerecognitionapp.Model.facebook.GroupEntity;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
@@ -37,25 +39,49 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by sivko on 07.12.2017.
  */
 
-public class FacebookImgNewsActivity extends AppCompatActivity {
+public class FacebookImgNewsActivity extends MvpAppCompatActivity {
+    @Inject
+    MyFragmentManager myFragmentManager;
+
+
+    @BindView(R.id.progress_fb)
+    protected ProgressBar mProgressBar;
+
+
     RecyclerView recyclerView;
     RootImgFeed rootImgFeed;
+    RootFeed rootFeed;
+    GroupEntity groupEntity;
     String TAG = "FacebookImgNewsActivity";
-    String data,firstName,lastName,imgUrl;
+    String data,firstName,lastName,imgUrl,dataMessage,groupInfoJson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle inBundle = getIntent().getExtras();
         data = inBundle.getString("data");
+        dataMessage = inBundle.getString("dataMessages");
         firstName = inBundle.getString("name");
         lastName = inBundle.getString("surname");
         imgUrl = inBundle.getString("imageUrl");
+        groupInfoJson = inBundle.getString("groupInfoJson");
         setContentView(R.layout.activity_facebook_login);
+//        ButterKnife.bind(this);
+
+       // Application.getApplicationComponent().inject(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarFb);
+        toolbar.setTitle("Group News");
+        setSupportActionBar(toolbar);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.NavigationView);
@@ -81,6 +107,9 @@ public class FacebookImgNewsActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         loadFeed();
+    }
+    public ProgressBar getProgressBar() {
+        return mProgressBar;
     }
 
     private void loadFeed() {
@@ -129,7 +158,15 @@ public class FacebookImgNewsActivity extends AppCompatActivity {
                     if(data.get(i).attachments!=null)
                         viewedData.add(data.get(i));
                 rootImgFeed = new RootImgFeed(viewedData);
-                FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed,getBaseContext());
+
+                Type newsDescriptionType = new TypeToken<List<Datum>>(){}.getType();
+                List<Datum> descriptionData = new Gson().fromJson(dataMessage, newsDescriptionType);
+                rootFeed = new RootFeed(descriptionData);
+
+                Type newGroupType = new TypeToken<GroupEntity>(){}.getType();
+                GroupEntity groupData = new Gson().fromJson(groupInfoJson, newGroupType);
+
+                FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed,rootFeed,groupData,getBaseContext());
                 recyclerView.setAdapter(feedadapter);
                 feedadapter.notifyDataSetChanged();
             }

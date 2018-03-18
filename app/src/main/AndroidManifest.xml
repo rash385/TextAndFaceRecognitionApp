@@ -11,23 +11,23 @@
         android:supportsRtl="true"
         android:name=".Application.Application"
         android:theme="@style/AppTheme">
-        <activity android:name=".FBActivities.FacebookLoginActivity">
+        <activity android:name=".ui.Activity.FBActivities.FacebookLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InstagramActivities.InstagramLogin"/>
-        <activity android:name=".InstagramActivities.FeedActivity"/>
+        <activity android:name=".ui.Activity.InstagramActivities.InstagramLogin"/>
+        <activity android:name=".ui.Activity.InstagramActivities.FeedActivity"/>
 
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
-        <activity android:name=".FBActivities.FacebookNewsActivity"
+        <activity android:name=".ui.Activity.FBActivities.FacebookNewsActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
-        <activity android:name=".FBActivities.FacebookImgNewsActivity"
+        <activity android:name=".ui.Activity.FBActivities.FacebookImgNewsActivity"
          />
 
 
@@ -43,7 +43,6 @@
         <activity android:name=".ImagesAnalyzer.ImageActivities.ImageActivity"/>
 
 
-   
 
         <activity android:name=".ProfileActivity"
                   android:theme="@style/AppTheme.NoActionBar"

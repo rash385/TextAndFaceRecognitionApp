@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookLoginActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities.FacebookLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.di.component.ApplicationComponent;
 import com.kosi0917.textandfacerecognitionapp.di.component.DaggerApplicationComponent;
 import com.kosi0917.textandfacerecognitionapp.di.module.ApplicationModule;

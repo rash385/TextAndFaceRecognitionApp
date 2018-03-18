@@ -5,11 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
-    tools:context="com.kosi0917.textandfacerecognitionapp.FBActivities.FacebookLoginActivity">
+    tools:context=".ui.Activity.FBActivities.FacebookLoginActivity">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarFb"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:title="Toolbar"
+            app:titleTextColor="@color/colorDefaultWhite"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:layout_below="@+id/toolbarFb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/NavigationView"
