@@ -4,6 +4,8 @@ import com.kosi0917.textandfacerecognitionapp.Common.manager.NetworkManager;
 import com.kosi0917.textandfacerecognitionapp.di.module.ApplicationModule;
 import com.kosi0917.textandfacerecognitionapp.di.module.ManagerModule;
 import com.kosi0917.textandfacerecognitionapp.di.module.RestModule;
+import com.kosi0917.textandfacerecognitionapp.mvp.presenter.BoardPresenter;
+import com.kosi0917.textandfacerecognitionapp.mvp.presenter.InfoPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.MainPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.MembersPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.NewsFeedPresenter;
@@ -44,4 +46,8 @@ public interface ApplicationComponent {
     void inject(MainPresenter presenter);
 
     void inject(MembersPresenter presenter);
+
+    void inject(BoardPresenter presenter);
+
+    void inject(InfoPresenter presenter);
 }

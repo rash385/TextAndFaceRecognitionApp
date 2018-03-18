@@ -18,6 +18,8 @@ public class ApiConstants {
 
     public static final String[] DEFAULT_LOGIN_SCOPE = {VKScope.EMAIL};
 
-    public static final int MY_GROUP_ID = -72495085;
+    public static final int MY_GROUP_ID = -30602036;//-72495085;
+
+    public static final String DEFAULT_GROUP_FIELDS = "status,description,site,links,contacts";
 
 }

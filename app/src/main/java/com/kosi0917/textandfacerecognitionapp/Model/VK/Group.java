@@ -4,10 +4,13 @@ package com.kosi0917.textandfacerecognitionapp.Model.VK;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Group extends RealmObject implements Owner {
 
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -38,6 +41,24 @@ public class Group extends RealmObject implements Owner {
     @SerializedName("photo_200")
     @Expose
     private String photo200;
+
+    @SerializedName("status")
+    @Expose
+    public String status;
+
+    @SerializedName("description")
+    @Expose
+    public String description;
+
+    @SerializedName("site")
+    @Expose
+    public String site;
+
+    @SerializedName("links")
+    RealmList<Link> links;
+
+    @SerializedName("contacts")
+    public RealmList<Contact> contactsList;
 
     public int getId() {
         return id;
@@ -129,4 +150,44 @@ public class Group extends RealmObject implements Owner {
         return photo100;
     }
 
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    public RealmList<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(RealmList<Link> links) {
+        this.links = links;
+    }
+
+    public RealmList<Contact> getContactsList() {
+        return contactsList;
+    }
+
+    public void setContactsList(RealmList<Contact> contactsList) {
+        this.contactsList = contactsList;
+    }
 }

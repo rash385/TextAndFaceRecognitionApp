@@ -11,6 +11,8 @@ import com.kosi0917.textandfacerecognitionapp.mvp.view.MainView;
 import com.kosi0917.textandfacerecognitionapp.rest.api.UsersApi;
 import com.kosi0917.textandfacerecognitionapp.rest.model.request.UsersGetRequestModel;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.BaseFragment;
+import com.kosi0917.textandfacerecognitionapp.ui.Fragment.BoardFragment;
+import com.kosi0917.textandfacerecognitionapp.ui.Fragment.InfoFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.MembersFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.MyPostsFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.NewsFeedFragment;
@@ -111,6 +113,12 @@ public class MainPresenter extends MvpPresenter<MainView> {
                 break;
             case 4:
                 fragment = new MembersFragment();
+                break;
+            case 5:
+                fragment = new BoardFragment();
+                break;
+            case 6:
+                fragment = new InfoFragment();
                 break;
         }
 
