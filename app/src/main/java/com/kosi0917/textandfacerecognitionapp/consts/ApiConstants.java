@@ -16,10 +16,16 @@ public class ApiConstants {
 
     public static final String DEFAULT_MEMBER_FIELDS = "name,photo_100";
 
-    public static final String[] DEFAULT_LOGIN_SCOPE = {VKScope.EMAIL};
+    public static final String[] DEFAULT_LOGIN_SCOPE = {VKScope.AUDIO, VKScope.DIRECT, VKScope.VIDEO,
+            VKScope.WALL, VKScope.MESSAGES, VKScope.PHOTOS, VKScope.PAGES, VKScope.GROUPS, VKScope.EMAIL,
+            VKScope.STATS, VKScope.DOCS};
 
     public static final int MY_GROUP_ID = -30602036;//-72495085;
 
     public static final String DEFAULT_GROUP_FIELDS = "status,description,site,links,contacts";
+
+    public static final String VIDEOS = "videos";
+    public static final String POSTS = "posts";
+    public static final String EXTENDED = "extended";
 
 }
