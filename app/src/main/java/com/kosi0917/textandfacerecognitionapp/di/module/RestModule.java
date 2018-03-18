@@ -1,6 +1,7 @@
 package com.kosi0917.textandfacerecognitionapp.di.module;
 
 import com.kosi0917.textandfacerecognitionapp.rest.RestClient;
+import com.kosi0917.textandfacerecognitionapp.rest.api.GroupsApi;
 import com.kosi0917.textandfacerecognitionapp.rest.api.UsersApi;
 import com.kosi0917.textandfacerecognitionapp.rest.api.WallApi;
 
@@ -39,5 +40,11 @@ public class RestModule {
     @Singleton
     public UsersApi provideUsersApi() {
         return mRestClient.createService(UsersApi.class);
+    }
+
+    @Provides
+    @Singleton
+    public GroupsApi provideGroupsApi() {
+        return mRestClient.createService(GroupsApi.class);
     }
 }

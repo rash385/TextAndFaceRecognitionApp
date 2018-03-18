@@ -15,6 +15,7 @@ import com.kosi0917.textandfacerecognitionapp.R;
 import com.kosi0917.textandfacerecognitionapp.consts.ApiConstants;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.MainPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.view.MainView;
+import com.kosi0917.textandfacerecognitionapp.ui.Fragment.BaseFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.NewsFeedFragment;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -42,32 +43,64 @@ import java.util.List;
 
 public class VKLoginActivity  extends BaseActivity implements MainView {
 
+    @InjectPresenter
+    MainPresenter mPresenter;
+
     private Drawer mDrawer;
 
     private AccountHeader mAccountHeader;
 
-    @InjectPresenter
-    MainPresenter mPresenter;
-
-    //private String[] scope = new String[] {VKScope.WALL, VKScope.FRIENDS, VKScope.MESSAGES, VKScope.PHOTOS};
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
-        Log.d("MainActivity", "Fingerprint: " + Arrays.toString(fingerprints));
+
+//        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
+//        Log.d("MainActivity", "Fingerprint: " + Arrays.toString(fingerprints));
+
         Application.getApplicationComponent().inject(this);
+
         mPresenter.checkAuth();
     }
 
-    @Override
-    protected int getMainContentLayout() {
-        return R.layout.vk_fragment_feed;
+    public void setUpDrawer(){
+        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.screen_name_news)
+                .withIcon(GoogleMaterial.Icon.gmd_home);
+        PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName(R.string.screen_name_my_posts)
+                .withIcon(GoogleMaterial.Icon.gmd_list);
+        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName(R.string.screen_name_settings)
+                .withIcon(GoogleMaterial.Icon.gmd_settings);
+        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName(R.string.screen_name_members)
+                .withIcon(GoogleMaterial.Icon.gmd_people);
+        PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.screen_name_topics)
+                .withIcon(GoogleMaterial.Icon.gmd_record_voice_over);
+        PrimaryDrawerItem item6 = new PrimaryDrawerItem().withIdentifier(6).withName(R.string.screen_name_info)
+                .withIcon(GoogleMaterial.Icon.gmd_info);
+        PrimaryDrawerItem item7 = new PrimaryDrawerItem().withIdentifier(7).withName(R.string.screen_name_rules)
+                .withIcon(GoogleMaterial.Icon.gmd_assignment);
+
+        mAccountHeader = new AccountHeaderBuilder()
+                .withActivity(this)
+                .build();
+        mDrawer = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withTranslucentStatusBar(true)
+                .withActionBarDrawerToggle(true)
+                .withAccountHeader(mAccountHeader)
+                .addDrawerItems(item1, item2, item3,
+                        new SectionDrawerItem().withName("Группа"),
+                        item4, item5, item6, item7)
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                    mPresenter.drawerItemClick((int) drawerItem.getIdentifier());
+                    return false;
+                })
+                .build();
     }
 
     @Override
     public void startSignIn() {
-        VKSdk.login(this, ApiConstants.scope);
+        VKSdk.login(this, ApiConstants.DEFAULT_LOGIN_SCOPE);
     }
 
     @Override
@@ -76,6 +109,34 @@ public class VKLoginActivity  extends BaseActivity implements MainView {
         setContent(new NewsFeedFragment());
         setUpDrawer();
     }
+
+    @Override
+    public void showCurrentUser(Profile profile) {
+        List<IProfile> profileDrawerItems = new ArrayList<>();
+        profileDrawerItems.add(new ProfileDrawerItem().withName(profile.getFullName())
+                .withEmail(VKAccessToken.currentToken().email)
+                .withIcon(profile.getDisplayProfilePhoto()));
+
+        profileDrawerItems.add(new ProfileDrawerItem().withName("Logout")
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                    mAccountHeader.removeProfile(0);
+                    mAccountHeader.removeProfile(0);
+                    logout();
+                    return false;
+                })
+        );
+
+        mAccountHeader.setProfiles(profileDrawerItems);
+
+    }
+
+    private void logout(){
+        VKSdk.logout();
+        Intent login = new Intent(VKLoginActivity.this, FacebookLoginActivity.class);
+        startActivity(login);
+        finish();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -95,65 +156,14 @@ public class VKLoginActivity  extends BaseActivity implements MainView {
         }
     }
 
-    public void setUpDrawer() {
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.screen_name_news)
-                .withIcon(GoogleMaterial.Icon.gmd_home);
-
-        PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName(R.string.screen_name_my_posts)
-                .withIcon(GoogleMaterial.Icon.gmd_list);
-
-        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(3).withName(R.string.screen_name_settings)
-                .withIcon(GoogleMaterial.Icon.gmd_settings);
-
-        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName(R.string.screen_name_members)
-                .withIcon(GoogleMaterial.Icon.gmd_people);
-
-        PrimaryDrawerItem item5 = new PrimaryDrawerItem().withIdentifier(5).withName(R.string.screen_name_topics)
-                .withIcon(GoogleMaterial.Icon.gmd_record_voice_over);
-
-        PrimaryDrawerItem item6 = new PrimaryDrawerItem().withIdentifier(6).withName(R.string.screen_name_info)
-                .withIcon(GoogleMaterial.Icon.gmd_info);
-
-        PrimaryDrawerItem item7 = new PrimaryDrawerItem().withIdentifier(7).withName(R.string.screen_name_rules)
-                .withIcon(GoogleMaterial.Icon.gmd_assignment);
-
-
-        mAccountHeader = new AccountHeaderBuilder()
-                .withActivity(this)
-                .build();
-
-        mDrawer = new DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .withTranslucentStatusBar(true)
-                .withActionBarDrawerToggle(true)
-                .withAccountHeader(mAccountHeader)
-                .addDrawerItems(item1, item2, item3,
-                        new SectionDrawerItem().withName("Группа"),
-                        item4, item5, item6, item7)
-                .build();
+    @Override
+    protected int getMainContentLayout() {
+        return R.layout.vk_fragment_feed;
     }
 
     @Override
-    public void showCurrentUser(Profile profile) {
-        List<IProfile> profileDrawerItems = new ArrayList<>();
-        profileDrawerItems.add(new ProfileDrawerItem().withName(profile.getFullName()).withEmail(VKAccessToken.currentToken().email)
-                .withIcon(profile.getDisplayProfilePhoto()));
-        profileDrawerItems.add(new ProfileSettingDrawerItem().withName("Logout")
-                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
-                    mAccountHeader.removeProfile(0);
-                    mAccountHeader.removeProfile(0);
-                    logout();
-                    return false;
-                }));
-        mAccountHeader.setProfiles(profileDrawerItems);
-    }
-
-    private void logout(){
-        VKSdk.logout();
-        Intent login = new Intent(VKLoginActivity.this, FacebookLoginActivity.class);
-        startActivity(login);
-        finish();
+    public void showFragmentFromDrawer(BaseFragment baseFragment) {
+        setContent(baseFragment);
     }
 
     //    @Override

@@ -14,6 +14,10 @@ public class ApiConstants {
 
     public static final String DEFAULT_USER_FIELDS = "photo_100";
 
+    public static final String DEFAULT_MEMBER_FIELDS = "name,photo_100";
+
     public static final String[] DEFAULT_LOGIN_SCOPE = {VKScope.EMAIL};
+
+    public static final int MY_GROUP_ID = -72495085;
 
 }
