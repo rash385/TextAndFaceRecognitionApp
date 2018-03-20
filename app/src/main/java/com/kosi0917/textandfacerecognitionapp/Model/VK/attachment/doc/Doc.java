@@ -1,4 +1,4 @@
-package com.kosi0917.textandfacerecognitionapp.Model.VK;
+package com.kosi0917.textandfacerecognitionapp.Model.VK.attachment.doc;
 
 /**
  * Created by mozil on 28.01.2018.
@@ -6,6 +6,7 @@ package com.kosi0917.textandfacerecognitionapp.Model.VK;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.kosi0917.textandfacerecognitionapp.Model.VK.Attachment;
 import com.vk.sdk.api.model.VKAttachments;
 
 import io.realm.RealmObject;
@@ -39,6 +40,9 @@ public class Doc extends RealmObject implements Attachment {
     @SerializedName("access_key")
     @Expose
     private String accessKey;
+    @SerializedName("preview")
+    @Expose
+    public Preview preview;
 
     public int getId() {
         return id;
@@ -115,5 +119,9 @@ public class Doc extends RealmObject implements Attachment {
 
     public void setAccessKey(String accessKey) {
         this.accessKey = accessKey;
+    }
+
+    public Preview getPreview() {
+        return preview;
     }
 }

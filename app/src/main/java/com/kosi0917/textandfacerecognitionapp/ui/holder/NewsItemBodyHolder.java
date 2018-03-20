@@ -5,8 +5,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kosi0917.textandfacerecognitionapp.Application.Application;
+import com.kosi0917.textandfacerecognitionapp.Common.manager.MyFragmentManager;
+import com.kosi0917.textandfacerecognitionapp.Common.utils.UiHelper;
 import com.kosi0917.textandfacerecognitionapp.Model.view.NewsItemBodyViewModel;
 import com.kosi0917.textandfacerecognitionapp.R;
+import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.Fragment.OpenedPostFragment;
 
 import javax.inject.Inject;
 
@@ -25,9 +29,12 @@ public class NewsItemBodyHolder extends BaseViewHolder<NewsItemBodyViewModel> {
     @BindView(R.id.tv_attachments)
     public TextView tvAttachments;
 
-
     @Inject
     protected Typeface mFontGoogle;
+
+    @Inject
+    MyFragmentManager myFragmentManager;
+
 
     public NewsItemBodyHolder(View itemView) {
         super(itemView);
@@ -42,12 +49,25 @@ public class NewsItemBodyHolder extends BaseViewHolder<NewsItemBodyViewModel> {
     @Override
     public void bindViewHolder(NewsItemBodyViewModel item) {
         tvText.setText(item.getText());
-        tvAttachments.setText(item.getmAttachmentString());
+        tvAttachments.setText(item.getAttachmentString());
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myFragmentManager.addFragment((BaseActivity) view.getContext(),
+                        OpenedPostFragment.newInstance(item.getId()),
+                        R.id.main_wrapper);
+
+            }
+        });
+        UiHelper.getInstance().setUpTextViewWithVisibility(tvText, item.getText());
+        UiHelper.getInstance().setUpTextViewWithVisibility(tvAttachments, item.getAttachmentString());
     }
 
     @Override
     public void unbindViewHolder() {
         tvText.setText(null);
         tvAttachments.setText(null);
+        itemView.setOnClickListener(null);
     }
 }

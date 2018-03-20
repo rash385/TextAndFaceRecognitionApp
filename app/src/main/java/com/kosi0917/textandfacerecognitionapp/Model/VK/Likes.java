@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
 
-public class Likes extends RealmObject {
+public class Likes extends RealmObject{
 
     @SerializedName("count")
     @Expose
@@ -51,6 +51,10 @@ public class Likes extends RealmObject {
 
     public void setCanPublish(Integer canPublish) {
         this.canPublish = canPublish;
+    }
+
+    public boolean isUserLikes () {
+        return userLikes == 1;
     }
 
 }

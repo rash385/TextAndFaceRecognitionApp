@@ -1,4 +1,4 @@
-package com.kosi0917.textandfacerecognitionapp.Model.VK;
+package com.kosi0917.textandfacerecognitionapp.Model.VK.attachment.video;
 
 /**
  * Created by mozil on 28.01.2018.
@@ -6,13 +6,15 @@ package com.kosi0917.textandfacerecognitionapp.Model.VK;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.kosi0917.textandfacerecognitionapp.Model.VK.Attachment;
 import com.vk.sdk.api.model.VKAttachments;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 
 public class Video extends RealmObject implements Attachment {
-
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private int id;
@@ -55,6 +57,9 @@ public class Video extends RealmObject implements Attachment {
     @SerializedName("can_add")
     @Expose
     private int canAdd;
+    @SerializedName("files")
+    @Expose
+    public File files;
 
 
     public int getId() {
@@ -174,4 +179,7 @@ public class Video extends RealmObject implements Attachment {
         return VKAttachments.TYPE_VIDEO;
     }
 
+    public File getFiles() {
+        return files;
+    }
 }

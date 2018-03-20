@@ -4,6 +4,7 @@ import com.kosi0917.textandfacerecognitionapp.rest.RestClient;
 import com.kosi0917.textandfacerecognitionapp.rest.api.BoardApi;
 import com.kosi0917.textandfacerecognitionapp.rest.api.GroupsApi;
 import com.kosi0917.textandfacerecognitionapp.rest.api.UsersApi;
+import com.kosi0917.textandfacerecognitionapp.rest.api.VideoApi;
 import com.kosi0917.textandfacerecognitionapp.rest.api.WallApi;
 
 import javax.inject.Singleton;
@@ -51,7 +52,14 @@ public class RestModule {
 
     @Provides
     @Singleton
-    public BoardApi provideBoardApi() {
+    public BoardApi provideBoardApi(){
         return mRestClient.createService(BoardApi.class);
     }
+
+    @Provides
+    @Singleton
+    public VideoApi provideVideoApi() {
+        return mRestClient.createService(VideoApi.class);
+    }
+
 }

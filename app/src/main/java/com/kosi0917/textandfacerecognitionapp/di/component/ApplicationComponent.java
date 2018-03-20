@@ -9,11 +9,15 @@ import com.kosi0917.textandfacerecognitionapp.mvp.presenter.InfoPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.MainPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.MembersPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.NewsFeedPresenter;
+import com.kosi0917.textandfacerecognitionapp.mvp.presenter.OpenedPostPresenter;
 import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Activity.VKLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.NewsFeedFragment;
+import com.kosi0917.textandfacerecognitionapp.ui.Fragment.OpenedPostFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.holder.NewsItemBodyHolder;
 import com.kosi0917.textandfacerecognitionapp.ui.holder.NewsItemFooterHolder;
+import com.kosi0917.textandfacerecognitionapp.ui.holder.attachment.ImageAttachmentHolder;
+import com.kosi0917.textandfacerecognitionapp.ui.holder.attachment.VideoAttachmentHolder;
 
 
 import javax.inject.Singleton;
@@ -25,29 +29,34 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {ApplicationModule.class, ManagerModule.class, RestModule.class})
+@Component(
+        modules = {ApplicationModule.class, RestModule.class, ManagerModule.class})
 public interface ApplicationComponent {
 
-    void inject(BaseActivity baseActivity);
-    void inject(VKLoginActivity vkLoginActivity);
+    //activities
+    void inject(BaseActivity activity);
+    void inject(VKLoginActivity activity);
 
+    //fragments
     void inject(NewsFeedFragment fragment);
+    void inject(OpenedPostFragment fragment);
 
     //holders
     void inject(NewsItemBodyHolder holder);
     void inject(NewsItemFooterHolder holder);
+    void inject(ImageAttachmentHolder holder);
+    void inject(VideoAttachmentHolder holder);
 
     //presenters
     void inject(NewsFeedPresenter presenter);
+    void inject(MainPresenter presenter);
+    void inject(MembersPresenter presenter);
+    void inject(BoardPresenter presenter);
+    void inject(InfoPresenter presenter);
+    void inject(OpenedPostPresenter presenter);
 
     //managers
     void inject(NetworkManager manager);
 
-    void inject(MainPresenter presenter);
 
-    void inject(MembersPresenter presenter);
-
-    void inject(BoardPresenter presenter);
-
-    void inject(InfoPresenter presenter);
 }

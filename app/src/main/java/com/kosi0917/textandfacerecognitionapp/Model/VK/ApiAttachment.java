@@ -4,6 +4,8 @@ package com.kosi0917.textandfacerecognitionapp.Model.VK;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.kosi0917.textandfacerecognitionapp.Model.VK.attachment.doc.Doc;
+import com.kosi0917.textandfacerecognitionapp.Model.VK.attachment.video.Video;
 import com.vk.sdk.api.model.VKAttachments;
 
 import java.util.NoSuchElementException;
