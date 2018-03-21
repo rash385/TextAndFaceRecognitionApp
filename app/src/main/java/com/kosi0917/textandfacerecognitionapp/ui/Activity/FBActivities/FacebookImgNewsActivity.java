@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 
@@ -65,6 +66,24 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
     String data,firstName,lastName,imgUrl,dataMessage,groupInfoJson;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.bottom_navigation_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.ic_arrow: {
+                // do your sign-out stuff
+                break;
+            }
+            // case blocks for other MenuItems (if any)
+        }
+        return false;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle inBundle = getIntent().getExtras();
@@ -82,6 +101,8 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarFb);
         toolbar.setTitle("Group News");
         setSupportActionBar(toolbar);
+
+
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.NavigationView);
