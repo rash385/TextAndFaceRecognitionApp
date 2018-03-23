@@ -1,6 +1,7 @@
 package com.kosi0917.textandfacerecognitionapp.Common.utils;
 
 import com.kosi0917.textandfacerecognitionapp.Model.VK.ApiAttachment;
+import com.kosi0917.textandfacerecognitionapp.Model.VK.CommentItem;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.Owner;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.WallItem;
 import com.kosi0917.textandfacerecognitionapp.Model.view.BaseViewModel;
@@ -91,6 +92,22 @@ public class VkListHelper {
             }
         }
         return attachmentVhItems;
+    }
+
+    public static List<CommentItem> getCommentsList(ItemWithSendersResponse<CommentItem> response, boolean isFromTopic) {
+        List<CommentItem> commentItems = response.items;
+
+        for (CommentItem commentItem : commentItems) {
+            Owner sender = response.getSender(commentItem.getFromId());
+            commentItem.setSenderName(sender.getFullName());
+            commentItem.setSenderPhoto(sender.getPhoto());
+
+            commentItem.setIsFromTopic(isFromTopic);
+
+            commentItem.setAttachmentsString(Utils
+                    .convertAttachmentsToFontIcons(commentItem.getAttachments()));
+        }
+        return commentItems;
     }
 
 }

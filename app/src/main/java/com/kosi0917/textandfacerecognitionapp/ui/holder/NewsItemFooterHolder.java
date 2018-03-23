@@ -7,12 +7,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kosi0917.textandfacerecognitionapp.Application.Application;
+import com.kosi0917.textandfacerecognitionapp.Common.manager.MyFragmentManager;
 import com.kosi0917.textandfacerecognitionapp.Common.utils.Utils;
+import com.kosi0917.textandfacerecognitionapp.Model.VK.Place;
 import com.kosi0917.textandfacerecognitionapp.Model.view.NewsItemFooterViewModel;
 import com.kosi0917.textandfacerecognitionapp.Model.view.counter.CommentCounterViewModel;
 import com.kosi0917.textandfacerecognitionapp.Model.view.counter.LikeCounterViewModel;
 import com.kosi0917.textandfacerecognitionapp.Model.view.counter.RepostCounterViewModel;
 import com.kosi0917.textandfacerecognitionapp.R;
+import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.Fragment.CommentsFragment;
 
 import javax.inject.Inject;
 
@@ -43,9 +47,15 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
     @BindView(R.id.tv_reposts_count)
     public TextView tvRepostsCount;
 
+    @BindView(R.id.rl_comments)
+    public View rlComments;
+
 
     @Inject
     Typeface mGoogleFontTypeface;
+
+    @Inject
+    MyFragmentManager mFragmentManager;
 
 
     private Resources mResources;
@@ -74,6 +84,15 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
         bindLikes(item.getLikes());
         bindComments(item.getComments());
         bindReposts(item.getReposts());
+
+        rlComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mFragmentManager.addFragment((BaseActivity) view.getContext(),
+                        CommentsFragment.newInstance(new Place(String.valueOf(item.getOwnerId()), String.valueOf(item.getId()))),
+                        R.id.main_wrapper);
+            }
+        });
     }
 
     private void bindLikes(LikeCounterViewModel likes) {
