@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kosi0917.textandfacerecognitionapp.Common.utils.UiHelper;
+import com.kosi0917.textandfacerecognitionapp.Model.VK.CommentItem;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.WallItem;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.kosi0917.textandfacerecognitionapp.ui.holder.BaseViewHolder;
@@ -34,6 +35,15 @@ public class OpenedPostHeaderViewModel extends BaseViewModel {
         this.mProfilePhoto = wallItem.getSenderPhoto();
 
         this.mText = wallItem.getText();
+    }
+
+    public OpenedPostHeaderViewModel(CommentItem commentItem) {
+        this.mId = commentItem.getId();
+
+        this.mProfileName = commentItem.getSenderName();
+        this.mProfilePhoto = commentItem.getSenderPhoto();
+
+        this.mText = commentItem.getDisplayText();
     }
 
 

@@ -9,6 +9,8 @@ import com.kosi0917.textandfacerecognitionapp.Common.manager.MyFragmentManager;
 import com.kosi0917.textandfacerecognitionapp.Common.utils.UiHelper;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.CommentItem;
 import com.kosi0917.textandfacerecognitionapp.R;
+import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.Fragment.OpenedCommentFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.holder.BaseViewHolder;
 
 import javax.inject.Inject;
@@ -85,6 +87,14 @@ public class CommentBodyViewModel extends BaseViewModel {
 
             UiHelper.getInstance().setUpTextViewWithMessage(tvText, commentBodyViewModel.getText(), "");
             UiHelper.getInstance().setUpTextViewWithVisibility(tvAttachments, commentBodyViewModel.getAttachmentsString());
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mFragmentManager.addFragment((BaseActivity) itemView.getContext(),
+                            OpenedCommentFragment.newInstance(commentBodyViewModel.getId()), R.id.main_wrapper);
+                }
+            });
         }
 
         @Override

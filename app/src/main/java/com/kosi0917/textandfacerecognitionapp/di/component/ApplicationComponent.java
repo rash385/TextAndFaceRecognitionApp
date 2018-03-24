@@ -12,11 +12,13 @@ import com.kosi0917.textandfacerecognitionapp.mvp.presenter.InfoPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.MainPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.MembersPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.NewsFeedPresenter;
+import com.kosi0917.textandfacerecognitionapp.mvp.presenter.OpenedCommentPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.OpenedPostPresenter;
 import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Activity.VKLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.CommentsFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.NewsFeedFragment;
+import com.kosi0917.textandfacerecognitionapp.ui.Fragment.OpenedCommentFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.OpenedPostFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.holder.NewsItemBodyHolder;
 import com.kosi0917.textandfacerecognitionapp.ui.holder.NewsItemFooterHolder;
@@ -45,6 +47,7 @@ public interface ApplicationComponent {
     void inject(NewsFeedFragment fragment);
     void inject(OpenedPostFragment fragment);
     void inject(CommentsFragment fragment);
+    void inject(OpenedCommentFragment fragment);
 
     //holders
     void inject(NewsItemBodyHolder holder);
@@ -62,6 +65,7 @@ public interface ApplicationComponent {
     void inject(InfoPresenter presenter);
     void inject(OpenedPostPresenter presenter);
     void inject(CommentsPresenter presenter);
+    void inject(OpenedCommentPresenter presenter);
 
     //managers
     void inject(NetworkManager manager);
