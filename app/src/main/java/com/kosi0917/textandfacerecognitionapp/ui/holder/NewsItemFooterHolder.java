@@ -9,12 +9,18 @@ import android.widget.TextView;
 import com.kosi0917.textandfacerecognitionapp.Application.Application;
 import com.kosi0917.textandfacerecognitionapp.Common.manager.MyFragmentManager;
 import com.kosi0917.textandfacerecognitionapp.Common.utils.Utils;
+import com.kosi0917.textandfacerecognitionapp.Common.utils.VkListHelper;
+import com.kosi0917.textandfacerecognitionapp.Model.VK.Likes;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.Place;
+import com.kosi0917.textandfacerecognitionapp.Model.VK.WallItem;
 import com.kosi0917.textandfacerecognitionapp.Model.view.NewsItemFooterViewModel;
 import com.kosi0917.textandfacerecognitionapp.Model.view.counter.CommentCounterViewModel;
 import com.kosi0917.textandfacerecognitionapp.Model.view.counter.LikeCounterViewModel;
 import com.kosi0917.textandfacerecognitionapp.Model.view.counter.RepostCounterViewModel;
 import com.kosi0917.textandfacerecognitionapp.R;
+import com.kosi0917.textandfacerecognitionapp.rest.api.LikeEventOnSubscribe;
+import com.kosi0917.textandfacerecognitionapp.rest.api.WallApi;
+import com.kosi0917.textandfacerecognitionapp.rest.model.request.WallGetByIdRequestModel;
 import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.CommentsFragment;
 
@@ -22,6 +28,11 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
+import io.realm.RealmObject;
 
 /**
  * Created by mozil on 28.01.2018.
@@ -50,6 +61,9 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
     @BindView(R.id.rl_comments)
     public View rlComments;
 
+    @BindView(R.id.rl_likes)
+    public View rlLikes;
+
 
     @Inject
     Typeface mGoogleFontTypeface;
@@ -57,10 +71,15 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
     @Inject
     MyFragmentManager mFragmentManager;
 
+    @Inject
+    WallApi mWallApi;
+
 
     private Resources mResources;
 
     private Context mContext;
+
+    public static final String POST = "post";
 
 
     public NewsItemFooterHolder(View itemView) {
@@ -93,6 +112,13 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
                         R.id.main_wrapper);
             }
         });
+
+        rlLikes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                like(item);
+            }
+        });
     }
 
     private void bindLikes(LikeCounterViewModel likes) {
@@ -121,5 +147,45 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
         tvLikesCount.setText(null);
         tvCommentsCount.setText(null);
         tvRepostsCount.setText(null);
+    }
+
+    public void saveToDb(RealmObject item) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(realm1 -> realm1.copyToRealmOrUpdate(item));
+    }
+
+    public Observable<LikeCounterViewModel> likeObservable(int ownerId, int postId, Likes likes) {
+        return Observable.create(new LikeEventOnSubscribe(POST, ownerId, postId, likes))
+
+                .observeOn(Schedulers.io())
+                .flatMap(count -> {
+
+                    return mWallApi.getById(new WallGetByIdRequestModel(ownerId, postId).toMap());
+                })
+                .flatMap(full -> Observable.fromIterable(VkListHelper.getWallList(full.response)))
+                .doOnNext(this::saveToDb)
+                .map(wallItem -> new LikeCounterViewModel(wallItem.getLikes()));
+    }
+
+    public void like(NewsItemFooterViewModel item) {
+        WallItem wallItem = getWallItemFromRealm(item.getId());
+        likeObservable(wallItem.getOwnerId(), wallItem.getId(), wallItem.getLikes())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(likes -> {
+                    item.setLikes(likes);
+                    bindLikes(likes);
+                }, error -> {
+                    error.printStackTrace();
+                });
+    }
+
+    public WallItem getWallItemFromRealm(int postId) {
+        Realm realm = Realm.getDefaultInstance();
+        WallItem wallItem = realm.where(WallItem.class)
+                .equalTo("id", postId)
+                .findFirst();
+
+        return realm.copyFromRealm(wallItem);
     }
 }
