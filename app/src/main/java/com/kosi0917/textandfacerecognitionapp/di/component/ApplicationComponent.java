@@ -3,6 +3,7 @@ package com.kosi0917.textandfacerecognitionapp.di.component;
 import com.kosi0917.textandfacerecognitionapp.Common.manager.NetworkManager;
 import com.kosi0917.textandfacerecognitionapp.Model.view.CommentBodyViewModel;
 import com.kosi0917.textandfacerecognitionapp.Model.view.CommentFooterViewModel;
+import com.kosi0917.textandfacerecognitionapp.Model.view.TopicViewModel;
 import com.kosi0917.textandfacerecognitionapp.di.module.ApplicationModule;
 import com.kosi0917.textandfacerecognitionapp.di.module.ManagerModule;
 import com.kosi0917.textandfacerecognitionapp.di.module.RestModule;
@@ -14,12 +15,14 @@ import com.kosi0917.textandfacerecognitionapp.mvp.presenter.MembersPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.NewsFeedPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.OpenedCommentPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.OpenedPostPresenter;
+import com.kosi0917.textandfacerecognitionapp.mvp.presenter.TopicCommentsPresenter;
 import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Activity.VKLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.CommentsFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.NewsFeedFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.OpenedCommentFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.OpenedPostFragment;
+import com.kosi0917.textandfacerecognitionapp.ui.Fragment.TopicCommentsFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.holder.NewsItemBodyHolder;
 import com.kosi0917.textandfacerecognitionapp.ui.holder.NewsItemFooterHolder;
 import com.kosi0917.textandfacerecognitionapp.ui.holder.attachment.ImageAttachmentHolder;
@@ -46,8 +49,9 @@ public interface ApplicationComponent {
     //fragments
     void inject(NewsFeedFragment fragment);
     void inject(OpenedPostFragment fragment);
-    void inject(CommentsFragment fragment);
     void inject(OpenedCommentFragment fragment);
+    void inject(CommentsFragment fragment);
+    void inject(TopicCommentsFragment fragment);
 
     //holders
     void inject(NewsItemBodyHolder holder);
@@ -56,6 +60,7 @@ public interface ApplicationComponent {
     void inject(VideoAttachmentHolder holder);
     void inject(CommentBodyViewModel.CommentBodyViewHolder holder);
     void inject(CommentFooterViewModel.CommentFooterHolder holder);
+    void inject(TopicViewModel.TopicViewHolder holder);
 
     //presenters
     void inject(NewsFeedPresenter presenter);
@@ -66,6 +71,7 @@ public interface ApplicationComponent {
     void inject(OpenedPostPresenter presenter);
     void inject(CommentsPresenter presenter);
     void inject(OpenedCommentPresenter presenter);
+    void inject(TopicCommentsPresenter presenter);
 
     //managers
     void inject(NetworkManager manager);
