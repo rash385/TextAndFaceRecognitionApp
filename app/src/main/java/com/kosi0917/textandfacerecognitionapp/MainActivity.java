@@ -58,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.ic_arrow:
                                 goMainScreen();
                                 break;
-                            case R.id.ic_android:
-                                //Некторый код
-                                break;
                         }
                         return false;
                     }

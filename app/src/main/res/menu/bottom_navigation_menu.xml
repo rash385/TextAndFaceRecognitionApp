@@ -7,19 +7,9 @@
         android:icon="@drawable/ic_arrow_back"
         android:title="@string/back" />
     <item
-        android:id="@+id/ic_android"
-        android:icon="@drawable/ic_android"
-        android:title="@string/android"
-        />
-    <item
         android:id ="@+id/ic_start_analyze"
         android:icon="@drawable/ic_start_analyze"
         android:title="@string/start_analyze"
-        />
-    <item
-        android:id="@+id/ic_center_focus"
-        android:icon="@drawable/ic_center_focus"
-        android:title="@string/center"
         />
     <item
         android:id="@+id/ic_backup"
