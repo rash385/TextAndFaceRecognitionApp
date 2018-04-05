@@ -115,6 +115,9 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
                     case R.id.ic_arrow:
                         goMainScreen();
                         break;
+                    case R.id.ic_start_analyze:
+                        goMainScreen();
+                        break;
                 }
                 return false;
             }
