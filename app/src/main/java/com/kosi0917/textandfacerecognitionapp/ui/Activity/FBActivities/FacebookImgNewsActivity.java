@@ -116,7 +116,7 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
                         goMainScreen();
                         break;
                     case R.id.ic_start_analyze:
-                        goMainScreen();
+                        goAnliseScreen();
                         break;
                 }
                 return false;
@@ -450,6 +450,15 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
         loadFeedAsync.execute(data);
     }
     private void goMainScreen() {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("name", firstName);
+        intent.putExtra("surname", lastName);
+        intent.putExtra("imageUrl", imgUrl);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void goAnliseScreen(){
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("name", firstName);
         intent.putExtra("surname", lastName);
