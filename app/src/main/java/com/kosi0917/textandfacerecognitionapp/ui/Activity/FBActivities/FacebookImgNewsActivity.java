@@ -25,6 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookImgAdapter;
 import com.kosi0917.textandfacerecognitionapp.Application.Application;
 import com.kosi0917.textandfacerecognitionapp.Common.manager.MyFragmentManager;
+import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities.StatisticsGraphicsActivity;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.Datum;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.GroupEntity;
@@ -459,7 +460,7 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
     }
 
     private void goAnliseScreen(){
-        Intent intent = new Intent(this, ProfileActivity.class);
+        Intent intent = new Intent(this, StatisticsGraphicsActivity.class);
         intent.putExtra("name", firstName);
         intent.putExtra("surname", lastName);
         intent.putExtra("imageUrl", imgUrl);

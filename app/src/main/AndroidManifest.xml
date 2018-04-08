@@ -36,6 +36,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             />
 
+        <activity android:name=".ImagesAnalyzer.ImageActivities.StatisticsGraphicsActivity"
+            />
         <activity
             android:name="com.kosi0917.textandfacerecognitionapp.ui.Activity.CreatePostActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>

@@ -147,4 +147,22 @@ public class ImageHelper {
 
         chart.setColumnChartData(data);
     }
+
+    public static void drawStaticsForAll(LineChartView chart){
+        List<PointValue> values = new ArrayList<PointValue>();
+        values.add(new PointValue(0, 2));
+        values.add(new PointValue(1, 4));
+        values.add(new PointValue(2, 3));
+        values.add(new PointValue(3, 4));
+
+        //In most cased you can call data model methods in builder-pattern-like manner.
+        Line line = new Line(values).setColor(Color.BLUE).setCubic(true);
+        List<Line> lines = new ArrayList<Line>();
+        lines.add(line);
+
+        LineChartData data = new LineChartData();
+        data.setLines(lines);
+
+        chart.setLineChartData(data);
+    }
 }
