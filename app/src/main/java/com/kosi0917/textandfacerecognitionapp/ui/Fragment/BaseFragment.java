@@ -41,4 +41,8 @@ public abstract class BaseFragment extends MvpAppCompatFragment {
     @StringRes
     public abstract int onCreateToolbarTitle();
 
+    public boolean needFab() {
+        return false;
+    }
+
 }

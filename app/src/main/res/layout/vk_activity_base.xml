@@ -2,13 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include layout="@layout/vk_toolbar_layout" />
 
-    <RelativeLayout
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_add_white_24dp"
+            app:fabSize="normal"
+            app:layout_anchor="@+id/main_wrapper"
+            app:layout_anchorGravity="bottom|right|end" />
 
         <FrameLayout
             android:id="@+id/main_wrapper"
@@ -16,20 +31,17 @@
             android:layout_height="match_parent" />
 
         <RelativeLayout
+            android:layout_marginBottom="?attr/actionBarSize"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="?attr/actionBarSize">
+            android:layout_height="match_parent">
 
             <ProgressBar
-                android:id="@+id/progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/progress"
                 android:layout_centerInParent="true"
-                android:visibility="gone" />
-
+                android:visibility="gone"/>
 
         </RelativeLayout>
-
-    </RelativeLayout>
-
+    </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

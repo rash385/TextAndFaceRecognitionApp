@@ -1,5 +1,6 @@
 package com.kosi0917.textandfacerecognitionapp.ui.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.kosi0917.textandfacerecognitionapp.Model.VK.Place;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.BaseFeedPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.CommentsPresenter;
+import com.kosi0917.textandfacerecognitionapp.ui.Activity.CreatePostActivity;
 
 import butterknife.ButterKnife;
 
@@ -67,5 +69,25 @@ public class CommentsFragment extends BaseFeedFragment {
     @Override
     public int onCreateToolbarTitle() {
         return R.string.screen_name_comments;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getBaseActivity().mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseActivity(), CreatePostActivity.class);
+                intent.putExtra("type", "comment");
+                intent.putExtra("owner_id", Integer.parseInt(mPlace.getOwnerId()));
+                intent.putExtra("id", Integer.parseInt(mPlace.getPostId()));
+                startActivityForResult(intent, 0);
+            }
+        });
+    }
+
+    @Override
+    public boolean needFab() {
+        return true;
     }
 }

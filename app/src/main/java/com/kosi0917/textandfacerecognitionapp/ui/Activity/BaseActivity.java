@@ -2,6 +2,7 @@ package com.kosi0917.textandfacerecognitionapp.ui.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -32,6 +33,9 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     @BindView(R.id.progress)
     protected ProgressBar mProgressBar;
 
+    @BindView(R.id.fab)
+    public FloatingActionButton mFab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,7 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
 
     public void fragmentOnScreen(BaseFragment baseFragment) {
         setToolbarTitle(baseFragment.createToolbarTitle(this));
+        setupFabVisibility(baseFragment.needFab());
     }
 
 
@@ -86,5 +91,15 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     @Override
     public void onBackPressed() {
         removeCurrentFragment();
+    }
+
+    public void setupFabVisibility(boolean needFab) {
+        if (mFab == null) return;
+
+        if (needFab) {
+            mFab.show();
+        } else {
+            mFab.hide();
+        }
     }
 }

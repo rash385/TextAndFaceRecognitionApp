@@ -1,7 +1,9 @@
 package com.kosi0917.textandfacerecognitionapp.ui.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.kosi0917.textandfacerecognitionapp.Application.Application;
@@ -17,6 +19,7 @@ import com.kosi0917.textandfacerecognitionapp.mvp.presenter.NewsFeedPresenter;
 import com.kosi0917.textandfacerecognitionapp.rest.api.WallApi;
 import com.kosi0917.textandfacerecognitionapp.rest.model.request.WallGetRequestModel;
 import com.kosi0917.textandfacerecognitionapp.rest.model.response.GetWallResponse;
+import com.kosi0917.textandfacerecognitionapp.ui.Activity.CreatePostActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +68,24 @@ public class NewsFeedFragment extends BaseFeedFragment {
     @Override
     public int onCreateToolbarTitle() {
         return R.string.screen_name_news;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getBaseActivity().mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getActivity(), CreatePostActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+    }
+
+    @Override
+    public boolean needFab() {
+        return true;
     }
 }
 

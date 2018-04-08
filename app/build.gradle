@@ -97,4 +97,6 @@ dependencies {
 
     compile 'com.mikepenz:google-material-typeface:2.2.0.2.original@aar'
 
+    compile 'com.droidninja:filepicker:2.0.8'
+
 }

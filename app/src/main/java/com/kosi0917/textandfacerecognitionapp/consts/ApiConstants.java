@@ -20,7 +20,7 @@ public class ApiConstants {
             VKScope.WALL, VKScope.MESSAGES, VKScope.PHOTOS, VKScope.PAGES, VKScope.GROUPS, VKScope.EMAIL,
             VKScope.STATS, VKScope.DOCS};
 
-    public static final int MY_GROUP_ID = -86529522;//-72495085;//-30602036;
+    public static final int MY_GROUP_ID = -158518042;//-86529522;//-72495085;//-30602036;
 
     public static final String DEFAULT_GROUP_FIELDS = "status,description,site,links,contacts";
 
