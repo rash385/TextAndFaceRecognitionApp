@@ -9,6 +9,9 @@ import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageHelper;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.microsoft.projectoxford.emotion.EmotionServiceClient;
 import com.microsoft.projectoxford.emotion.EmotionServiceRestClient;
+import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
+
+import java.util.List;
 
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.view.LineChartView;
@@ -34,6 +37,9 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
         setContentView(R.layout.page_graphic_statistics);
 
         chart = (LineChartView) findViewById(R.id.chart_graphic);
+        List<RecognizeResult> result = null;
+        //TODO: Add recognize image
+      //  result = restClient.recognizeImage(facebookImageURL);
         ImageHelper.drawStaticsForAll(chart);
     }
 }

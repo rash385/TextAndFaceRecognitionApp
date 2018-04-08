@@ -150,6 +150,7 @@ public class ImageHelper {
 
     public static void drawStaticsForAll(LineChartView chart){
         List<PointValue> values = new ArrayList<PointValue>();
+        boolean hasAxes = true;
         values.add(new PointValue(0, 2));
         values.add(new PointValue(1, 4));
         values.add(new PointValue(2, 3));
@@ -163,6 +164,19 @@ public class ImageHelper {
         LineChartData data = new LineChartData();
         data.setLines(lines);
 
+        if (hasAxes) {
+            Axis axisX = new Axis();
+            Axis axisY = new Axis().setHasLines(true);
+            //if (hasAxesNames) {
+            axisX.setName("Emotion type");
+            axisY.setName("Emotion value");
+            // }
+            data.setAxisXBottom(axisX);
+            data.setAxisYLeft(axisY);
+        } else {
+            data.setAxisXBottom(null);
+            data.setAxisYLeft(null);
+        }
         chart.setLineChartData(data);
     }
 }
