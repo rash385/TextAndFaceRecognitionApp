@@ -153,7 +153,7 @@ public class ImageHelper {
         boolean hasAxes = true;
         int i=0;
         for (Double emValue: emotionTypeList)
-            values.add(new PointValue(i++, Float.valueOf(String.valueOf(emValue))));
+            values.add(new PointValue(i++, Float.valueOf(String.valueOf(emValue* 20f + 5))));
 
         //In most cased you can call data model methods in builder-pattern-like manner.
         Line line = new Line(values).setColor(Color.BLUE).setCubic(true);

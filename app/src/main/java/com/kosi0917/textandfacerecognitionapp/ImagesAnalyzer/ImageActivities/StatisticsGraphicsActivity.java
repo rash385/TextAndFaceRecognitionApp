@@ -34,7 +34,7 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
     LineChartView chart;
     String json;
     RootImgFeed rootImgFeed;
-    List<Double> happinesList;
+    List<Double> happinesList = new ArrayList<>();
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -83,6 +83,7 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
             protected void onPostExecute(List<RecognizeResult> recognizeResults) {
                 for (RecognizeResult res: recognizeResults)
                 {
+                    System.out.println(res.scores.happiness);
                     happinesList.add(res.scores.happiness);
                 }
             }
