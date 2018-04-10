@@ -68,7 +68,7 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
                 publishProgress("Please wait ...");
                 List<RecognizeResult> result = null;
                 try {
-                    result = restClient.recognizeImage(rootImgFeed.getData().get(0).getAttachments().getData().get(0).getUrl());
+                    result = restClient.recognizeImage(rootImgFeed.getData().get(0).getAttachments().getData().get(0).getMedia().getImage().getSrc());
                 } catch (EmotionServiceException e) {
                     e.printStackTrace();
                 }
