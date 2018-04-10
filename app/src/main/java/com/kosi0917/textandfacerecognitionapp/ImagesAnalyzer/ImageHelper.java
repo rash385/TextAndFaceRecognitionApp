@@ -151,6 +151,7 @@ public class ImageHelper {
     public static void drawStaticsForAll(LineChartView chart){
         List<PointValue> values = new ArrayList<PointValue>();
         boolean hasAxes = true;
+
         values.add(new PointValue(0, 2));
         values.add(new PointValue(1, 4));
         values.add(new PointValue(2, 3));
