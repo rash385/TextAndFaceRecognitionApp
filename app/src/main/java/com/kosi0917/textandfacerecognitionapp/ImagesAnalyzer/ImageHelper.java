@@ -148,14 +148,12 @@ public class ImageHelper {
         chart.setColumnChartData(data);
     }
 
-    public static void drawStaticsForAll(LineChartView chart){
+    public static void drawStaticsForAll(LineChartView chart, List<Double> emotionTypeList){
         List<PointValue> values = new ArrayList<PointValue>();
         boolean hasAxes = true;
-
-        values.add(new PointValue(0, 2));
-        values.add(new PointValue(1, 4));
-        values.add(new PointValue(2, 3));
-        values.add(new PointValue(3, 4));
+        int i=0;
+        for (Double emValue: emotionTypeList)
+            values.add(new PointValue(i++, Float.valueOf(String.valueOf(emValue))));
 
         //In most cased you can call data model methods in builder-pattern-like manner.
         Line line = new Line(values).setColor(Color.BLUE).setCubic(true);

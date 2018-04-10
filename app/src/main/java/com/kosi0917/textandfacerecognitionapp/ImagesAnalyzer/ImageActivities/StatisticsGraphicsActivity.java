@@ -3,17 +3,12 @@ package com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageHelper;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
-import com.kosi0917.textandfacerecognitionapp.Model.facebook.Datum;
-import com.kosi0917.textandfacerecognitionapp.Model.facebook.GroupEntity;
-import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.microsoft.projectoxford.emotion.EmotionServiceClient;
@@ -39,6 +34,7 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
     LineChartView chart;
     String json;
     RootImgFeed rootImgFeed;
+    List<Double> happinesList;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -62,35 +58,36 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
         rootImgFeed = new RootImgFeed(viewedData);
         EmotionServiceClient restClient = new EmotionServiceRestClient("87aa57dc540b439193a60cc5bce69f90");
 
+        for(DatFeed imageData: rootImgFeed.getData() )
+            processImage(imageData.getAttachments().getData().get(0).getMedia().getImage().getSrc());
+
+        //Create image graphics
+        ImageHelper.drawStaticsForAll(chart,happinesList);
+    }
+
+    private void processImage(String facebookImageURL) {
+        //Create Async Task to Process Data
         AsyncTask<InputStream,String,List<RecognizeResult>> processAsync = new AsyncTask<InputStream, String, List<RecognizeResult>>() {
             @Override
             protected List<RecognizeResult> doInBackground(InputStream... params) {
                 publishProgress("Please wait ...");
                 List<RecognizeResult> result = null;
                 try {
-                    result = restClient.recognizeImage(rootImgFeed.getData().get(0).getAttachments().getData().get(0).getMedia().getImage().getSrc());
+                    result = restClient.recognizeImage(facebookImageURL);
                 } catch (EmotionServiceException e) {
                     e.printStackTrace();
                 }
                 return result;
             }
-
             @Override
             protected void onPostExecute(List<RecognizeResult> recognizeResults) {
                 for (RecognizeResult res: recognizeResults)
                 {
-                    System.out.println(res);
+                    happinesList.add(res.scores.happiness);
                 }
             }
         };
 
         processAsync.execute(/*inputStream*/);
-
-
-        System.out.print(rootImgFeed.getData().get(0).getAttachments().getData().get(0).getMedia().getImage().getSrc());
-
-        //TODO: Add recognize image
-      //  result = restClient.recognizeImage(facebookImageURL);
-        ImageHelper.drawStaticsForAll(chart);
     }
 }
