@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,6 +35,7 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
     LineChartView chart;
     String json;
     RootImgFeed rootImgFeed;
+    Button btnStartAnalisis;
     List<Double> happinesList = new ArrayList<>();
 
     @Override
@@ -62,7 +64,7 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
             processImage(imageData.getAttachments().getData().get(0).getMedia().getImage().getSrc());
 
         //Create image graphics
-        ImageHelper.drawStaticsForAll(chart,happinesList);
+       // ImageHelper.drawStaticsForAll(chart,happinesList);
     }
 
     private void processImage(String facebookImageURL) {
