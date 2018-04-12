@@ -1,16 +1,20 @@
 package com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageHelper;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
+import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.microsoft.projectoxford.emotion.EmotionServiceClient;
 import com.microsoft.projectoxford.emotion.EmotionServiceRestClient;
@@ -63,8 +67,17 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
         for(DatFeed imageData: rootImgFeed.getData() )
             processImage(imageData.getAttachments().getData().get(0).getMedia().getImage().getSrc());
 
-        //Create image graphics
-       // ImageHelper.drawStaticsForAll(chart,happinesList);
+}
+
+    private void initViews() {
+        btnStartAnalisis = (Button)findViewById(R.id.start_analise_graphic);
+        btnStartAnalisis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageHelper.drawStaticsForAll(chart,happinesList);
+            }
+        });
+
     }
 
     private void processImage(String facebookImageURL) {
