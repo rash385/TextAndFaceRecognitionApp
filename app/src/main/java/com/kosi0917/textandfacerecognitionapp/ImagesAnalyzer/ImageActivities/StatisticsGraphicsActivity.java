@@ -66,6 +66,7 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
 
         for(DatFeed imageData: rootImgFeed.getData() )
             processImage(imageData.getAttachments().getData().get(0).getMedia().getImage().getSrc());
+        initViews();
 
 }
 
