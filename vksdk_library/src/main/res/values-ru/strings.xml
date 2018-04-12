@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="vk_name">ВКонтакте</string>
+    <string name="fb_name">Facebook</string>
     <string name="vk_enter_captcha_text">Введите текст с картинки</string>
     <string name="vk_retry">Повторить</string>
     <string name="vk_send">ОПУБЛИКОВАТЬ</string>

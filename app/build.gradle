@@ -99,4 +99,6 @@ dependencies {
 
     compile 'com.droidninja:filepicker:2.0.8'
 
+    compile 'com.cuboid:cuboidcirclebutton:1.0.3'
+
 }

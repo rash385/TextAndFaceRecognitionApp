@@ -40,4 +40,5 @@
     <string name="message_not_published">Запись не опубликована. Возможно, у вас нет прав для публикации на стене группы</string>
     <string name="loading_completed">Загружено</string>
     <string name="loading_failed">Ошибка загрузки. Убедитесь, что имя файла не содержит пробелы и кириллицу</string>
+    <string name="facebook">Facebook</string>
 </resources>
