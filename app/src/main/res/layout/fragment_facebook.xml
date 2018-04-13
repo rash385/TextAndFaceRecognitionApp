@@ -3,51 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/new_login_gradients"
+    android:background="@drawable/login_gradient"
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="252dp">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="404dp"
+            android:layout_height="233dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="48dp"
+            android:padding="16dp"
+            android:src="@drawable/camera_image" />
+    </LinearLayout>
 
-            <ImageView
-                android:layout_width="404dp"
-                android:layout_height="233dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="48dp"
-                android:padding="16dp"
-                android:src="@drawable/ic_photo_camera_black_24dp" />
-        </LinearLayout>
-    </ScrollView>
-
-    <com.cuboid.cuboidcirclebutton.CuboidButton
+    <ImageButton
         android:id="@+id/loginVKButton"
-        android:layout_width="92dp"
-        android:layout_height="91dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="20dp"
+        android:layout_width="91dp"
+        android:layout_height="95dp"
+        android:background="@drawable/vk_icon"
         android:onClick="onMyButtonClick"
         android:text="@string/vk_name"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:cub_border_radius="0dp"
-        app:cub_color="#03A9F4"
+        facebook:layout_constraintBottom_toBottomOf="parent"
         facebook:layout_constraintEnd_toStartOf="@+id/btn_instagram_login"
-        tools:layout_editor_absoluteY="298dp" />
+        facebook:layout_constraintHorizontal_bias="0.484"
+        facebook:layout_constraintStart_toEndOf="@+id/loginButton"
+        facebook:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        facebook:layout_constraintVertical_bias="0.0" />
 
 
-    <com.cuboid.cuboidcirclebutton.CuboidButton
+    <ImageButton
         android:id="@+id/btn_instagram_login"
         android:layout_width="92dp"
-        android:layout_height="91dp"
-        android:layout_marginRight="8dp"
+        android:layout_height="92dp"
+
         android:onClick="onClick"
         android:text="Instagram"
         android:textColor="@android:color/white"
@@ -58,33 +55,33 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        facebook:layout_constraintHorizontal_bias="0.911"
-        facebook:layout_constraintVertical_bias="0.626" />
+        android:background="@drawable/instagramcirclecolor"
+        facebook:layout_constraintHorizontal_bias="0.945"
+        facebook:layout_constraintVertical_bias="0.633" />
 
-    <com.cuboid.cuboidcirclebutton.CuboidButton
+    <ImageButton
         android:id="@+id/loginButton"
         android:layout_width="92dp"
-        android:layout_height="91dp"
+        android:layout_height="92dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="176dp"
+        android:layout_marginBottom="172dp"
         android:text="@string/facebook"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         app:cub_border_radius="0dp"
-        app:cub_color="#3b5998"
-        app:cub_icon="@drawable/icons8facebook50"
+        app:cub_color="#204faf"
+        android:background="@drawable/facebookcircle"
         facebook:com_facebook_confirm_logout="true"
-        facebook:com_facebook_tooltip_mode="never_display"
         facebook:layout_constraintBottom_toBottomOf="parent"
         facebook:layout_constraintEnd_toEndOf="parent"
-        facebook:layout_constraintHorizontal_bias="0.123"
-        facebook:layout_constraintStart_toStartOf="parent" />
+        facebook:layout_constraintHorizontal_bias="0.126"
+        facebook:layout_constraintStart_toStartOf="parent"
+         />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/facebookButton"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible"
-        android:layout_marginBottom="12dp" />
+        android:layout_width="7dp"
+        android:layout_height="9dp"
+        android:visibility="invisible" />
 
 </android.support.constraint.ConstraintLayout>

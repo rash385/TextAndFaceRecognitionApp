@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.cuboid.cuboidcirclebutton.CuboidButton;
 import com.facebook.CallbackManager;
@@ -34,14 +35,14 @@ import java.net.URL;
 public class FacebookLoginActivity extends AppCompatActivity implements  AuthenticationListener {
 
     private LoginButton loginButton;
-    private CuboidButton facebookBtn;
+    private ImageButton facebookBtn;
     private CallbackManager callbackManager;
     private String firstName,lastName, email,birthday,gender;
     private URL profilePicture;
     private String userId;
     private String TAG = "LoginActivity";
     private AuthenticationDialog auth_dialog;
-    private CuboidButton btn_get_access_token;
+    private ImageButton btn_get_access_token;
 
 
 
@@ -54,9 +55,9 @@ public class FacebookLoginActivity extends AppCompatActivity implements  Authent
 
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.facebookButton);
-        facebookBtn = (CuboidButton) findViewById(R.id.loginButton);
+        facebookBtn = (ImageButton) findViewById(R.id.loginButton);
 
-        btn_get_access_token = (CuboidButton) findViewById(R.id.btn_instagram_login);
+        btn_get_access_token = (ImageButton) findViewById(R.id.btn_instagram_login);
         btn_get_access_token.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
