@@ -3,46 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_login"
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <com.facebook.login.widget.ProfilePictureView
-        android:id="@+id/profilePicture"
-        android:layout_width="198dp"
-        android:layout_height="294dp"
-
-        android:layout_marginEnd="16dp"
-        android:gravity="center_horizontal"
-        facebook:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="39dp" />
-
     <com.cuboid.cuboidcirclebutton.CuboidButton
         android:id="@+id/loginVKButton"
-        android:layout_width="100dp"
-        android:layout_height="88dp"
+        android:layout_width="92dp"
+        android:layout_height="91dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginBottom="248dp"
+        android:layout_marginStart="104dp"
         android:onClick="onMyButtonClick"
         android:text="@string/vk_name"
         android:textColor="@android:color/white"
         app:cub_border_radius="0dp"
         app:cub_color="#03A9F4"
-        facebook:layout_constraintBottom_toTopOf="@+id/btn_instagram_login"
-        facebook:layout_constraintEnd_toStartOf="@+id/profilePicture"
-        facebook:layout_constraintHorizontal_bias="0.412"
-        facebook:layout_constraintStart_toStartOf="parent"
-        facebook:layout_constraintTop_toBottomOf="@+id/loginButton" />
+        facebook:layout_constraintBottom_toBottomOf="parent"
+        facebook:layout_constraintEnd_toStartOf="@+id/btn_instagram_login"
+        facebook:layout_constraintHorizontal_bias="0.867"
+        facebook:layout_constraintStart_toStartOf="parent" />
 
 
     <com.cuboid.cuboidcirclebutton.CuboidButton
         android:id="@+id/btn_instagram_login"
-        android:layout_width="100dp"
-        android:layout_height="86dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="92dp"
+        android:layout_height="91dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
         android:onClick="onClick"
         android:text="Instagram"
         android:textColor="@android:color/white"
@@ -52,26 +40,32 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        facebook:layout_constraintHorizontal_bias="0.132"
-        facebook:layout_constraintVertical_bias="0.391" />
+        facebook:layout_constraintHorizontal_bias="0.929"
+        facebook:layout_constraintVertical_bias="0.478" />
 
-    <com.facebook.login.widget.LoginButton
+    <com.cuboid.cuboidcirclebutton.CuboidButton
         android:id="@+id/loginButton"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_width="92dp"
+        android:layout_height="91dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="17dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginBottom="248dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/facebook"
         android:textColor="@android:color/white"
         app:cub_border_radius="0dp"
         app:cub_color="#094bf2"
         facebook:com_facebook_confirm_logout="true"
         facebook:com_facebook_tooltip_mode="never_display"
-        facebook:layout_constraintBottom_toTopOf="@+id/loginVKButton"
-        facebook:layout_constraintEnd_toStartOf="@+id/profilePicture"
-        facebook:layout_constraintHorizontal_bias="0.412"
-        facebook:layout_constraintStart_toStartOf="parent"
-        facebook:layout_constraintTop_toTopOf="parent" />
+        facebook:layout_constraintBottom_toBottomOf="parent"
+        facebook:layout_constraintEnd_toEndOf="parent"
+        facebook:layout_constraintHorizontal_bias="0.21"
+        facebook:layout_constraintStart_toStartOf="parent" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/facebookButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:layout_marginBottom="12dp" />
 
 </android.support.constraint.ConstraintLayout>

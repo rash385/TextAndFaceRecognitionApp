@@ -34,6 +34,7 @@ import java.net.URL;
 public class FacebookLoginActivity extends AppCompatActivity implements  AuthenticationListener {
 
     private LoginButton loginButton;
+    private CuboidButton facebookBtn;
     private CallbackManager callbackManager;
     private String firstName,lastName, email,birthday,gender;
     private URL profilePicture;
@@ -52,7 +53,8 @@ public class FacebookLoginActivity extends AppCompatActivity implements  Authent
         setContentView(R.layout.fragment_facebook);
 
         callbackManager = CallbackManager.Factory.create();
-        loginButton = (LoginButton) findViewById(R.id.loginButton);
+        loginButton = (LoginButton) findViewById(R.id.facebookButton);
+        facebookBtn = (CuboidButton) findViewById(R.id.loginButton);
 
         btn_get_access_token = (CuboidButton) findViewById(R.id.btn_instagram_login);
         btn_get_access_token.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +117,14 @@ public class FacebookLoginActivity extends AppCompatActivity implements  Authent
             }
         };
         loginButton.registerCallback(callbackManager, callback);
+
+        facebookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.getId() == R.id.loginButton)
+                    loginButton.performClick();
+            }
+        });
     }
 
     @Override
