@@ -596,9 +596,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 share();
                 break;
 
-            case R.id.getPosts:
-                getPosts();
-                break;
+           // case R.id.getPosts:
+             //   getPosts();
+              //  break;
 
             case R.id.logout:
                 logout();

@@ -6,56 +6,13 @@
     android:background="@drawable/login_gradient"
     xmlns:facebook="http://schemas.android.com/apk/res-auto">
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/logout"
-        android:layout_width="185dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center_horizontal"
-        android:onClick="onClick"
-        android:text="Logout"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="434dp" />
-
-    <ImageButton
-        android:id="@+id/getNews"
-        android:layout_width="66dp"
-        android:layout_height="59dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/ic_feed"
-        android:onClick="onClick"
-        android:text="Все новости"
-        tools:layout_editor_absoluteX="203dp"
-        tools:layout_editor_absoluteY="287dp" />
-
-    <ImageButton
-        android:id="@+id/share"
-        android:layout_width="65dp"
-        android:layout_height="59dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/ic_forward"
-        android:onClick="onClick"
-        android:text="Поделиться"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="283dp" />
-
-    <ImageButton
-        android:id="@+id/getPickNews"
-        android:layout_width="65dp"
-        android:layout_height="63dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/ic_bnews"
-        android:onClick="onClick"
-        android:text="Новости с картинкой"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="352dp" />
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="279dp"
-        android:layout_marginBottom="284dp"
+        android:id="@+id/linearLayout2"
+        android:layout_width="385dp"
+        android:layout_height="315dp"
         android:orientation="vertical"
-        facebook:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,4 +39,73 @@
             android:layout_marginTop="10dp" />
 
     </LinearLayout>
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/logout"
+        android:layout_width="198dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="54dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="19dp"
+        android:onClick="onClick"
+        android:text="Logout"
+        facebook:layout_constraintBottom_toBottomOf="parent"
+        facebook:layout_constraintEnd_toEndOf="parent"
+        facebook:layout_constraintHorizontal_bias="0.488"
+        facebook:layout_constraintStart_toStartOf="parent"
+        facebook:layout_constraintTop_toBottomOf="@+id/getPickNews"
+        facebook:layout_constraintVertical_bias="0.444" />
+
+    <ImageButton
+        android:id="@+id/getNews"
+        android:layout_width="66dp"
+        android:layout_height="63dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="105dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_feed"
+        android:onClick="onClick"
+        android:text="Все новости"
+        facebook:layout_constraintBottom_toTopOf="@+id/logout"
+        facebook:layout_constraintEnd_toEndOf="parent"
+        facebook:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        facebook:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:id="@+id/share"
+        android:layout_width="64dp"
+        android:layout_height="59dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="26dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/ic_forward"
+        android:onClick="onClick"
+        android:text="Поделиться"
+        facebook:layout_constraintBottom_toTopOf="@+id/getPickNews"
+        facebook:layout_constraintEnd_toStartOf="@+id/getNews"
+        facebook:layout_constraintHorizontal_bias="1.0"
+        facebook:layout_constraintStart_toStartOf="parent"
+        facebook:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <ImageButton
+        android:id="@+id/getPickNews"
+        android:layout_width="65dp"
+        android:layout_height="63dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="208dp"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/ic_bnews"
+        android:onClick="onClick"
+        android:text="Новости с картинкой"
+        facebook:layout_constraintBottom_toTopOf="@+id/logout"
+        facebook:layout_constraintEnd_toEndOf="parent"
+        facebook:layout_constraintStart_toStartOf="parent"
+        facebook:layout_constraintTop_toBottomOf="@+id/share" />
 </android.support.constraint.ConstraintLayout>
