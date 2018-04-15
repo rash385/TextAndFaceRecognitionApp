@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/ic_positive"
+        android:title="@string/positive" />
+    <item
+        android:id ="@+id/ic_negative"
+        android:title="@string/negative"
+        />
+    <item
+        android:id="@+id/ic_surprise"
+        android:title="@string/surprise"
+        />
+    <item
+        android:id="@+id/ic_sadness"
+        android:title="@string/ic_sadness"
+        />
+    <item
+        android:id="@+id/ic_back"
+        android:title="Назад"
+        />
+</menu>

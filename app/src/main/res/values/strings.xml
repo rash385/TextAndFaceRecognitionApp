@@ -4,7 +4,6 @@
     <string name="applicationId">2023742747897963</string>
     <string name="cancel_login">Пользователь вышел</string>
     <string name="error_login">Ошибка входа</string>
-    <string name="back">Назад</string>
     <string name="android">Андроид</string>
     <string name="start_analyze">Статистика</string>
     <string name="center">Центр</string>
@@ -41,4 +40,9 @@
     <string name="loading_completed">Загружено</string>
     <string name="loading_failed">Ошибка загрузки. Убедитесь, что имя файла не содержит пробелы и кириллицу</string>
     <string name="facebook">Facebook</string>
+    <string name="positive">Позитивное настроение</string>
+    <string name="negative">Негативное настроение</string>
+    <string name="surprise">Удивление</string>
+    <string name="ic_sadness">Грусть</string>
+    <string name="back">Назад</string>
 </resources>

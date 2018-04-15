@@ -6,17 +6,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <include layout="@layout/fb_toolbar_layout" />
+    <include
+        layout="@layout/image_analise_toolbar"
+        />
 
     <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/chart_graphic"
-        android:layout_width="405dp"
-        android:layout_height="406dp"
+        android:layout_width="352dp"
+        android:layout_height="401dp"
         android:layout_marginBottom="70dp"
         android:layout_marginTop="60dp"
         app:layout_constraintBottom_toTopOf="@+id/start_analise_graphic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.355"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside" />

@@ -1,20 +1,22 @@
 package com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities;
 
-import android.graphics.drawable.BitmapDrawable;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageHelper;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
-import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.microsoft.projectoxford.emotion.EmotionServiceClient;
 import com.microsoft.projectoxford.emotion.EmotionServiceRestClient;
@@ -40,7 +42,8 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
     String json;
     RootImgFeed rootImgFeed;
     Button btnStartAnalisis;
-    List<Double> happinesList = new ArrayList<>();
+    List<RecognizeResult> happinesList = new ArrayList<>();
+    List<Double> chossenResults = new ArrayList<>();
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -48,10 +51,55 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.graphics_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.ic_positive: {
+                for(RecognizeResult recognizeResult:happinesList)
+                    chossenResults.add(recognizeResult.scores.happiness);
+                break;
+            }
+            case R.id.ic_negative: {
+                for(RecognizeResult recognizeResult:happinesList)
+                    chossenResults.add(recognizeResult.scores.anger);
+                break;
+            }
+
+            case R.id.ic_surprise: {
+                for(RecognizeResult recognizeResult:happinesList)
+                    chossenResults.add(recognizeResult.scores.surprise);
+                break;
+            }
+
+            case R.id.ic_sadness: {
+                for(RecognizeResult recognizeResult:happinesList)
+                    chossenResults.add(recognizeResult.scores.sadness);
+                break;
+            }
+            case R.id.ic_back: {
+
+                break;
+            }
+            // case blocks for other MenuItems (if any)
+        }
+        return false;
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         Bundle inBundle = getIntent().getExtras();
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.page_graphic_statistics);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.image_analise_toolbar);
+        toolbar.inflateMenu(R.menu.graphics_menu);
+        setSupportActionBar(toolbar);
+
+
 
         chart = (LineChartView) findViewById(R.id.chart_graphic);
         json = inBundle.getString("data");
@@ -75,7 +123,7 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
         btnStartAnalisis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageHelper.drawStaticsForAll(chart,happinesList);
+                ImageHelper.drawStaticsForAll(chart,chossenResults);
             }
         });
 
@@ -100,7 +148,7 @@ public class StatisticsGraphicsActivity extends AppCompatActivity {
                 for (RecognizeResult res: recognizeResults)
                 {
                     System.out.println(res.scores.happiness);
-                    happinesList.add(res.scores.happiness);
+                    happinesList.add(res);
                 }
             }
         };

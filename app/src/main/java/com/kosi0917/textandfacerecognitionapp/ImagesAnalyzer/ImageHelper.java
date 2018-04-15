@@ -176,6 +176,7 @@ public class ImageHelper {
             data.setAxisXBottom(null);
             data.setAxisYLeft(null);
         }
+        emotionTypeList.removeAll(emotionTypeList);
         chart.setLineChartData(data);
     }
 }
