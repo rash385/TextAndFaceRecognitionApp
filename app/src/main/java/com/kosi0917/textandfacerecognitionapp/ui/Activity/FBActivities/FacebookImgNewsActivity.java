@@ -119,6 +119,9 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
                     case R.id.ic_start_analyze:
                         goAnliseScreen();
                         break;
+                    case R.id.ic_backup:
+                        goPostAnliseScreen();
+                        break;
                 }
                 return false;
             }
@@ -460,6 +463,13 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
     }
 
     private void goAnliseScreen(){
+        Intent intent = new Intent(this, StatisticsGraphicsActivity.class);
+        intent.putExtra("data", data);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void goPostAnliseScreen(){
         Intent intent = new Intent(this, StatisticsGraphicsActivity.class);
         intent.putExtra("data", data);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
