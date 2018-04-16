@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kosi0917.textandfacerecognitionapp.Model.sentiment.Document;
+import com.kosi0917.textandfacerecognitionapp.Model.sentiment.Documents;
 import com.kosi0917.textandfacerecognitionapp.analyze.ImagesAnalyzer.ImageActivities.ImageActivity;
 import com.kosi0917.textandfacerecognitionapp.Interface.ItemClickListener;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.GroupEntity;
@@ -17,6 +19,7 @@ import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
+import com.kosi0917.textandfacerecognitionapp.analyze.sentiment.GetSentiment;
 import com.microsoft.projectoxford.emotion.EmotionServiceClient;
 import com.microsoft.projectoxford.emotion.EmotionServiceRestClient;
 import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
@@ -41,13 +44,15 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
     private RootFeed rootFeed;
     private Context mContext;
     private LayoutInflater inflater;
+    private String textRes;
     private EmotionServiceClient rest= new EmotionServiceRestClient("87aa57dc540b439193a60cc5bce69f90");
 
-    public FacebookImgAdapter(RootImgFeed rootImgFeed, RootFeed rootFeed, GroupEntity groupEntity, Context mContext) {
+    public FacebookImgAdapter(RootImgFeed rootImgFeed, RootFeed rootFeed,String textRes, GroupEntity groupEntity, Context mContext) {
         this.rootImgFeed = rootImgFeed;
         this.groupEntity = groupEntity;
         this.rootFeed =rootFeed;
         this.mContext = mContext;
+        this.textRes = textRes;
         inflater = LayoutInflater.from(mContext);
     }
 
@@ -68,6 +73,7 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
 
             //Выводим описание эмоции на экран
             processImage(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc(),holder);
+
             holder.setItemClickListener(new ItemClickListener() {
                 @Override
                 public void onClick(View view, int position, boolean isLongClick) {
@@ -110,6 +116,7 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
 
         processAsync.execute(/*inputStream*/);
     }
+
 
     @Override
     public int getItemCount() {

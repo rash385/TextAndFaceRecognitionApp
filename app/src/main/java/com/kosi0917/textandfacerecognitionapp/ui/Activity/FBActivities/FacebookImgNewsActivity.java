@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookImgAdapter;
 import com.kosi0917.textandfacerecognitionapp.Common.manager.MyFragmentManager;
+import com.kosi0917.textandfacerecognitionapp.Model.sentiment.Documents;
 import com.kosi0917.textandfacerecognitionapp.analyze.ImagesAnalyzer.ImageActivities.StatisticsGraphicsActivity;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.Datum;
@@ -27,6 +28,8 @@ import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
+import com.kosi0917.textandfacerecognitionapp.analyze.sentiment.GetSentiment;
+import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,7 +60,8 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
     RootFeed rootFeed;
     GroupEntity groupEntity;
     String TAG = "FacebookImgNewsActivity";
-    String data,firstName,lastName,imgUrl,dataMessage,groupInfoJson;
+    String data, firstName, lastName, imgUrl, dataMessage, groupInfoJson;
+    Documents documents = new Documents();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,12 +94,11 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
         setContentView(R.layout.activity_facebook_login);
 //        ButterKnife.bind(this);
 
-       // Application.getApplicationComponent().inject(this);
+        // Application.getApplicationComponent().inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarFb);
         toolbar.setTitle("Group News");
         setSupportActionBar(toolbar);
-
 
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
@@ -103,29 +106,30 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.ic_arrow:
-                        goMainScreen();
-                        break;
-                    case R.id.ic_start_analyze:
-                        goAnliseScreen();
-                        break;
-                    case R.id.ic_backup:
-                        goPostAnliseScreen();
-                        break;
-                }
-                return false;
-            }
-        });
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.ic_arrow:
+                                goMainScreen();
+                                break;
+                            case R.id.ic_start_analyze:
+                                goAnliseScreen();
+                                break;
+                            case R.id.ic_backup:
+                                goPostAnliseScreen();
+                                break;
+                        }
+                        return false;
+                    }
+                });
 
 
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(),LinearLayoutManager.VERTICAL,false);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         loadFeed();
     }
+
     public ProgressBar getProgressBar() {
         return mProgressBar;
     }
@@ -133,6 +137,7 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
     private void loadFeed() {
         AsyncTask<String, String, String> loadFeedAsync = new AsyncTask<String, String, String>() {
             ProgressDialog mDialog = new ProgressDialog(FacebookImgNewsActivity.this);
+
             @Override
             protected void onPreExecute() {
                 mDialog.setMessage("Пожалуста, подождите...");
@@ -412,7 +417,7 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
                             "}");
                     if (obj.has("data")) {
                         data = obj.getString("data");
-                        Log.e(TAG,data);
+                        Log.e(TAG, data);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -423,22 +428,28 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 mDialog.dismiss();
-                Type collectionType = new TypeToken<List<DatFeed>>(){}.getType();
+                Type collectionType = new TypeToken<List<DatFeed>>() {
+                }.getType();
                 List<DatFeed> data = new Gson().fromJson(s, collectionType);
                 List<DatFeed> viewedData = new ArrayList<DatFeed>();
-                for (int i=0; i < data.size(); i++)
-                    if(data.get(i).attachments!=null)
+                for (int i = 0; i < data.size(); i++)
+                    if (data.get(i).attachments != null)
                         viewedData.add(data.get(i));
                 rootImgFeed = new RootImgFeed(viewedData);
 
-                Type newsDescriptionType = new TypeToken<List<Datum>>(){}.getType();
+                Type newsDescriptionType = new TypeToken<List<Datum>>() {
+                }.getType();
                 List<Datum> descriptionData = new Gson().fromJson(dataMessage, newsDescriptionType);
                 rootFeed = new RootFeed(descriptionData);
 
-                Type newGroupType = new TypeToken<GroupEntity>(){}.getType();
+                Type newGroupType = new TypeToken<GroupEntity>() {
+                }.getType();
                 GroupEntity groupData = new Gson().fromJson(groupInfoJson, newGroupType);
 
-                FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed,rootFeed,groupData,getBaseContext());
+                int i = 0;
+                for (DatFeed datFeed : rootImgFeed.getData())
+                    documents.add(String.valueOf(i++), datFeed.getAttachments().getData().get(0).getDescription());
+                FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed, rootFeed, processText(documents), groupData, getBaseContext());
                 recyclerView.setAdapter(feedadapter);
                 feedadapter.notifyDataSetChanged();
             }
@@ -446,6 +457,7 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
         };
         loadFeedAsync.execute(data);
     }
+
     private void goMainScreen() {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.putExtra("name", firstName);
@@ -455,17 +467,47 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
         startActivity(intent);
     }
 
-    private void goAnliseScreen(){
+    private void goAnliseScreen() {
         Intent intent = new Intent(this, StatisticsGraphicsActivity.class);
         intent.putExtra("data", data);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-    private void goPostAnliseScreen(){
+    private void goPostAnliseScreen() {
         Intent intent = new Intent(this, StatisticsGraphicsActivity.class);
         intent.putExtra("data", data);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    private String processText(Documents documents) {
+        //Create Async Task to Process Data
+        final String[] res = {""};
+        AsyncTask<String, String, String> loadDataAsync = new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                String result = "";
+                try
+                {
+                    result = GetSentiment.getSentiment(documents);
+                } catch (
+                        Exception e)
+
+                {
+                    e.printStackTrace();
+                }
+                System.out.println(result);
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String recognizeResults) {
+                res[0] =recognizeResults;
+            }
+
+        };
+        loadDataAsync.execute(/*inputStream*/);
+        return res[0];
     }
 }

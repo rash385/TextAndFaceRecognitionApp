@@ -50,7 +50,7 @@ public class GetSentiment {
         }
         in.close();
 
-        return response.toString();
+        return prettify(response.toString());
     }
 
     public static String getKeyWords (Documents documents) throws Exception{
@@ -78,7 +78,7 @@ public class GetSentiment {
         }
         in.close();
 
-        return response.toString();
+        return prettify(response.toString());
 
     }
 
