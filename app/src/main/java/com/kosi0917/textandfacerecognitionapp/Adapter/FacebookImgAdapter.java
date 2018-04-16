@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kosi0917.textandfacerecognitionapp.Model.sentiment.Document;
 import com.kosi0917.textandfacerecognitionapp.Model.sentiment.Documents;
+import com.kosi0917.textandfacerecognitionapp.Model.sentiment.Results;
 import com.kosi0917.textandfacerecognitionapp.analyze.ImagesAnalyzer.ImageActivities.ImageActivity;
 import com.kosi0917.textandfacerecognitionapp.Interface.ItemClickListener;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.GroupEntity;
@@ -44,15 +46,17 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
     private RootFeed rootFeed;
     private Context mContext;
     private LayoutInflater inflater;
-    private String textRes;
+    private Results documents = new Results();
     private EmotionServiceClient rest= new EmotionServiceRestClient("87aa57dc540b439193a60cc5bce69f90");
+    Gson gson = new Gson();
 
     public FacebookImgAdapter(RootImgFeed rootImgFeed, RootFeed rootFeed,String textRes, GroupEntity groupEntity, Context mContext) {
         this.rootImgFeed = rootImgFeed;
         this.groupEntity = groupEntity;
         this.rootFeed =rootFeed;
         this.mContext = mContext;
-        this.textRes = textRes;
+        System.out.print(textRes);
+        this.documents.setDocuments(gson.fromJson(textRes,ArrayList.class));
         inflater = LayoutInflater.from(mContext);
     }
 
@@ -66,7 +70,7 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
     public void onBindViewHolder(FacebookImgViewHolder holder, int position) {
             new ProfileActivity.DownloadImage(holder.feedImg).execute(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc());
             new ProfileActivity.DownloadImage(holder.groupImg).execute(groupEntity.getIcon());
-            holder.txtContent.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription());
+            holder.txtContent.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription() + " " + documents.getDocuments().get(position).getScore());
             SimpleDateFormat formatForDateNow = new SimpleDateFormat("E yyyy.MM.dd 'in' hh:mm");
             holder.txtPubDate.setText(formatForDateNow.format(rootFeed.getData().get(position).getUpdated_time()));
             holder.profileName.setText(groupEntity.getName());

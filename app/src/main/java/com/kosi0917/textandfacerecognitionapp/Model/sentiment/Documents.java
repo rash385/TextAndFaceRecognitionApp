@@ -16,4 +16,12 @@ public class Documents {
     public void add(String id, String text) {
         this.documents.add (new Document (id, text));
     }
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
+    }
 }

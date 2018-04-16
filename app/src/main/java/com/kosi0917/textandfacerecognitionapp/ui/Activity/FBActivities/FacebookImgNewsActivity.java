@@ -62,6 +62,8 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
     String TAG = "FacebookImgNewsActivity";
     String data, firstName, lastName, imgUrl, dataMessage, groupInfoJson;
     Documents documents = new Documents();
+    GroupEntity groupData;
+    private String results;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -444,18 +446,19 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
 
                 Type newGroupType = new TypeToken<GroupEntity>() {
                 }.getType();
-                GroupEntity groupData = new Gson().fromJson(groupInfoJson, newGroupType);
+                groupData = new Gson().fromJson(groupInfoJson, newGroupType);
 
                 int i = 0;
                 for (DatFeed datFeed : rootImgFeed.getData())
                     documents.add(String.valueOf(i++), datFeed.getAttachments().getData().get(0).getDescription());
-                FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed, rootFeed, processText(documents), groupData, getBaseContext());
-                recyclerView.setAdapter(feedadapter);
-                feedadapter.notifyDataSetChanged();
+                processText(documents);
             }
 
         };
         loadFeedAsync.execute(data);
+        FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed, rootFeed, results, groupData, getBaseContext());
+        recyclerView.setAdapter(feedadapter);
+        feedadapter.notifyDataSetChanged();
     }
 
     private void goMainScreen() {
@@ -481,33 +484,31 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
         startActivity(intent);
     }
 
-    private String processText(Documents documents) {
+    private void processText(Documents documents) {
         //Create Async Task to Process Data
-        final String[] res = {""};
         AsyncTask<String, String, String> loadDataAsync = new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
-                String result = "";
+                String res="";
                 try
                 {
-                    result = GetSentiment.getSentiment(documents);
+                    res = GetSentiment.getSentiment(documents);
                 } catch (
                         Exception e)
 
                 {
                     e.printStackTrace();
                 }
-                System.out.println(result);
-                return result;
+                System.out.println(res);
+                results = res;
+                return res;
             }
 
             @Override
             protected void onPostExecute(String recognizeResults) {
-                res[0] =recognizeResults;
             }
 
         };
         loadDataAsync.execute(/*inputStream*/);
-        return res[0];
     }
 }
