@@ -1,10 +1,9 @@
-package com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities;
+package com.kosi0917.textandfacerecognitionapp.analyze.ImagesAnalyzer.ImageActivities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -15,7 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageHelper;
+import com.kosi0917.textandfacerecognitionapp.analyze.ImagesAnalyzer.ImageHelper;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.microsoft.projectoxford.emotion.EmotionServiceClient;
@@ -27,21 +26,12 @@ import com.microsoft.projectoxford.emotion.rest.EmotionServiceException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import lecho.lib.hellocharts.model.Column;
-import lecho.lib.hellocharts.model.ColumnChartData;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.SubcolumnValue;
-import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.ColumnChartView;
-import lecho.lib.hellocharts.view.LineChartView;
 
 /**
  * Created by sivko on 23.01.2018.

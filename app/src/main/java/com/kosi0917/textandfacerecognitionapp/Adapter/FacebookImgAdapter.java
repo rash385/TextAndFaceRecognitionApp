@@ -2,7 +2,6 @@ package com.kosi0917.textandfacerecognitionapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities.ImageActivity;
-import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageHelper;
+import com.kosi0917.textandfacerecognitionapp.analyze.ImagesAnalyzer.ImageActivities.ImageActivity;
 import com.kosi0917.textandfacerecognitionapp.Interface.ItemClickListener;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.GroupEntity;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootFeed;

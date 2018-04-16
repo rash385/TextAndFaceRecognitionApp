@@ -1,4 +1,4 @@
-package com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities;
+package com.kosi0917.textandfacerecognitionapp.analyze.ImagesAnalyzer.ImageActivities;
 
 
 import android.os.AsyncTask;
@@ -14,7 +14,7 @@ import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageHelper;
+import com.kosi0917.textandfacerecognitionapp.analyze.ImagesAnalyzer.ImageHelper;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.RootImgFeed;
 import com.kosi0917.textandfacerecognitionapp.R;
@@ -28,7 +28,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.view.LineChartView;
 
 /**

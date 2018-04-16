@@ -36,7 +36,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             />
 
-        <activity android:name=".ImagesAnalyzer.ImageActivities.StatisticsGraphicsActivity"
+        <activity android:name=".analyze.ImagesAnalyzer.ImageActivities.StatisticsGraphicsActivity"
             />
         <activity
             android:name="com.kosi0917.textandfacerecognitionapp.ui.Activity.CreatePostActivity"
@@ -46,7 +46,7 @@
         <!--<activity android:name=".ui.Activity.VKProfileActivity"-->
             <!--android:theme="@style/AppTheme.NoActionBar"-->
             <!--/>-->
-        <activity android:name=".ImagesAnalyzer.ImageActivities.ImageActivity"/>
+        <activity android:name=".analyze.ImagesAnalyzer.ImageActivities.ImageActivity"/>
 
 
 

@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,16 +15,11 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
-import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kosi0917.textandfacerecognitionapp.Adapter.FacebookImgAdapter;
-import com.kosi0917.textandfacerecognitionapp.Application.Application;
 import com.kosi0917.textandfacerecognitionapp.Common.manager.MyFragmentManager;
-import com.kosi0917.textandfacerecognitionapp.ImagesAnalyzer.ImageActivities.StatisticsGraphicsActivity;
+import com.kosi0917.textandfacerecognitionapp.analyze.ImagesAnalyzer.ImageActivities.StatisticsGraphicsActivity;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.Datum;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.GroupEntity;
@@ -44,7 +38,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by sivko on 07.12.2017.
