@@ -424,6 +424,17 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                String res="";
+                try
+                {
+                    res = GetSentiment.getSentiment(documents);
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                System.out.println(res);
+
                 return data;
             }
 
@@ -451,14 +462,13 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
                 int i = 0;
                 for (DatFeed datFeed : rootImgFeed.getData())
                     documents.add(String.valueOf(i++), datFeed.getAttachments().getData().get(0).getDescription());
-                processText(documents);
+
+                processText(rootImgFeed, rootFeed, results, groupData,documents);
+
             }
 
         };
         loadFeedAsync.execute(data);
-        FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed, rootFeed, results, groupData, getBaseContext());
-        recyclerView.setAdapter(feedadapter);
-        feedadapter.notifyDataSetChanged();
     }
 
     private void goMainScreen() {
@@ -484,7 +494,7 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
         startActivity(intent);
     }
 
-    private void processText(Documents documents) {
+    private void processText(RootImgFeed rootImgFeed, RootFeed rootFeed,String textRes, GroupEntity groupEntity,Documents documents) {
         //Create Async Task to Process Data
         AsyncTask<String, String, String> loadDataAsync = new AsyncTask<String, String, String>() {
             @Override
@@ -493,9 +503,7 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
                 try
                 {
                     res = GetSentiment.getSentiment(documents);
-                } catch (
-                        Exception e)
-
+                } catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -506,6 +514,9 @@ public class FacebookImgNewsActivity extends MvpAppCompatActivity {
 
             @Override
             protected void onPostExecute(String recognizeResults) {
+                FacebookImgAdapter feedadapter = new FacebookImgAdapter(rootImgFeed, rootFeed, results, groupData, getBaseContext());
+                recyclerView.setAdapter(feedadapter);
+                feedadapter.notifyDataSetChanged();
             }
 
         };

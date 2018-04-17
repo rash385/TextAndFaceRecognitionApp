@@ -11,9 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.kosi0917.textandfacerecognitionapp.Model.facebook.DatFeed;
 import com.kosi0917.textandfacerecognitionapp.Model.sentiment.Document;
 import com.kosi0917.textandfacerecognitionapp.Model.sentiment.Documents;
 import com.kosi0917.textandfacerecognitionapp.Model.sentiment.Results;
+import com.kosi0917.textandfacerecognitionapp.Model.sentiment.ResultsDoc;
 import com.kosi0917.textandfacerecognitionapp.analyze.ImagesAnalyzer.ImageActivities.ImageActivity;
 import com.kosi0917.textandfacerecognitionapp.Interface.ItemClickListener;
 import com.kosi0917.textandfacerecognitionapp.Model.facebook.GroupEntity;
@@ -29,6 +32,7 @@ import com.microsoft.projectoxford.emotion.contract.Scores;
 import com.microsoft.projectoxford.emotion.rest.EmotionServiceException;
 
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,8 +59,9 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
         this.groupEntity = groupEntity;
         this.rootFeed =rootFeed;
         this.mContext = mContext;
-        System.out.print(textRes);
-        this.documents.setDocuments(gson.fromJson(textRes,ArrayList.class));
+        Type collectionType = new TypeToken<List<ResultsDoc>>() {
+        }.getType();
+        this.documents.setDocuments(gson.fromJson(textRes,collectionType));
         inflater = LayoutInflater.from(mContext);
     }
 
