@@ -66,7 +66,7 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
             Type collectionType = new TypeToken<List<ResultsDoc>>() {
             }.getType();
             JSONObject obj = new JSONObject(textRes);
-            this.documents=gson.fromJson(obj.toString(),collectionType);
+            this.documents=gson.fromJson(obj.getString("documents").toString(),collectionType);
         } catch (JSONException e) {
             e.printStackTrace();
         }
