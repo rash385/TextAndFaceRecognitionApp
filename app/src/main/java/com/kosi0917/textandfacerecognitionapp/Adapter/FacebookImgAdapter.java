@@ -31,6 +31,9 @@ import com.microsoft.projectoxford.emotion.contract.RecognizeResult;
 import com.microsoft.projectoxford.emotion.contract.Scores;
 import com.microsoft.projectoxford.emotion.rest.EmotionServiceException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -50,7 +53,7 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
     private RootFeed rootFeed;
     private Context mContext;
     private LayoutInflater inflater;
-    private Results documents = new Results();
+    private List<ResultsDoc> documents = new ArrayList<ResultsDoc>();
     private EmotionServiceClient rest= new EmotionServiceRestClient("87aa57dc540b439193a60cc5bce69f90");
     Gson gson = new Gson();
 
@@ -59,9 +62,14 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
         this.groupEntity = groupEntity;
         this.rootFeed =rootFeed;
         this.mContext = mContext;
-        Type collectionType = new TypeToken<List<ResultsDoc>>() {
-        }.getType();
-        this.documents.setDocuments(gson.fromJson(textRes,collectionType));
+        try {
+            Type collectionType = new TypeToken<List<ResultsDoc>>() {
+            }.getType();
+            JSONObject obj = new JSONObject(textRes);
+            this.documents=gson.fromJson(obj.toString(),collectionType);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         inflater = LayoutInflater.from(mContext);
     }
 
@@ -75,7 +83,7 @@ public class FacebookImgAdapter extends RecyclerView.Adapter<FacebookImgViewHold
     public void onBindViewHolder(FacebookImgViewHolder holder, int position) {
             new ProfileActivity.DownloadImage(holder.feedImg).execute(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getMedia().getImage().getSrc());
             new ProfileActivity.DownloadImage(holder.groupImg).execute(groupEntity.getIcon());
-            holder.txtContent.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription() + " " + documents.getDocuments().get(position).getScore());
+            holder.txtContent.setText(rootImgFeed.getData().get(position).getAttachments().getData().get(0).getDescription() + " " + documents.get(position).getScore());
             SimpleDateFormat formatForDateNow = new SimpleDateFormat("E yyyy.MM.dd 'in' hh:mm");
             holder.txtPubDate.setText(formatForDateNow.format(rootFeed.getData().get(position).getUpdated_time()));
             holder.profileName.setText(groupEntity.getName());
