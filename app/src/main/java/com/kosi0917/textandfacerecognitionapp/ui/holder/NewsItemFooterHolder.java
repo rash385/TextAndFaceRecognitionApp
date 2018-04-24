@@ -21,7 +21,7 @@ import com.kosi0917.textandfacerecognitionapp.R;
 import com.kosi0917.textandfacerecognitionapp.rest.api.LikeEventOnSubscribe;
 import com.kosi0917.textandfacerecognitionapp.rest.api.WallApi;
 import com.kosi0917.textandfacerecognitionapp.rest.model.request.WallGetByIdRequestModel;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.BaseActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.CommentsFragment;
 
 import javax.inject.Inject;

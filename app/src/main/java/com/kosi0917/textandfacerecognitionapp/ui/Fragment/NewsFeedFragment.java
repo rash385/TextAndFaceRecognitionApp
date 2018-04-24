@@ -19,7 +19,7 @@ import com.kosi0917.textandfacerecognitionapp.mvp.presenter.NewsFeedPresenter;
 import com.kosi0917.textandfacerecognitionapp.rest.api.WallApi;
 import com.kosi0917.textandfacerecognitionapp.rest.model.request.WallGetRequestModel;
 import com.kosi0917.textandfacerecognitionapp.rest.model.response.GetWallResponse;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.CreatePostActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.CreatePostActivity;
 
 import java.util.ArrayList;
 import java.util.List;

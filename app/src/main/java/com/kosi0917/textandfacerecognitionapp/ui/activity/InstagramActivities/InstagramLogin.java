@@ -1,4 +1,4 @@
-package com.kosi0917.textandfacerecognitionapp.ui.Activity.InstagramActivities;
+package com.kosi0917.textandfacerecognitionapp.ui.activity.InstagramActivities;
 
 import android.content.Intent;
 import android.os.Bundle;

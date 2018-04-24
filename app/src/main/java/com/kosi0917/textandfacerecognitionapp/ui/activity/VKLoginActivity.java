@@ -1,14 +1,17 @@
-package com.kosi0917.textandfacerecognitionapp.ui.Activity;
+package com.kosi0917.textandfacerecognitionapp.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.kosi0917.textandfacerecognitionapp.Application.Application;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities.FacebookLoginActivity;
+import com.kosi0917.textandfacerecognitionapp.rest.api.AccountApi;
+import com.kosi0917.textandfacerecognitionapp.rest.model.request.AccountRegisterDeviceRequest;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.FBActivities.FacebookLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.CurrentUser;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.Profile;
 import com.kosi0917.textandfacerecognitionapp.R;
@@ -37,6 +40,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * Created by Lawrence on 06.12.2017.
  */
@@ -45,6 +53,9 @@ public class VKLoginActivity  extends BaseActivity implements MainView {
 
     @InjectPresenter
     MainPresenter mPresenter;
+
+    @Inject
+    AccountApi mAccountApi;
 
     private Drawer mDrawer;
 
@@ -55,8 +66,8 @@ public class VKLoginActivity  extends BaseActivity implements MainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
-//        Log.d("MainActivity", "Fingerprint: " + Arrays.toString(fingerprints));
+        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
+        Log.d("MainActivity", "Fingerprint: " + Arrays.toString(fingerprints));
 
         Application.getApplicationComponent().inject(this);
 
@@ -108,6 +119,11 @@ public class VKLoginActivity  extends BaseActivity implements MainView {
         Toast.makeText(this, "Current user id: " + CurrentUser.getId(), Toast.LENGTH_LONG).show();
         setContent(new NewsFeedFragment());
         setUpDrawer();
+        //регистрируем устройство на сервере ВК как получатель push-сообщений
+            mAccountApi.registerDevice(new AccountRegisterDeviceRequest(Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID)).toMap())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe();
     }
 
     @Override
@@ -164,6 +180,11 @@ public class VKLoginActivity  extends BaseActivity implements MainView {
     @Override
     public void showFragmentFromDrawer(BaseFragment baseFragment) {
         setContent(baseFragment);
+    }
+
+    @Override
+    public void startActivityFromDrawer(Class<?> act) {
+        startActivity(new Intent(VKLoginActivity.this, act));
     }
 
     //    @Override

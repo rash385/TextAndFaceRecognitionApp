@@ -8,7 +8,7 @@ import com.kosi0917.textandfacerecognitionapp.Application.Application;
 import com.kosi0917.textandfacerecognitionapp.Common.manager.MyFragmentManager;
 import com.kosi0917.textandfacerecognitionapp.Model.view.attachment.ImageAttachmentViewModel;
 import com.kosi0917.textandfacerecognitionapp.R;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.BaseActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.ImageFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.holder.BaseViewHolder;
 

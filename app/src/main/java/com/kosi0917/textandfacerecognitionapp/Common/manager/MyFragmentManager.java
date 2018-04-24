@@ -3,7 +3,7 @@ package com.kosi0917.textandfacerecognitionapp.Common.manager;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentTransaction;
 
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.BaseActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.BaseFragment;
 
 import java.util.Stack;

@@ -1,4 +1,4 @@
-package com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities;
+package com.kosi0917.textandfacerecognitionapp.ui.activity.FBActivities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -17,14 +17,14 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.InstagramActivities.FeedActivity;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.InstagramActivities.InstagramLogin;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.InstagramActivities.FeedActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.InstagramActivities.InstagramLogin;
 import com.kosi0917.textandfacerecognitionapp.InstagramLib.AuthenticationDialog;
 import com.kosi0917.textandfacerecognitionapp.Interface.AuthenticationListener;
 import com.kosi0917.textandfacerecognitionapp.MainActivity;
 import com.kosi0917.textandfacerecognitionapp.ProfileActivity;
 import com.kosi0917.textandfacerecognitionapp.R;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.VKLoginActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.VKLoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

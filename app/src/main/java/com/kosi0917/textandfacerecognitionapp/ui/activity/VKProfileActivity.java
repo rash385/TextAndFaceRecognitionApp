@@ -1,4 +1,4 @@
-package com.kosi0917.textandfacerecognitionapp.ui.Activity;
+package com.kosi0917.textandfacerecognitionapp.ui.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities.FacebookLoginActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.FBActivities.FacebookLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.Photo;
 import com.kosi0917.textandfacerecognitionapp.Model.VK.VkModel;
 import com.kosi0917.textandfacerecognitionapp.R;

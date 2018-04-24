@@ -11,27 +11,27 @@
         android:supportsRtl="true"
         android:name=".Application.Application"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.Activity.FBActivities.FacebookLoginActivity">
+        <activity android:name=".ui.activity.FBActivities.FacebookLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Activity.InstagramActivities.InstagramLogin"/>
-        <activity android:name=".ui.Activity.InstagramActivities.FeedActivity"/>
+        <activity android:name=".ui.activity.InstagramActivities.InstagramLogin"/>
+        <activity android:name=".ui.activity.InstagramActivities.FeedActivity"/>
 
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
-        <activity android:name=".ui.Activity.FBActivities.FacebookNewsActivity"
+        <activity android:name=".ui.activity.FBActivities.FacebookNewsActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
-        <activity android:name=".ui.Activity.FBActivities.FacebookImgNewsActivity"
+        <activity android:name=".ui.activity.FBActivities.FacebookImgNewsActivity"
          />
 
 
-        <activity android:name=".ui.Activity.VKLoginActivity"
+        <activity android:name=".ui.activity.VKLoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize"
             />
@@ -39,7 +39,7 @@
         <activity android:name=".analyze.ImagesAnalyzer.ImageActivities.StatisticsGraphicsActivity"
             />
         <activity
-            android:name="com.kosi0917.textandfacerecognitionapp.ui.Activity.CreatePostActivity"
+            android:name="com.kosi0917.textandfacerecognitionapp.ui.activity.CreatePostActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
 
 
@@ -67,6 +67,28 @@
         <provider android:authorities="com.facebook.app.FacebookContentProvider2023742747897963"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true" />
+
+        <service android:name="com.kosi0917.textandfacerecognitionapp.fcm.MyFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="com.kosi0917.textandfacerecognitionapp.fcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="com.kosi0917.textandfacerecognitionapp.ui.activity.SettingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name="com.kosi0917.textandfacerecognitionapp.ui.activity.OpenedPostFromPushActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+
+        </activity>
+
+
     </application>
 
 </manifest>

@@ -6,7 +6,8 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities.FacebookLoginActivity;
+import com.kosi0917.textandfacerecognitionapp.fcm.MyPreferencesManager;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.FBActivities.FacebookLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.di.component.ApplicationComponent;
 import com.kosi0917.textandfacerecognitionapp.di.component.DaggerApplicationComponent;
 import com.kosi0917.textandfacerecognitionapp.di.module.ApplicationModule;
@@ -26,18 +27,6 @@ import io.realm.RealmConfiguration;
 public class Application extends android.app.Application {
 
     private static ApplicationComponent sApplicationComponent;
-
-    VKAccessTokenTracker vkAccessTokenTracker = new VKAccessTokenTracker() {
-        @Override
-        public void onVKAccessTokenChanged(VKAccessToken oldToken, VKAccessToken newToken) {
-            if (newToken == null) {
-            // VKAccessToken is invalid
-                Intent intent = new Intent(Application.this, FacebookLoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        }
-    };
 
     @Override
     public void onCreate() {
@@ -60,10 +49,12 @@ public class Application extends android.app.Application {
                 Glide.with(imageView.getContext()).load(uri).into(imageView);
             }
         });
+
+        MyPreferencesManager.getInstance().init(this);
+
     }
 
     private void initComponent() {
-
         sApplicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this)).build();
     }

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "177557942356",
+    "firebase_url": "https://textandfacerecognition.firebaseio.com",
+    "project_id": "textandfacerecognition",
+    "storage_bucket": "textandfacerecognition.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177557942356:android:9906cff520c3bc6f",
+        "android_client_info": {
+          "package_name": "com.kosi0917.textandfacerecognitionapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177557942356-8kl61m977o58nia3s3h7m663lbam0eji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXMs1WC6KaN5HxnMqCk8OxKs-W7sVH10U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

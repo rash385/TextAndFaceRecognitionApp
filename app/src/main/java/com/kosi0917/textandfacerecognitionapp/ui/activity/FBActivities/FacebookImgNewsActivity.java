@@ -1,4 +1,4 @@
-package com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities;
+package com.kosi0917.textandfacerecognitionapp.ui.activity.FBActivities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

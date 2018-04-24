@@ -16,8 +16,9 @@ import com.kosi0917.textandfacerecognitionapp.mvp.presenter.NewsFeedPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.OpenedCommentPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.OpenedPostPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.TopicCommentsPresenter;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.BaseActivity;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.VKLoginActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.BaseActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.OpenedPostFromPushActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.VKLoginActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.CommentsFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.NewsFeedFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.OpenedCommentFragment;
@@ -45,6 +46,7 @@ public interface ApplicationComponent {
     //activities
     void inject(BaseActivity activity);
     void inject(VKLoginActivity activity);
+    void inject(OpenedPostFromPushActivity activity);
 
     //fragments
     void inject(NewsFeedFragment fragment);
@@ -52,6 +54,8 @@ public interface ApplicationComponent {
     void inject(OpenedCommentFragment fragment);
     void inject(CommentsFragment fragment);
     void inject(TopicCommentsFragment fragment);
+//    void inject(InfoLinksFragment fragment);
+//    void inject(InfoContactsFragment fragment);
 
     //holders
     void inject(NewsItemBodyHolder holder);
@@ -61,6 +65,8 @@ public interface ApplicationComponent {
     void inject(CommentBodyViewModel.CommentBodyViewHolder holder);
     void inject(CommentFooterViewModel.CommentFooterHolder holder);
     void inject(TopicViewModel.TopicViewHolder holder);
+//    void inject(InfoLinksViewModel.InfoLinkViewHolder holder);
+//    void inject(InfoContactsViewModel.InfoContactsViewHolder holder);
 
     //presenters
     void inject(NewsFeedPresenter presenter);
@@ -72,6 +78,8 @@ public interface ApplicationComponent {
     void inject(CommentsPresenter presenter);
     void inject(OpenedCommentPresenter presenter);
     void inject(TopicCommentsPresenter presenter);
+//    void inject(InfoLinksPresenter presenter);
+//    void inject(InfoContactsPresenter presenter);
 
     //managers
     void inject(NetworkManager manager);

@@ -1,4 +1,4 @@
-package com.kosi0917.textandfacerecognitionapp.ui.Activity;
+package com.kosi0917.textandfacerecognitionapp.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;

@@ -19,9 +19,9 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities.FacebookImgNewsActivity;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities.FacebookLoginActivity;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.FBActivities.FacebookNewsActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.FBActivities.FacebookImgNewsActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.FBActivities.FacebookLoginActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.FBActivities.FacebookNewsActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

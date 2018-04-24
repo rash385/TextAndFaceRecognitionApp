@@ -45,4 +45,18 @@
     <string name="surprise">Удивление</string>
     <string name="ic_sadness">Грусть</string>
     <string name="back">Назад</string>
+
+    <string name="message">Message</string>
+    <string name="vk_group_default_name">My Group</string>
+
+    <string name="pref_push_notifications">Получать push-уведомления</string>
+
+    <string name="pref_push_notification_admin">От администратора</string>
+    <string name="pref_push_notification_members">От участников</string>
+    <string name="pref_push_notification_comment_replies">Ответы мне</string>
+    <string name="need_login">Для работы приложения небходимо авторизоваться!</string>
+    <string name="group_rules"></string>
+
+    <string name="title_links">Ссылки</string>
+    <string name="title_contacts">Контакты</string>
 </resources>

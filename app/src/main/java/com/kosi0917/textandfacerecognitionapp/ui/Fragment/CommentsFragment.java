@@ -11,7 +11,7 @@ import com.kosi0917.textandfacerecognitionapp.Model.VK.Place;
 import com.kosi0917.textandfacerecognitionapp.R;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.BaseFeedPresenter;
 import com.kosi0917.textandfacerecognitionapp.mvp.presenter.CommentsPresenter;
-import com.kosi0917.textandfacerecognitionapp.ui.Activity.CreatePostActivity;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.CreatePostActivity;
 
 import butterknife.ButterKnife;
 

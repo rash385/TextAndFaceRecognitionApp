@@ -10,6 +10,7 @@ import com.kosi0917.textandfacerecognitionapp.Model.VK.Profile;
 import com.kosi0917.textandfacerecognitionapp.mvp.view.MainView;
 import com.kosi0917.textandfacerecognitionapp.rest.api.UsersApi;
 import com.kosi0917.textandfacerecognitionapp.rest.model.request.UsersGetRequestModel;
+import com.kosi0917.textandfacerecognitionapp.ui.activity.SettingActivity;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.BaseFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.BoardFragment;
 import com.kosi0917.textandfacerecognitionapp.ui.Fragment.InfoFragment;
@@ -111,6 +112,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
             case 2:
                 fragment = new MyPostsFragment();
                 break;
+            case 3:
+                getViewState().startActivityFromDrawer(SettingActivity.class);
+                return;
             case 4:
                 fragment = new MembersFragment();
                 break;
